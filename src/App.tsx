@@ -1,16 +1,7 @@
-import { Input } from './components/ui/Input';
+import { Grid } from './core/Grid';
 
 const App = () => {
-  return (
-    <div
-      style={{
-        width: '800px',
-        margin: 'auto',
-      }}
-    >
-      <Input />
-    </div>
-  );
+  return <Grid text="Hello World" />;
 };
 
 export default App;
