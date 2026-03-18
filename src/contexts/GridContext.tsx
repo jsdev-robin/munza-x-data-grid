@@ -4,11 +4,13 @@
 import {
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
   type ColumnDef,
   type ColumnFiltersState,
   type OnChangeFn,
   type PaginationState,
+  type SortingState,
   type Table,
   type TableState,
 } from '@tanstack/react-table';
@@ -38,6 +40,7 @@ interface GridContextProviderProps<T> {
   state?: Partial<TableState>;
   onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
   onPaginationChange?: OnChangeFn<PaginationState>;
+  onSortingChange?: OnChangeFn<SortingState>;
   manualPagination?: boolean;
 }
 
@@ -45,19 +48,24 @@ export const GridContextProvider = <T,>({
   children,
   payload,
   columns,
-  state,
+  state = {},
   onColumnFiltersChange,
   onPaginationChange,
+  onSortingChange,
   manualPagination = false,
 }: GridContextProviderProps<T>) => {
   const table = useReactTable({
     data: payload?.data ?? [],
     columns,
-    state: state,
+    state: {
+      ...state,
+    },
     onColumnFiltersChange: onColumnFiltersChange,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     onPaginationChange: onPaginationChange,
+    onSortingChange: onSortingChange,
     manualPagination: manualPagination,
     rowCount: payload?.total,
     debugTable: true,

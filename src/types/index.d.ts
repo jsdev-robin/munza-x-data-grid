@@ -4,6 +4,7 @@ import {
   type ColumnFiltersState,
   type OnChangeFn,
   type PaginationState,
+  type SortingState,
   type TableState,
 } from '@tanstack/react-table';
 
@@ -36,5 +37,6 @@ export interface GridProps<T> {
   state?: Partial<TableState>;
   onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
   onPaginationChange?: OnChangeFn<PaginationState>;
+  onSortingChange?: OnChangeFn<SortingState>;
   manualPagination?: boolean;
 }

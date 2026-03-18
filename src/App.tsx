@@ -2,6 +2,7 @@ import type {
   ColumnDef,
   ColumnFiltersState,
   PaginationState,
+  SortingState,
 } from '@tanstack/react-table';
 import React from 'react';
 import { Grid } from './core/Grid';
@@ -48,6 +49,9 @@ const App = () => {
     pageSize: 20,
   });
 
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+
+  console.log(sorting);
   console.log(columnFilters);
   console.log(pagination);
 
@@ -64,9 +68,11 @@ const App = () => {
             state={{
               columnFilters,
               pagination,
+              sorting,
             }}
             onColumnFiltersChange={setColumnFilters}
             onPaginationChange={setPagination}
+            onSortingChange={setSorting}
           />
         </div>
       </div>
