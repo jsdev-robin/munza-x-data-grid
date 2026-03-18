@@ -75,20 +75,6 @@ export const GridContextProvider = <T,>({
     axis: 'x',
   });
 
-  useSyncScroll({
-    refs: [paneRef4, paneRef6],
-    axis: 'x',
-  });
-
-  useSyncScroll({
-    refs: [paneRef5, paneRef7],
-    axis: 'x',
-  });
-
-  useSyncScroll({
-    refs: [paneRef2, paneRef3, paneRef6, paneRef7],
-    axis: 'y',
-  });
   const contextValue = useMemo(
     () => ({
       paneRef1,
