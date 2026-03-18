@@ -13,7 +13,9 @@ const THead = <T,>({ header }: THeadProps<T>) => {
       key={header.id}
       colSpan={header.colSpan}
       style={{
+        width: header.getSize(),
         minWidth: header.getSize(),
+        maxWidth: header.getSize(),
       }}
       className="mun:p-0 mun:truncate mun:relative mun:group"
     >

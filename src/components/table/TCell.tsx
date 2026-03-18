@@ -9,7 +9,9 @@ const TCell = <T,>({ cell }: TCellProps<T>) => {
     <TableCell
       key={cell.id}
       style={{
+        width: cell.column.getSize(),
         minWidth: cell.column.getSize(),
+        maxWidth: cell.column.getSize(),
       }}
     >
       {flexRender(cell.column.columnDef.cell, cell.getContext())}
