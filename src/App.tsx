@@ -1,4 +1,8 @@
-import type { ColumnDef } from '@tanstack/react-table';
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  PaginationState,
+} from '@tanstack/react-table';
 import React from 'react';
 import { Grid } from './core/Grid';
 import { dummyPeople, type Person } from './data/dummyData';
@@ -36,6 +40,17 @@ const App = () => {
     [],
   );
 
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    [],
+  );
+  const [pagination, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 20,
+  });
+
+  console.log(columnFilters);
+  console.log(pagination);
+
   return (
     <section className="mun:py-10">
       <div className="mun:container mun:px-10 mun:inset-x-auto">
@@ -44,10 +59,14 @@ const App = () => {
             columns={columns}
             payload={{
               data: dummyPeople,
-              total: 50,
-              page: 1,
-              pageSize: 10,
+              total: 100,
             }}
+            state={{
+              columnFilters,
+              pagination,
+            }}
+            onColumnFiltersChange={setColumnFilters}
+            onPaginationChange={setPagination}
           />
         </div>
       </div>

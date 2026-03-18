@@ -1,4 +1,11 @@
-import { ColumnDef, RowData } from '@tanstack/react-table';
+import {
+  ColumnDef,
+  RowData,
+  type ColumnFiltersState,
+  type OnChangeFn,
+  type PaginationState,
+  type TableState,
+} from '@tanstack/react-table';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -24,8 +31,10 @@ export interface GridProps<T> {
   payload?: {
     data: T[];
     total: number;
-    page: number;
-    pageSize: number;
   };
   columns: ColumnDef<T>[];
+  state?: Partial<TableState>;
+  onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
+  onPaginationChange?: OnChangeFn<PaginationState>;
+  manualPagination?: boolean;
 }

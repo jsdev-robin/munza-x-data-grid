@@ -13,7 +13,7 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
   const { table } = useGrid();
 
   return (
-    <div className="mun:flex mun:items-center mun:justify-between">
+    <div className="mun:flex mun:items-center mun:justify-between mun:flex-wrap">
       <span className="mun:flex mun:items-center mun:gap-1">
         <span className="mum:text-xs">Page</span>
         <span className="mun:text-sm">
@@ -21,7 +21,7 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
           {table.getPageCount().toLocaleString()}
         </span>
       </span>
-      <div className="mun:flex mun:items-center mun:gap-4">
+      <div className="mun:flex mun:items-center mun:gap-4 mun:flex-wrap">
         <Input
           type="number"
           className="mun:w-16"

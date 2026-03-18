@@ -7,9 +7,21 @@ import { GridContextProvider } from '../contexts/GridContext';
 import '../index.css';
 import type { GridProps } from '../types';
 
-const Grid = <T,>({ columns, payload }: GridProps<T>) => {
+const Grid = <T,>({
+  columns,
+  payload,
+  state,
+  onColumnFiltersChange,
+  onPaginationChange,
+}: GridProps<T>) => {
   return (
-    <GridContextProvider payload={payload} columns={columns}>
+    <GridContextProvider
+      payload={payload}
+      columns={columns}
+      state={state}
+      onColumnFiltersChange={onColumnFiltersChange}
+      onPaginationChange={onPaginationChange}
+    >
       <div className="mun:flex mun:flex-col mun:gap-3">
         <div className="mun:flex mun:bg-muted mun:rounded-md mun:overflow-hidden mun:border mun:border-border">
           <div className="mun:overflow-hidden mun:flex-1">
@@ -17,7 +29,12 @@ const Grid = <T,>({ columns, payload }: GridProps<T>) => {
           </div>
           <Toolbar />
         </div>
-        <Pagination pagination={[20, 30, 40, 50, 60, 70, 80, 90, 100]} />
+        <Pagination
+          pagination={[
+            20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700,
+            800, 900, 1000,
+          ]}
+        />
       </div>
     </GridContextProvider>
   );

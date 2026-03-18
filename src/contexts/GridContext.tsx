@@ -3,10 +3,14 @@
 
 import {
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable,
   type ColumnDef,
   type ColumnFiltersState,
+  type OnChangeFn,
+  type PaginationState,
   type Table,
+  type TableState,
 } from '@tanstack/react-table';
 import React, { createContext, useMemo, useRef } from 'react';
 import useSyncScroll from '../hooks/useSyncScroll';
@@ -29,29 +33,33 @@ interface GridContextProviderProps<T> {
   payload?: {
     data: T[];
     total: number;
-    page: number;
-    pageSize: number;
   };
   columns: ColumnDef<T>[];
+  state?: Partial<TableState>;
+  onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
+  onPaginationChange?: OnChangeFn<PaginationState>;
+  manualPagination?: boolean;
 }
 
 export const GridContextProvider = <T,>({
   children,
   payload,
   columns,
+  state,
+  onColumnFiltersChange,
+  onPaginationChange,
+  manualPagination = false,
 }: GridContextProviderProps<T>) => {
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-
   const table = useReactTable({
     data: payload?.data ?? [],
     columns,
-    state: {
-      columnFilters,
-    },
-    onColumnFiltersChange: setColumnFilters,
+    state: state,
+    onColumnFiltersChange: onColumnFiltersChange,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: onPaginationChange,
+    manualPagination: manualPagination,
+    rowCount: payload?.total,
     debugTable: true,
     debugHeaders: true,
     debugColumns: false,
