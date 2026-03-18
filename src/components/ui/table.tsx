@@ -6,16 +6,11 @@ import { cn } from '@/lib/utils';
 
 function Table({ className, ...props }: React.ComponentProps<'table'>) {
   return (
-    <div
-      data-slot="table-container"
-      className={cn('mun:relative mun:w-full mun:overflow-x-auto', className)}
-    >
-      <table
-        data-slot="table"
-        className={cn('mun:w-full mun:caption-bottom mun:text-sm', className)}
-        {...props}
-      />
-    </div>
+    <table
+      data-slot="table"
+      className={cn('mun:w-full mun:caption-bottom mun:text-sm', className)}
+      {...props}
+    />
   );
 }
 
@@ -57,7 +52,7 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
     <tr
       data-slot="table-row"
       className={cn(
-        'mun:border-b mun:transition-colors mun:hover:bg-muted/50 data-[state=selected]:mun:bg-muted',
+        'mun:border-b mun:transition-colors mun:hover:bg-muted/50 mun:data-[state=selected]:bg-muted',
         className,
       )}
       {...props}
@@ -70,7 +65,7 @@ function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
     <th
       data-slot="table-head"
       className={cn(
-        'mun:h-10 mun:px-2 mun:text-left mun:align-middle mun:font-medium mun:whitespace-nowrap mun:text-foreground [&:has([role=checkbox])]:mun:pr-0',
+        'mun:h-10 mun:px-2 mun:text-left mun:align-middle mun:font-medium mun:whitespace-nowrap mun:text-foreground mun:[&:has([role=checkbox])]:pr-0',
         className,
       )}
       {...props}
@@ -83,7 +78,7 @@ function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
     <td
       data-slot="table-cell"
       className={cn(
-        'mun:p-2 mun:align-middle mun:whitespace-nowrap [&:has([role=checkbox])]:mun:pr-0',
+        'mun:p-2 mun:align-middle mun:whitespace-nowrap mun:[&:has([role=checkbox])]:pr-0',
         className,
       )}
       {...props}

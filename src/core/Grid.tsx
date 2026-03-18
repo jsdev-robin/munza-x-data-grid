@@ -1,11 +1,17 @@
-import { Button } from '../components/ui/button';
-import '../index.css';
+'use client';
 
-const Grid = ({ text }: { text: string }) => {
+import TMain from '../components/table/TMain';
+import { GridContextProvider } from '../contexts/GridContext';
+import '../index.css';
+import type { GridProps } from '../types';
+
+const Grid = <T,>({ columns, payload }: GridProps<T>) => {
   return (
-    <div>
-      <Button>{text}</Button>
-    </div>
+    <GridContextProvider payload={payload} columns={columns}>
+      <div className="mun:overflow-hidden mun:flex-1  mun:rounded-md">
+        <TMain />
+      </div>
+    </GridContextProvider>
   );
 };
 
