@@ -12,8 +12,20 @@ const App = () => {
   const columns = React.useMemo<ColumnDef<Person, unknown>[]>(
     () => [
       {
+        accessorFn: (_row, index) => index + 1,
+        cell: ({ row }) => row.index + 1,
+        id: 'rowNumber',
+        header: '',
+        size: 54,
+        maxSize: 54,
+        enableColumnFilter: false,
+      },
+      {
         accessorKey: 'firstName',
         cell: (info) => info.getValue(),
+        meta: {
+          filterVariant: 'select',
+        },
       },
       {
         accessorFn: (row) => row.lastName,
@@ -24,6 +36,9 @@ const App = () => {
       {
         accessorKey: 'age',
         header: () => 'Age',
+        meta: {
+          filterVariant: 'text',
+        },
       },
       {
         accessorKey: 'visits',

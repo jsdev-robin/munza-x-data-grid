@@ -1,4 +1,6 @@
 import { type Header } from '@tanstack/react-table';
+import type { CSSProperties } from 'react';
+import { getPinStyles } from '../../utils/getPinStyles';
 import HeaderFilter from '../header/HeaderFilter';
 import HeaderMenu from '../header/HeaderMenu';
 import HeaderSort from '../header/HeaderSort';
@@ -9,15 +11,20 @@ interface THeadProps<T> {
 }
 
 const THead = <T,>({ header }: THeadProps<T>) => {
+  const style: CSSProperties = {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: header.getSize(),
+    minWidth: header.getSize(),
+    maxWidth: header.getSize(),
+    ...getPinStyles(header.column),
+  };
+
   return (
     <TableHead
       key={header.id}
       colSpan={header.colSpan}
-      style={{
-        width: header.getSize(),
-        minWidth: header.getSize(),
-        maxWidth: header.getSize(),
-      }}
+      style={style}
       className="mun:p-0 mun:truncate mun:relative mun:group"
     >
       <>

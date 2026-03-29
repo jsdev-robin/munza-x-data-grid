@@ -3,6 +3,8 @@
 
 import {
   getCoreRowModel,
+  getFacetedMinMaxValues,
+  getFacetedUniqueValues,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -72,6 +74,8 @@ export const GridContextProvider = <T,>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
     onPaginationChange: onPaginationChange,
     onSortingChange: onSortingChange,
     onColumnPinningChange: setColumnPinning,

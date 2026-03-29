@@ -246,7 +246,7 @@ function DropdownMenuSubContent({
     <DropdownMenuPrimitive.SubContent
       data-slot="dropdown-menu-sub-content"
       className={cn(
-        'mun:z-50 mun:min-w-[96px] mun:origin-(--radix-dropdown-menu-content-transform-origin) mun:overflow-hidden mun:rounded-lg mun:bg-popover mun:p-1 mun:text-popover-foreground mun:shadow-lg mun:ring-1 mun:ring-foreground/10 mun:duration-100 mun:data-[side=bottom]:slide-in-from-top-2 mun:data-[side=left]:slide-in-from-right-2 mun:data-[side=right]:slide-in-from-left-2 mun:data-[side=top]:slide-in-from-bottom-2 mun:data-open:animate-in mun:data-open:fade-in-0 mun:data-open:zoom-in-95 mun:data-closed:animate-out mun:data-closed:fade-out-0 mun:data-closed:zoom-out-95',
+        'mun:z-50 mun:min-w-24 mun:origin-(--radix-dropdown-menu-content-transform-origin) mun:overflow-hidden mun:rounded-lg mun:bg-popover mun:p-1 mun:text-popover-foreground mun:shadow-lg mun:ring-1 mun:ring-foreground/10 mun:duration-100 mun:data-[side=bottom]:slide-in-from-top-2 mun:data-[side=left]:slide-in-from-right-2 mun:data-[side=right]:slide-in-from-left-2 mun:data-[side=top]:slide-in-from-bottom-2 mun:data-open:animate-in mun:data-open:fade-in-0 mun:data-open:zoom-in-95 mun:data-closed:animate-out mun:data-closed:fade-out-0 mun:data-closed:zoom-out-95',
         className,
       )}
       {...props}
