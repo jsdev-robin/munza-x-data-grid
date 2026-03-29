@@ -1,12 +1,12 @@
-import type {
-  ColumnDef,
-  ColumnFiltersState,
-  PaginationState,
-  SortingState,
-} from '@tanstack/react-table';
 import React from 'react';
-import { Grid } from './core/Grid';
 import { dummyPeople, type Person } from './data/dummyData';
+import {
+  Grid,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type PaginationState,
+  type SortingState,
+} from './index';
 
 const App = () => {
   const columns = React.useMemo<ColumnDef<Person, unknown>[]>(
