@@ -5,9 +5,15 @@ import { Table, TableBody, TableRow } from '../ui/table';
 import TCell from './TCell';
 
 const TBody = () => {
-  const { table } = useGrid();
+  const { table, isLoading, isError } = useGrid();
 
-  return (
+  return isLoading ? (
+    <div>Loading</div>
+  ) : isError ? (
+    <div>Error</div>
+  ) : table.getRowModel().rows.length === 0 ? (
+    <div>No Data found</div>
+  ) : (
     <Table>
       <TableBody>
         {table.getRowModel().rows.map((row) => (

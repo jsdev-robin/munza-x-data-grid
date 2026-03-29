@@ -14,6 +14,8 @@ const Grid = <T,>({
   onColumnFiltersChange,
   onPaginationChange,
   onSortingChange,
+  isLoading,
+  isError,
 }: GridProps<T>) => {
   return (
     <GridContextProvider
@@ -23,6 +25,8 @@ const Grid = <T,>({
       onColumnFiltersChange={onColumnFiltersChange}
       onPaginationChange={onPaginationChange}
       onSortingChange={onSortingChange}
+      isLoading={isLoading}
+      isError={isError}
     >
       <div className="mun:flex mun:flex-col mun:gap-3">
         <div className="mun:flex mun:bg-muted mun:rounded-md mun:overflow-hidden mun:border mun:border-border">

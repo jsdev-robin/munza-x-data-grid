@@ -19,6 +19,8 @@ import useSyncScroll from '../hooks/useSyncScroll';
 
 export interface GridContextProps<T> {
   table: Table<T>;
+  isLoading?: boolean;
+  isError?: boolean;
   paneRef1: React.RefObject<HTMLDivElement | null>;
   paneRef2: React.RefObject<HTMLDivElement | null>;
   paneRef3: React.RefObject<HTMLDivElement | null>;
@@ -42,6 +44,8 @@ interface GridContextProviderProps<T> {
   onPaginationChange?: OnChangeFn<PaginationState>;
   onSortingChange?: OnChangeFn<SortingState>;
   manualPagination?: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
 }
 
 export const GridContextProvider = <T,>({
@@ -53,12 +57,16 @@ export const GridContextProvider = <T,>({
   onPaginationChange,
   onSortingChange,
   manualPagination = false,
+  isError,
+  isLoading,
 }: GridContextProviderProps<T>) => {
+  const [columnPinning, setColumnPinning] = React.useState({});
   const table = useReactTable({
     data: payload?.data ?? [],
     columns,
     state: {
       ...state,
+      columnPinning,
     },
     onColumnFiltersChange: onColumnFiltersChange,
     getCoreRowModel: getCoreRowModel(),
@@ -66,6 +74,7 @@ export const GridContextProvider = <T,>({
     getSortedRowModel: getSortedRowModel(),
     onPaginationChange: onPaginationChange,
     onSortingChange: onSortingChange,
+    onColumnPinningChange: setColumnPinning,
     manualPagination: manualPagination,
     rowCount: payload?.total,
     debugTable: true,
@@ -100,8 +109,10 @@ export const GridContextProvider = <T,>({
       paneRef5,
       paneRef6,
       paneRef7,
+      isError,
+      isLoading,
     }),
-    [paneRef1, paneRef2, paneRef3, paneRef4, paneRef5, paneRef6, paneRef7],
+    [isError, isLoading],
   );
 
   return (

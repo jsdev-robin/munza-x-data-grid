@@ -39,4 +39,6 @@ export interface GridProps<T> {
   onPaginationChange?: OnChangeFn<PaginationState>;
   onSortingChange?: OnChangeFn<SortingState>;
   manualPagination?: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
 }
