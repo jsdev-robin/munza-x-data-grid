@@ -1,15 +1,20 @@
 'use client';
 
-import { Columns, Filter, Settings } from 'lucide-react';
-import { useState } from 'react';
+import { Columns, Filter, ListRestart } from 'lucide-react';
+import React, { useState } from 'react';
+import { useGrid } from '../../hooks/useGrid';
 import { cn } from '../../lib/utils';
 import { Button } from '../ui/button';
+import DebouncedInput from '../ui/debounced-input';
+import { Separator } from '../ui/separator';
+import ToolbarFilter from './ToolbarFilter';
 
 const Toolbar = () => {
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const togglePanel = (panel: string | null) => {
     setActivePanel(activePanel === panel ? null : panel);
   };
+  const { table } = useGrid();
 
   return (
     <div className="mun:bg-muted mun:overflow-hidden mun:hidden mun:sm:flex">
@@ -22,28 +27,52 @@ const Toolbar = () => {
           columns
         </div>
       )}
-      {activePanel === 'toolbar' && (
-        <div
-          className={cn(
-            'mun:w-52 mun:border-l mun:border-border mun:transition-all',
-          )}
-        >
-          toolbar
-        </div>
-      )}
+
       {activePanel === 'filter' && (
         <div
           className={cn(
             'mun:w-52 mun:border-l mun:border-border mun:transition-all',
           )}
         >
-          filter
+          <div className="mun:space-y-3">
+            <div className="mun:p-3">
+              <DebouncedInput
+                value="onn"
+                onChange={() => {
+                  console.log('ok');
+                }}
+                placeholder="Search all columns..."
+              />
+            </div>
+            <div className="mun:overflow-y-auto mun:h-[65vh] mun:px-3 mun:space-y-3">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <React.Fragment key={headerGroup.id}>
+                  {headerGroup.headers
+                    .filter(
+                      (header) => !['rowNumber'].includes(header.column.id),
+                    )
+                    .map((header) => (
+                      <ToolbarFilter key={header.id} column={header.column} />
+                    ))}
+                </React.Fragment>
+              ))}
+            </div>
+            <Separator />
+            <div className="mun:px-3">
+              <Button
+                onClick={() => table.setColumnFilters([])}
+                variant="outline"
+              >
+                <ListRestart />
+                Reset Filters
+              </Button>
+            </div>
+          </div>
         </div>
       )}
       <div className="mun:w-8 mun:border-l mun:border-border">
         {[
           { value: 'columns', label: 'Columns', icon: Columns },
-          { value: 'toolbar', label: 'Toolbar', icon: Settings },
           { value: 'filter', label: 'Filter', icon: Filter },
         ].map(({ value, label, icon: Icon }) => (
           <Button
