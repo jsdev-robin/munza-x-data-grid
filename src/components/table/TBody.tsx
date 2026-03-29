@@ -1,6 +1,9 @@
 'use client';
 
 import { useGrid } from '../../hooks/useGrid';
+import TableError from '../feedback/TableError';
+import TableNoData from '../feedback/TableNoData';
+import TableSkeleton from '../feedback/TableSkeleton';
 import { Table, TableBody, TableRow } from '../ui/table';
 import TCell from './TCell';
 
@@ -8,11 +11,11 @@ const TBody = () => {
   const { table, isLoading, isError } = useGrid();
 
   return isLoading ? (
-    <div>Loading</div>
+    <TableSkeleton />
   ) : isError ? (
-    <div>Error</div>
+    <TableError />
   ) : table.getRowModel().rows.length === 0 ? (
-    <div>No Data found</div>
+    <TableNoData />
   ) : (
     <Table>
       <TableBody>
