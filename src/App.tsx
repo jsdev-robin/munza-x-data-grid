@@ -75,6 +75,8 @@ const App = () => {
 
   const { state, handlers } = useGridState();
 
+  console.log(state);
+
   return (
     <section className="mun:py-10">
       <div className="mun:container mun:px-10 mun:inset-x-auto">

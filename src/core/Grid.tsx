@@ -16,7 +16,6 @@ const Grid = <T,>({
   onSortingChange,
   isLoading,
   isError,
-  globalFilter,
   setGlobalFilter,
   getRowCanExpand,
   renderSubComponent,
@@ -31,7 +30,6 @@ const Grid = <T,>({
       onSortingChange={onSortingChange}
       isLoading={isLoading}
       isError={isError}
-      globalFilter={globalFilter}
       setGlobalFilter={setGlobalFilter}
       getRowCanExpand={getRowCanExpand}
       renderSubComponent={renderSubComponent}

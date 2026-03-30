@@ -40,7 +40,6 @@ export interface GridProps<T> {
   onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
   onPaginationChange?: OnChangeFn<PaginationState>;
   onSortingChange?: OnChangeFn<SortingState>;
-  globalFilter?: string;
   setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
   manualPagination?: boolean;
   isLoading?: boolean;

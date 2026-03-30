@@ -50,7 +50,6 @@ interface GridContextProviderProps<T> {
   manualPagination?: boolean;
   isLoading?: boolean;
   isError?: boolean;
-  globalFilter?: string;
   setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
   getRowCanExpand?: (row: Row<T>) => boolean;
@@ -64,7 +63,6 @@ export const GridContextProvider = <T,>({
   onColumnFiltersChange,
   onPaginationChange,
   onSortingChange,
-  globalFilter,
   setGlobalFilter,
   manualPagination = false,
   isError,
@@ -81,7 +79,6 @@ export const GridContextProvider = <T,>({
     state: {
       ...state,
       columnPinning,
-      globalFilter,
       expanded,
     },
     getSubRows: (row: T) => (row as any).subRows,
@@ -124,11 +121,17 @@ export const GridContextProvider = <T,>({
       paneRef2,
       isError,
       isLoading,
-      globalFilter,
+      globalFilter: state.globalFilter,
       setGlobalFilter,
       renderSubComponent,
     }),
-    [globalFilter, isError, isLoading, renderSubComponent, setGlobalFilter],
+    [
+      isError,
+      isLoading,
+      state.globalFilter,
+      setGlobalFilter,
+      renderSubComponent,
+    ],
   );
 
   return (
