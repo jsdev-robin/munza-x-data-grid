@@ -1,3 +1,5 @@
+'use client';
+
 import { useGrid } from '../../hooks/useGrid';
 import { getPinStyles } from '../../utils/getPinStyles';
 import { Table, TableBody, TableCell, TableRow } from '../ui/table';

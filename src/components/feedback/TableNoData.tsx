@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import { useGrid } from '../../hooks/useGrid';
 import { Table, TableBody, TableCell, TableRow } from '../ui/table';

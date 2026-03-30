@@ -1,3 +1,5 @@
+'use client';
+
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -6,7 +8,6 @@ import type {
   SortingState,
 } from '@tanstack/react-table';
 
-export { Checkbox } from './components/ui/checkbox';
 export { Grid } from './core/Grid';
 export { useGridState } from './hooks/useGridState';
 export type {

@@ -1,3 +1,5 @@
+'use client';
+
 import { ServerOff } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';

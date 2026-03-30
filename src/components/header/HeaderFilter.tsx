@@ -1,3 +1,5 @@
+'use client';
+
 import type { Column } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import DebouncedInput from '../ui/debounced-input';

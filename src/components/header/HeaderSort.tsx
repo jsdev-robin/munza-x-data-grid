@@ -1,3 +1,5 @@
+'use client';
+
 import { flexRender, type Header } from '@tanstack/react-table';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 

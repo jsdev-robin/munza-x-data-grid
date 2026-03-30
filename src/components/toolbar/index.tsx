@@ -39,9 +39,9 @@ const Toolbar = () => {
               <div className="flex items-center gap-3">
                 <Checkbox
                   checked={visibleColumns.every((col) => col.getIsVisible())}
-                  onChange={(e) => {
+                  onCheckedChange={(value) => {
                     visibleColumns.forEach((col) =>
-                      col.toggleVisibility(e.target.checked),
+                      col.toggleVisibility(Boolean(value)),
                     );
                   }}
                 />
@@ -62,10 +62,9 @@ const Toolbar = () => {
                     <div key={column.id}>
                       <Label className="capitalize">
                         <Checkbox
-                          {...{
-                            type: 'checkbox',
-                            checked: column.getIsVisible(),
-                            onChange: column.getToggleVisibilityHandler(),
+                          checked={column.getIsVisible()}
+                          onCheckedChange={(value) => {
+                            column.toggleVisibility(Boolean(value));
                           }}
                         />{' '}
                         <span className="truncate">

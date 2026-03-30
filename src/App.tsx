@@ -1,6 +1,7 @@
 import React from 'react';
+import { Checkbox } from './components/ui/checkbox';
 import { dummyPeople, type Person } from './data/dummyData';
-import { Checkbox, Grid, useGridState, type ColumnDef } from './index';
+import { Grid, useGridState, type ColumnDef } from './index';
 
 const App = () => {
   const columns = React.useMemo<ColumnDef<Person, unknown>[]>(
@@ -18,18 +19,20 @@ const App = () => {
         id: 'select',
         header: ({ table }) => (
           <Checkbox
-            checked={table.getIsAllRowsSelected()}
-            indeterminate={table.getIsSomeRowsSelected()}
-            onChange={table.getToggleAllRowsSelectedHandler()}
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && 'indeterminate')
+            }
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
             aria-label="Select all"
           />
         ),
         cell: ({ row }) => (
           <Checkbox
             checked={row.getIsSelected()}
-            disabled={!row.getCanSelect()}
-            indeterminate={row.getIsSomeSelected()}
-            onChange={row.getToggleSelectedHandler()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
             aria-label="Select row"
           />
         ),

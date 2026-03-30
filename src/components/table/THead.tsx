@@ -1,3 +1,5 @@
+'use client';
+
 import { type Header } from '@tanstack/react-table';
 import type { CSSProperties } from 'react';
 import { getPinStyles } from '../../utils/getPinStyles';

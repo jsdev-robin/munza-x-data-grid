@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { useGrid } from '../../hooks/useGrid';
 import TBody from './TBody';

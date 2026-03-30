@@ -19,6 +19,7 @@ const Grid = <T,>({
   setGlobalFilter,
   getRowCanExpand,
   renderSubComponent,
+  manualPagination,
 }: GridProps<T>) => {
   return (
     <GridContextProvider
@@ -33,6 +34,7 @@ const Grid = <T,>({
       setGlobalFilter={setGlobalFilter}
       getRowCanExpand={getRowCanExpand}
       renderSubComponent={renderSubComponent}
+      manualPagination={manualPagination}
     >
       <div className="relative">
         <div className="flex flex-col gap-3">
