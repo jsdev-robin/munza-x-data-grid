@@ -7,6 +7,7 @@ import {
   type SortingState,
   type TableState,
 } from '@tanstack/react-table';
+import type React from 'react';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,6 +39,8 @@ export interface GridProps<T> {
   onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
   onPaginationChange?: OnChangeFn<PaginationState>;
   onSortingChange?: OnChangeFn<SortingState>;
+  globalFilter?: string;
+  setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
   manualPagination?: boolean;
   isLoading?: boolean;
   isError?: boolean;

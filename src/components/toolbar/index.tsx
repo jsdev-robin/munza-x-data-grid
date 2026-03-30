@@ -18,7 +18,7 @@ const Toolbar = () => {
   const togglePanel = (panel: string | null) => {
     setActivePanel(activePanel === panel ? null : panel);
   };
-  const { table } = useGrid();
+  const { table, globalFilter, setGlobalFilter } = useGrid();
 
   const [searchTerm, setSearchTerm] = useState('');
   const visibleColumns = useMemo(() => {
@@ -100,9 +100,11 @@ const Toolbar = () => {
           <div className="mun:space-y-3">
             <div className="mun:p-3">
               <DebouncedInput
-                value="onn"
-                onChange={() => {
-                  console.log('ok');
+                value={globalFilter ?? ''}
+                onChange={(value) => {
+                  if (setGlobalFilter) {
+                    setGlobalFilter(String(value));
+                  }
                 }}
                 placeholder="Search all columns..."
               />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { dummyPeople, type Person } from './data/dummyData';
 import {
+  Checkbox,
   Grid,
   type ColumnDef,
   type ColumnFiltersState,
@@ -18,6 +19,29 @@ const App = () => {
         header: '',
         size: 54,
         maxSize: 54,
+        enableColumnFilter: false,
+      },
+      {
+        id: 'select',
+        header: ({ table }) => (
+          <Checkbox
+            checked={table.getIsAllRowsSelected()}
+            indeterminate={table.getIsSomeRowsSelected()}
+            onChange={table.getToggleAllRowsSelectedHandler()}
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            disabled={!row.getCanSelect()}
+            indeterminate={row.getIsSomeSelected()}
+            onChange={row.getToggleSelectedHandler()}
+            aria-label="Select row"
+          />
+        ),
+        size: 40,
+        maxSize: 40,
         enableColumnFilter: false,
       },
       {
@@ -59,10 +83,13 @@ const App = () => {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
+  const [globalFilter, setGlobalFilter] = React.useState('');
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 20,
   });
+
+  console.log(globalFilter);
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -88,6 +115,8 @@ const App = () => {
             onColumnFiltersChange={setColumnFilters}
             onPaginationChange={setPagination}
             onSortingChange={setSorting}
+            setGlobalFilter={setGlobalFilter}
+            globalFilter={globalFilter}
           />
         </div>
       </div>

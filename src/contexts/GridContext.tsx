@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/incompatible-library */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import {
   getCoreRowModel,
+  getExpandedRowModel,
   getFacetedMinMaxValues,
   getFacetedUniqueValues,
   getPaginationRowModel,
@@ -10,6 +12,7 @@ import {
   useReactTable,
   type ColumnDef,
   type ColumnFiltersState,
+  type ExpandedState,
   type OnChangeFn,
   type PaginationState,
   type SortingState,
@@ -25,11 +28,8 @@ export interface GridContextProps<T> {
   isError?: boolean;
   paneRef1: React.RefObject<HTMLDivElement | null>;
   paneRef2: React.RefObject<HTMLDivElement | null>;
-  paneRef3: React.RefObject<HTMLDivElement | null>;
-  paneRef4: React.RefObject<HTMLDivElement | null>;
-  paneRef5: React.RefObject<HTMLDivElement | null>;
-  paneRef6: React.RefObject<HTMLDivElement | null>;
-  paneRef7: React.RefObject<HTMLDivElement | null>;
+  globalFilter?: string;
+  setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -48,6 +48,8 @@ interface GridContextProviderProps<T> {
   manualPagination?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  globalFilter?: string;
+  setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const GridContextProvider = <T,>({
@@ -58,27 +60,37 @@ export const GridContextProvider = <T,>({
   onColumnFiltersChange,
   onPaginationChange,
   onSortingChange,
+  globalFilter,
+  setGlobalFilter,
   manualPagination = false,
   isError,
   isLoading,
 }: GridContextProviderProps<T>) => {
   const [columnPinning, setColumnPinning] = React.useState({});
+  const [expanded, setExpanded] = React.useState<ExpandedState>({});
+
   const table = useReactTable({
     data: payload?.data ?? [],
     columns,
     state: {
       ...state,
       columnPinning,
+      globalFilter,
+      expanded,
     },
+    getSubRows: (row: T) => (row as any).subRows,
     onColumnFiltersChange: onColumnFiltersChange,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    getExpandedRowModel: getExpandedRowModel(),
     onPaginationChange: onPaginationChange,
     onSortingChange: onSortingChange,
     onColumnPinningChange: setColumnPinning,
+    onGlobalFilterChange: setGlobalFilter,
+    onExpandedChange: setExpanded,
     manualPagination: manualPagination,
     rowCount: payload?.total,
     debugTable: true,
@@ -93,11 +105,6 @@ export const GridContextProvider = <T,>({
 
   const paneRef1 = useRef<HTMLDivElement>(null);
   const paneRef2 = useRef<HTMLDivElement>(null);
-  const paneRef3 = useRef<HTMLDivElement>(null);
-  const paneRef4 = useRef<HTMLDivElement>(null);
-  const paneRef5 = useRef<HTMLDivElement>(null);
-  const paneRef6 = useRef<HTMLDivElement>(null);
-  const paneRef7 = useRef<HTMLDivElement>(null);
 
   useSyncScroll({
     refs: [paneRef1, paneRef2],
@@ -108,15 +115,12 @@ export const GridContextProvider = <T,>({
     () => ({
       paneRef1,
       paneRef2,
-      paneRef3,
-      paneRef4,
-      paneRef5,
-      paneRef6,
-      paneRef7,
       isError,
       isLoading,
+      globalFilter,
+      setGlobalFilter,
     }),
-    [isError, isLoading],
+    [globalFilter, isError, isLoading, setGlobalFilter],
   );
 
   return (

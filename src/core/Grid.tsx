@@ -16,6 +16,8 @@ const Grid = <T,>({
   onSortingChange,
   isLoading,
   isError,
+  globalFilter,
+  setGlobalFilter,
 }: GridProps<T>) => {
   return (
     <GridContextProvider
@@ -27,6 +29,8 @@ const Grid = <T,>({
       onSortingChange={onSortingChange}
       isLoading={isLoading}
       isError={isError}
+      globalFilter={globalFilter}
+      setGlobalFilter={setGlobalFilter}
     >
       <div className="relative">
         <div className="mun:flex mun:flex-col mun:gap-3">
