@@ -1,11 +1,15 @@
 'use client';
 
 import { Columns, Filter, ListRestart } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useGrid } from '../../hooks/useGrid';
 import { cn } from '../../lib/utils';
+import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
+import { Checkbox } from '../ui/checkbox';
 import DebouncedInput from '../ui/debounced-input';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 import { Separator } from '../ui/separator';
 import ToolbarFilter from './ToolbarFilter';
 
@@ -16,6 +20,16 @@ const Toolbar = () => {
   };
   const { table } = useGrid();
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const visibleColumns = useMemo(() => {
+    return table
+      .getAllLeafColumns()
+      .filter((column) => !['rowNumber'].includes(column.id))
+      .filter((column) =>
+        column.id.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+  }, [searchTerm, table]);
+
   return (
     <div className="mun:bg-muted mun:overflow-hidden mun:hidden mun:sm:flex">
       {activePanel === 'columns' && (
@@ -24,7 +38,56 @@ const Toolbar = () => {
             'mun:w-52 mun:border-l mun:border-border mun:transition-all',
           )}
         >
-          columns
+          <div className="mun:space-y-3">
+            <div className="mun:p-3 mun:flex mun:items-center mun:gap-3">
+              <div className="mun:flex mun:items-center mun:gap-3">
+                <Checkbox
+                  checked={visibleColumns.every((col) => col.getIsVisible())}
+                  onChange={(e) => {
+                    visibleColumns.forEach((col) =>
+                      col.toggleVisibility(e.target.checked),
+                    );
+                  }}
+                />
+                <Badge className="mun:h-5 mun:min-w-5 mun:rounded-full mun:px-1.5 mun:font-mono mun:tabular-nums">
+                  {table.getVisibleLeafColumns().length}
+                </Badge>
+              </div>
+              <Input
+                placeholder="Search columns..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <div className="mun:max-h-50 mun:overflow-y-auto">
+              <div className="mun:px-3 mun:py-1 mun:space-y-3">
+                {visibleColumns.length > 0 ? (
+                  visibleColumns.map((column) => (
+                    <div key={column.id}>
+                      <Label className="capitalize">
+                        <Checkbox
+                          {...{
+                            type: 'checkbox',
+                            checked: column.getIsVisible(),
+                            onChange: column.getToggleVisibilityHandler(),
+                          }}
+                        />{' '}
+                        <span className="truncate">
+                          {column.id
+                            .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+                            .replace(/^./, (str) => str.toUpperCase())}{' '}
+                        </span>
+                      </Label>
+                    </div>
+                  ))
+                ) : (
+                  <div className="mun:px-2 mun:py-4 mun:text-center mun:text-sm mun:text-muted-foreground">
+                    No columns found
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

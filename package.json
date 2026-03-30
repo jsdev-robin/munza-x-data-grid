@@ -1,7 +1,7 @@
 {
   "name": "munza-x-data-grid",
   "private": false,
-  "version": "1.1.8",
+  "version": "1.1.9",
   "type": "module",
   "files": [
     "dist"
@@ -19,8 +19,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "prepublishOnly": "npm run build"
+    "preview": "vite preview"
   },
   "peerDependencies": {
     "react": "^18 || ^19",
