@@ -85,16 +85,8 @@ const App = () => {
               data: dummyPeople,
               total: 100,
             }}
-            state={{
-              columnFilters: state.columnFilters,
-              pagination: state.pagination,
-              sorting: state.sorting,
-            }}
-            onColumnFiltersChange={handlers.setColumnFilters}
-            onPaginationChange={handlers.setPagination}
-            onSortingChange={handlers.setSorting}
-            setGlobalFilter={handlers.setGlobalFilter}
-            globalFilter={state.globalFilter}
+            state={state}
+            {...handlers}
           />
         </div>
       </div>
