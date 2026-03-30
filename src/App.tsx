@@ -1,22 +1,6 @@
-import type { Row } from '@tanstack/react-table';
 import React from 'react';
 import { dummyPeople, type Person } from './data/dummyData';
-import {
-  Checkbox,
-  Grid,
-  type ColumnDef,
-  type ColumnFiltersState,
-  type PaginationState,
-  type SortingState,
-} from './index';
-
-const renderSubComponent = ({ row }: { row: Row<Person> }) => {
-  return (
-    <pre style={{ fontSize: '10px' }}>
-      <code>{JSON.stringify(row.original, null, 2)}</code>
-    </pre>
-  );
-};
+import { Checkbox, Grid, useGridState, type ColumnDef } from './index';
 
 const App = () => {
   const columns = React.useMemo<ColumnDef<Person, unknown>[]>(
@@ -55,20 +39,7 @@ const App = () => {
       },
       {
         accessorKey: 'firstName',
-        cell: ({ row }) => {
-          return row.getCanExpand() ? (
-            <button
-              {...{
-                onClick: row.getToggleExpandedHandler(),
-                style: { cursor: 'pointer' },
-              }}
-            >
-              {row.getIsExpanded() ? '👇' : '👉'}
-            </button>
-          ) : (
-            '🔵'
-          );
-        },
+        cell: (info) => info.getValue(),
         meta: {
           filterVariant: 'select',
         },
@@ -102,22 +73,7 @@ const App = () => {
     [],
   );
 
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [globalFilter, setGlobalFilter] = React.useState('');
-  const [pagination, setPagination] = React.useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 20,
-  });
-
-  console.log(globalFilter);
-
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-
-  console.log(sorting);
-  console.log(columnFilters);
-  console.log(pagination);
+  const { state, handlers } = useGridState();
 
   return (
     <section className="mun:py-10">
@@ -130,17 +86,15 @@ const App = () => {
               total: 100,
             }}
             state={{
-              columnFilters,
-              pagination,
-              sorting,
+              columnFilters: state.columnFilters,
+              pagination: state.pagination,
+              sorting: state.sorting,
             }}
-            onColumnFiltersChange={setColumnFilters}
-            onPaginationChange={setPagination}
-            onSortingChange={setSorting}
-            setGlobalFilter={setGlobalFilter}
-            globalFilter={globalFilter}
-            renderSubComponent={renderSubComponent}
-            getRowCanExpand={() => true}
+            onColumnFiltersChange={handlers.setColumnFilters}
+            onPaginationChange={handlers.setPagination}
+            onSortingChange={handlers.setSorting}
+            setGlobalFilter={handlers.setGlobalFilter}
+            globalFilter={state.globalFilter}
           />
         </div>
       </div>
