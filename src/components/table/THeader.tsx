@@ -11,10 +11,7 @@ const THeader = () => {
     <Table>
       <TableHeader>
         {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow
-            key={headerGroup.id}
-            className="mun:*:border-r mun:*:border-border"
-          >
+          <TableRow key={headerGroup.id} className="*:border-r *:border-border">
             {headerGroup.headers.map((header) => (
               <THead header={header} key={header.id} />
             ))}

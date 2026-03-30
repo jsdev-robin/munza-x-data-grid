@@ -31,16 +31,12 @@ const Toolbar = () => {
   }, [searchTerm, table]);
 
   return (
-    <div className="mun:bg-muted mun:overflow-hidden mun:hidden mun:sm:flex">
+    <div className="bg-muted overflow-hidden hidden sm:flex">
       {activePanel === 'columns' && (
-        <div
-          className={cn(
-            'mun:w-52 mun:border-l mun:border-border mun:transition-all',
-          )}
-        >
-          <div className="mun:space-y-3">
-            <div className="mun:p-3 mun:flex mun:items-center mun:gap-3">
-              <div className="mun:flex mun:items-center mun:gap-3">
+        <div className={cn('w-52 border-l border-border transition-all')}>
+          <div className="space-y-3">
+            <div className="p-3 flex items-center gap-3">
+              <div className="flex items-center gap-3">
                 <Checkbox
                   checked={visibleColumns.every((col) => col.getIsVisible())}
                   onChange={(e) => {
@@ -49,7 +45,7 @@ const Toolbar = () => {
                     );
                   }}
                 />
-                <Badge className="mun:h-5 mun:min-w-5 mun:rounded-full mun:px-1.5 mun:font-mono mun:tabular-nums">
+                <Badge className="h-5 min-w-5 rounded-full px-1.5 font-mono tabular-nums">
                   {table.getVisibleLeafColumns().length}
                 </Badge>
               </div>
@@ -59,8 +55,8 @@ const Toolbar = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="mun:max-h-50 mun:overflow-y-auto">
-              <div className="mun:px-3 mun:py-1 mun:space-y-3">
+            <div className="max-h-50 overflow-y-auto">
+              <div className="px-3 py-1 space-y-3">
                 {visibleColumns.length > 0 ? (
                   visibleColumns.map((column) => (
                     <div key={column.id}>
@@ -81,7 +77,7 @@ const Toolbar = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="mun:px-2 mun:py-4 mun:text-center mun:text-sm mun:text-muted-foreground">
+                  <div className="px-2 py-4 text-center text-sm text-muted-foreground">
                     No columns found
                   </div>
                 )}
@@ -92,13 +88,9 @@ const Toolbar = () => {
       )}
 
       {activePanel === 'filter' && (
-        <div
-          className={cn(
-            'mun:w-52 mun:border-l mun:border-border mun:transition-all',
-          )}
-        >
-          <div className="mun:space-y-3">
-            <div className="mun:p-3">
+        <div className={cn('w-52 border-l border-border transition-all')}>
+          <div className="space-y-3">
+            <div className="p-3">
               <DebouncedInput
                 value={globalFilter ?? ''}
                 onChange={(value) => {
@@ -109,7 +101,7 @@ const Toolbar = () => {
                 placeholder="Search all columns..."
               />
             </div>
-            <div className="mun:overflow-y-auto mun:h-[65vh] mun:px-3 mun:space-y-3">
+            <div className="overflow-y-auto h-[65vh] px-3 space-y-3">
               {table.getHeaderGroups().map((headerGroup) => (
                 <React.Fragment key={headerGroup.id}>
                   {headerGroup.headers
@@ -123,7 +115,7 @@ const Toolbar = () => {
               ))}
             </div>
             <Separator />
-            <div className="mun:px-3">
+            <div className="px-3">
               <Button
                 onClick={() => table.setColumnFilters([])}
                 variant="outline"
@@ -135,7 +127,7 @@ const Toolbar = () => {
           </div>
         </div>
       )}
-      <div className="mun:w-8 mun:border-l mun:border-border">
+      <div className="w-8 border-l border-border">
         {[
           { value: 'columns', label: 'Columns', icon: Columns },
           { value: 'filter', label: 'Filter', icon: Filter },
@@ -145,12 +137,12 @@ const Toolbar = () => {
             variant="ghost"
             size="sm"
             className={cn(
-              'mun:[writing-mode:vertical-rl] mun:rounded-none mun:h-auto mun:w-full mun:hover:bg-background! mun:cursor-pointer',
-              activePanel === value && 'mun:bg-background',
+              '[writing-mode:vertical-rl] rounded-none h-auto w-full hover:bg-background! cursor-pointer',
+              activePanel === value && 'bg-background',
             )}
             onClick={() => togglePanel(value)}
           >
-            <Icon className="mun:size-4" />
+            <Icon className="size-4" />
             {label}
           </Button>
         ))}

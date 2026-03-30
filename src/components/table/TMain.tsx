@@ -9,13 +9,13 @@ const TMain = () => {
   return (
     <React.Fragment>
       <div
-        className="mun:w-full mun:bg-muted mun:border-b mun:border-border mun:overflow-y-scroll mun:[scrollbar-color:transparent_transparent] mun:overflow-x-hidden"
+        className="w-full bg-muted border-b border-border overflow-y-scroll [scrollbar-color:transparent_transparent] overflow-x-hidden"
         ref={paneRef1}
       >
         <THeader />
       </div>
       <div
-        className="mun:h-[75vh] mun:w-full mun:overflow-scroll mun:bg-background"
+        className="h-[75vh] w-full overflow-scroll bg-background"
         ref={paneRef2}
       >
         <TBody />

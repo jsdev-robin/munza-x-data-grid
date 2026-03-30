@@ -1,4 +1,4 @@
-@import 'tailwindcss' prefix(mun);
+@import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/forms";
 
@@ -77,12 +77,12 @@
 
 @layer base {
   * {
-    @apply mun:border-border mun:outline-ring/50;
+    @apply border-border outline-ring/50;
   }
   body {
-    @apply mun:bg-background mun:text-foreground;
+    @apply bg-background text-foreground;
   }
   html {
-    @apply mun:font-sans;
+    @apply font-sans;
   }
 }

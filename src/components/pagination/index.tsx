@@ -13,18 +13,18 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
   const { table } = useGrid();
 
   return (
-    <div className="mun:flex mun:items-center mun:justify-between mun:flex-wrap">
-      <span className="mun:flex mun:items-center mun:gap-1">
+    <div className="flex items-center justify-between flex-wrap">
+      <span className="flex items-center gap-1">
         <span className="mum:text-xs">Page</span>
-        <span className="mun:text-sm">
+        <span className="text-sm">
           {table.getState().pagination.pageIndex + 1} of{' '}
           {table.getPageCount().toLocaleString()}
         </span>
       </span>
-      <div className="mun:flex mun:items-center mun:gap-4 mun:flex-wrap">
+      <div className="flex items-center gap-4 flex-wrap">
         <Input
           type="number"
-          className="mun:w-16"
+          className="w-16"
           min="1"
           max={table.getPageCount()}
           defaultValue={table.getState().pagination.pageIndex + 1}
@@ -45,7 +45,7 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
             </NativeSelectOption>
           ))}
         </NativeSelect>
-        <div className="mun:flex mun:items-center mun:gap-2">
+        <div className="flex items-center gap-2">
           <Button
             size="icon"
             variant="outline"

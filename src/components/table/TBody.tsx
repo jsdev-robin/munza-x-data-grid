@@ -22,7 +22,7 @@ const TBody = () => {
       <TableBody>
         {table.getRowModel().rows.map((row) => (
           <React.Fragment key={row.id}>
-            <TableRow className="mun:*:border-r mun:*:border-border">
+            <TableRow className="*:border-r *:border-border">
               {row.getVisibleCells().map((cell) => (
                 <TCell key={cell.id} cell={cell} />
               ))}

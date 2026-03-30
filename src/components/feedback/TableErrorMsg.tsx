@@ -25,12 +25,12 @@ const TableErrorMsg = () => {
   };
 
   return (
-    <div className="mun:flex mun:flex-col mun:items-center">
-      <ServerOff size={52} className="mun:text-red-500 mun:mb-6" />
-      <h2 className="mun:text-2xl mun:font-semibold mun:text-red-600 mun:mb-3">
+    <div className="flex flex-col items-center">
+      <ServerOff size={52} className="text-red-500 mb-6" />
+      <h2 className="text-2xl font-semibold text-red-600 mb-3">
         Failed to Load Data
       </h2>
-      <p className="mun:text-sm mun:text-muted-foreground mun:mb-6 mun:text-center mun:max-w-md">
+      <p className="text-sm text-muted-foreground mb-6 text-center max-w-md">
         {isOnline
           ? 'Something went wrong. Please try refreshing the page.'
           : "You're currently offline. Please check your internet connection."}

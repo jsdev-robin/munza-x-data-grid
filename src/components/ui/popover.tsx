@@ -30,7 +30,7 @@ function PopoverContent({
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          'mun:z-50 mun:flex mun:w-72 mun:origin-(--radix-popover-content-transform-origin) mun:flex-col mun:gap-2.5 mun:rounded-lg mun:bg-popover mun:p-2.5 mun:text-sm mun:text-popover-foreground mun:shadow-md mun:ring-1 mun:ring-foreground/10 mun:outline-hidden mun:duration-100 mun:data-[side=bottom]:slide-in-from-top-2 mun:data-[side=left]:slide-in-from-right-2 mun:data-[side=right]:slide-in-from-left-2 mun:data-[side=top]:slide-in-from-bottom-2 mun:data-open:animate-in mun:data-open:fade-in-0 mun:data-open:zoom-in-95 mun:data-closed:animate-out mun:data-closed:fade-out-0 mun:data-closed:zoom-out-95',
+          'z-50 flex w-72 origin-(--radix-popover-content-transform-origin) flex-col gap-2.5 rounded-lg bg-popover p-2.5 text-sm text-popover-foreground shadow-md ring-1 ring-foreground/10 outline-hidden duration-100 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95',
           className,
         )}
         {...props}
@@ -49,7 +49,7 @@ function PopoverHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="popover-header"
-      className={cn('mun:flex mun:flex-col mun:gap-0.5 mun:text-sm', className)}
+      className={cn('flex flex-col gap-0.5 text-sm', className)}
       {...props}
     />
   );
@@ -59,7 +59,7 @@ function PopoverTitle({ className, ...props }: React.ComponentProps<'h2'>) {
   return (
     <div
       data-slot="popover-title"
-      className={cn('mun:font-heading mun:font-medium', className)}
+      className={cn('font-heading font-medium', className)}
       {...props}
     />
   );
@@ -72,7 +72,7 @@ function PopoverDescription({
   return (
     <p
       data-slot="popover-description"
-      className={cn('mun:text-muted-foreground', className)}
+      className={cn('text-muted-foreground', className)}
       {...props}
     />
   );

@@ -78,9 +78,9 @@ const App = () => {
   console.log(state);
 
   return (
-    <section className="mun:py-10">
-      <div className="mun:container mun:px-10 mun:inset-x-auto">
-        <div className="mun:bg-card mun:rounded-md mun:p-4">
+    <section className="py-10">
+      <div className="container px-10 inset-x-auto">
+        <div className="bg-card rounded-md p-4">
           <Grid
             columns={columns}
             payload={{

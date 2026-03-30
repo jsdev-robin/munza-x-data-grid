@@ -16,12 +16,12 @@ const TableRowSkeleton = ({
   return (
     <>
       {['select'].includes(column.id) ? (
-        <Loader size={16} className="mun:animate-spin" />
+        <Loader size={16} className="animate-spin" />
       ) : ['actions', 'pin', 'drag-handle', 'rowNumber'].includes(column.id) ? (
-        <Skeleton className="mun:w-full mun:h-4" />
+        <Skeleton className="w-full h-4" />
       ) : (
         <Skeleton
-          className="mun:h-4"
+          className="h-4"
           style={{
             width: `${PREDEFINED_WIDTHS[(i + j) % PREDEFINED_WIDTHS.length]}px`,
           }}

@@ -23,7 +23,7 @@ const Checkbox = ({
       type="checkbox"
       data-slot="checkbox"
       className={cn(
-        'mun:border mun:border-input mun:rounded mun:disabled:opacity-50 mun:disabled:pointer-events-none mun:bg-background mun:focus:ring-offset-background mun:focus:ring-primary mun:checked:bg-primary mun:checked:border-primary mun:checked:dark:focus:ring-primary mun:checked:dark:border-primary mun:checked:dark:bg-primary',
+        'border border-input rounded disabled:opacity-50 disabled:pointer-events-none bg-background focus:ring-offset-background focus:ring-primary checked:bg-primary checked:border-primary checked:dark:focus:ring-primary checked:dark:border-primary checked:dark:bg-primary',
         className,
       )}
       {...rest}
