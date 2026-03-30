@@ -15,6 +15,7 @@ import {
   type ExpandedState,
   type OnChangeFn,
   type PaginationState,
+  type Row,
   type SortingState,
   type Table,
   type TableState,
@@ -30,6 +31,7 @@ export interface GridContextProps<T> {
   paneRef2: React.RefObject<HTMLDivElement | null>;
   globalFilter?: string;
   setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
+  renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -50,6 +52,8 @@ interface GridContextProviderProps<T> {
   isError?: boolean;
   globalFilter?: string;
   setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
+  renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
+  getRowCanExpand?: (row: Row<T>) => boolean;
 }
 
 export const GridContextProvider = <T,>({
@@ -65,6 +69,8 @@ export const GridContextProvider = <T,>({
   manualPagination = false,
   isError,
   isLoading,
+  getRowCanExpand,
+  renderSubComponent,
 }: GridContextProviderProps<T>) => {
   const [columnPinning, setColumnPinning] = React.useState({});
   const [expanded, setExpanded] = React.useState<ExpandedState>({});
@@ -79,6 +85,7 @@ export const GridContextProvider = <T,>({
       expanded,
     },
     getSubRows: (row: T) => (row as any).subRows,
+    getRowCanExpand,
     onColumnFiltersChange: onColumnFiltersChange,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -119,8 +126,9 @@ export const GridContextProvider = <T,>({
       isLoading,
       globalFilter,
       setGlobalFilter,
+      renderSubComponent,
     }),
-    [globalFilter, isError, isLoading, setGlobalFilter],
+    [globalFilter, isError, isLoading, renderSubComponent, setGlobalFilter],
   );
 
   return (

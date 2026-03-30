@@ -4,6 +4,7 @@ import {
   type ColumnFiltersState,
   type OnChangeFn,
   type PaginationState,
+  type Row,
   type SortingState,
   type TableState,
 } from '@tanstack/react-table';
@@ -44,4 +45,6 @@ export interface GridProps<T> {
   manualPagination?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
+  getRowCanExpand?: (row: Row<T>) => boolean;
 }

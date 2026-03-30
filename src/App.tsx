@@ -1,3 +1,4 @@
+import type { Row } from '@tanstack/react-table';
 import React from 'react';
 import { dummyPeople, type Person } from './data/dummyData';
 import {
@@ -8,6 +9,14 @@ import {
   type PaginationState,
   type SortingState,
 } from './index';
+
+const renderSubComponent = ({ row }: { row: Row<Person> }) => {
+  return (
+    <pre style={{ fontSize: '10px' }}>
+      <code>{JSON.stringify(row.original, null, 2)}</code>
+    </pre>
+  );
+};
 
 const App = () => {
   const columns = React.useMemo<ColumnDef<Person, unknown>[]>(
@@ -46,7 +55,20 @@ const App = () => {
       },
       {
         accessorKey: 'firstName',
-        cell: (info) => info.getValue(),
+        cell: ({ row }) => {
+          return row.getCanExpand() ? (
+            <button
+              {...{
+                onClick: row.getToggleExpandedHandler(),
+                style: { cursor: 'pointer' },
+              }}
+            >
+              {row.getIsExpanded() ? '👇' : '👉'}
+            </button>
+          ) : (
+            '🔵'
+          );
+        },
         meta: {
           filterVariant: 'select',
         },
@@ -117,6 +139,8 @@ const App = () => {
             onSortingChange={setSorting}
             setGlobalFilter={setGlobalFilter}
             globalFilter={globalFilter}
+            renderSubComponent={renderSubComponent}
+            getRowCanExpand={() => true}
           />
         </div>
       </div>

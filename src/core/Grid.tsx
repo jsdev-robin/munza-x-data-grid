@@ -18,6 +18,8 @@ const Grid = <T,>({
   isError,
   globalFilter,
   setGlobalFilter,
+  getRowCanExpand,
+  renderSubComponent,
 }: GridProps<T>) => {
   return (
     <GridContextProvider
@@ -31,6 +33,8 @@ const Grid = <T,>({
       isError={isError}
       globalFilter={globalFilter}
       setGlobalFilter={setGlobalFilter}
+      getRowCanExpand={getRowCanExpand}
+      renderSubComponent={renderSubComponent}
     >
       <div className="relative">
         <div className="mun:flex mun:flex-col mun:gap-3">
