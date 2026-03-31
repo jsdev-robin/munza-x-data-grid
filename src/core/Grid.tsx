@@ -4,7 +4,7 @@ import Pagination from '../components/pagination';
 import TMain from '../components/table/TMain';
 import Toolbar from '../components/toolbar';
 import { GridContextProvider } from '../contexts/GridContext';
-// import '../index.css';
+import '../index.css';
 import type { GridProps } from '../types';
 
 const Grid = <T,>({
