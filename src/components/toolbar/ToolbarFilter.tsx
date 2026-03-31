@@ -31,14 +31,14 @@ const ToolbarFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
     <>
       {column.getCanFilter() ? (
         <Collapsible open={open} onOpenChange={setOpen}>
-          <CollapsibleTrigger className="flex whitespace-nowrap items-center gap-2">
-            <span className="size-7 inline-flex items-center justify-center rounded-md transition-all hover:bg-card">
+          <CollapsibleTrigger className="mun:flex mun:whitespace-nowrap mun:items-center mun:gap-2">
+            <span className="mun:size-7 mun:inline-flex mun:items-center mun:justify-center mun:rounded-md mun:transition-all mun:hover:bg-card">
               {open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
             </span>
             <span>{sortedUniqueValues?.id}</span>
           </CollapsibleTrigger>
           <CollapsibleContent>
-            <div className="p-3 pr-0">
+            <div className="mun:p-3 mun:pr-0">
               <datalist id={column.id + 'list'}>
                 {sortedUniqueValues?.uniqueValues.map(
                   (value: string, i: number) => (

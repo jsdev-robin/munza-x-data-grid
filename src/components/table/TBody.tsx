@@ -24,7 +24,7 @@ const TBody = () => {
           <React.Fragment key={row.id}>
             <TableRow
               data-state={row.getIsSelected() && 'selected'}
-              className="*:border-r *:border-border data-[state=selected]:bg-blue-800/25"
+              className="mun:*:border-r mun:*:border-border mun:data-[state=selected]:bg-blue-800/25"
             >
               {row.getVisibleCells().map((cell) => (
                 <TCell key={cell.id} cell={cell} />

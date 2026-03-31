@@ -9,7 +9,7 @@ import { Database } from 'lucide-react';
 
 const NoDataFoundMsg = () => {
   return (
-    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hover:bg-transparent">
+    <div className="mun:absolute mun:left-1/2 mun:top-1/2 mun:-translate-x-1/2 mun:-translate-y-1/2 mun:hover:bg-transparent">
       <Empty>
         <EmptyHeader>
           <EmptyMedia variant="icon">

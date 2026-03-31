@@ -21,7 +21,7 @@ const TableSkeleton = () => {
     <Table>
       <TableBody>
         {[...Array(20)].map((_, i) => (
-          <TableRow key={i} className="*:border-r *:border-border">
+          <TableRow key={i} className="mun:*:border-r mun:*:border-border">
             {visibleColumns.map((column, j) => (
               <TableCell
                 key={j}

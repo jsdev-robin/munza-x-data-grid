@@ -75,7 +75,7 @@ const HeaderMenu = <T,>({ header }: { header: Header<T, unknown> }) => {
               >
                 Pin to left
                 <DropdownMenuShortcut>
-                  <PinIcon className="rotate-45" />
+                  <PinIcon className="mun:rotate-45" />
                 </DropdownMenuShortcut>
               </DropdownMenuItem>
             )}
@@ -99,7 +99,7 @@ const HeaderMenu = <T,>({ header }: { header: Header<T, unknown> }) => {
               >
                 Pin to right
                 <DropdownMenuShortcut>
-                  <PinIcon className="-rotate-45" />
+                  <PinIcon className="mun:-rotate-45" />
                 </DropdownMenuShortcut>
               </DropdownMenuItem>
             )}

@@ -1,7 +1,7 @@
 {
   "name": "munza-x-data-grid",
   "private": false,
-  "version": "1.2.5",
+  "version": "1.2.7",
   "type": "module",
   "files": [
     "dist"
@@ -13,7 +13,7 @@
       "import": "./dist/data-grid.js",
       "types": "./dist/index.d.ts"
     },
-    "./style.css": "./dist/data-grid.css"
+    "./style.css": "./dist/index.css"
   },
   "scripts": {
     "dev": "vite",

@@ -12,7 +12,9 @@ export default defineConfig({
     dts({
       tsconfigPath: './tsconfig.app.json',
     }),
-    tailwindcss(),
+    tailwindcss({
+      optimize: true,
+    }),
   ],
   resolve: {
     alias: {
@@ -20,6 +22,7 @@ export default defineConfig({
     },
   },
   build: {
+    cssCodeSplit: true,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'munza-x-data-grid',

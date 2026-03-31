@@ -20,9 +20,9 @@ const HeaderFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
   }, [filterVariant, column]);
 
   return column.getCanFilter() ? (
-    <div className="p-1.5 border-t border-border w-full">
+    <div className="mun:p-1.5 mun:border-t mun:border-border mun:w-full">
       {filterVariant === 'range' ? (
-        <div className="flex gap-1.5">
+        <div className="mun:flex mun:gap-1.5">
           <DebouncedInput
             type="number"
             value={(columnFilterValue as [number, number])?.[0] ?? ''}
@@ -54,7 +54,7 @@ const HeaderFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
               e.target.value === 'all' ? undefined : e.target.value,
             )
           }
-          className="w-full"
+          className="mun:w-full"
         >
           <NativeSelectOption value="">All</NativeSelectOption>
           {selectValue.map((value) => {
@@ -91,7 +91,7 @@ const HeaderFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
           value={(columnFilterValue ?? '') as string}
         />
       ) : (
-        <div className="h-8 opacity-0 invisible " />
+        <div className="mun:h-8 mun:opacity-0 mun:invisible " />
       )}
     </div>
   ) : null;

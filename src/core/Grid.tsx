@@ -36,10 +36,10 @@ const Grid = <T,>({
       renderSubComponent={renderSubComponent}
       manualPagination={manualPagination}
     >
-      <div className="relative">
-        <div className="flex flex-col gap-3">
-          <div className="flex bg-muted rounded-md overflow-hidden border border-border">
-            <div className="overflow-hidden flex-1">
+      <div className="mun:relative">
+        <div className="mun:flex mun:flex-col mun:gap-3">
+          <div className="mun:flex mun:bg-muted mun:rounded-md mun:overflow-hidden mun:border mun:border-border">
+            <div className="mun:overflow-hidden mun:flex-1">
               <TMain />
             </div>
             <Toolbar />

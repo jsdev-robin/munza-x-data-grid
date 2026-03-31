@@ -27,12 +27,12 @@ const THead = <T,>({ header }: THeadProps<T>) => {
       key={header.id}
       colSpan={header.colSpan}
       style={style}
-      className="p-0 truncate relative group"
+      className="mun:p-0 mun:truncate mun:relative mun:group"
     >
       <>
         {header.isPlaceholder ? null : (
-          <div className="flex flex-col gap-1.5">
-            <div className="p-1.5 flex items-center justify-between gap-3">
+          <div className="mun:flex mun:flex-col mun:gap-1.5">
+            <div className="mun:p-1.5 mun:flex mun:items-center mun:justify-betweenmun:gap-3">
               <HeaderSort header={header} />
               <HeaderMenu header={header} />
             </div>
