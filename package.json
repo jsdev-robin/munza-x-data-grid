@@ -1,7 +1,7 @@
 {
   "name": "munza-x-data-grid",
   "private": false,
-  "version": "1.3.3",
+  "version": "1.3.5",
   "type": "module",
   "files": [
     "dist"
@@ -20,6 +20,13 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsdev-robin/munza-x-data-grid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jsdev-robin/munza-x-data-grid/issues"
   },
   "peerDependencies": {
     "react": "^18 || ^19",

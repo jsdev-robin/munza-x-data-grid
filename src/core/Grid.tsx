@@ -20,6 +20,7 @@ const Grid = <T,>({
   getRowCanExpand,
   renderSubComponent,
   manualPagination,
+  isFetching,
 }: GridProps<T>) => {
   return (
     <GridContextProvider
@@ -35,6 +36,7 @@ const Grid = <T,>({
       getRowCanExpand={getRowCanExpand}
       renderSubComponent={renderSubComponent}
       manualPagination={manualPagination}
+      isFetching={isFetching}
     >
       <div className="mun:relative">
         <div className="mun:flex mun:flex-col mun:gap-3">

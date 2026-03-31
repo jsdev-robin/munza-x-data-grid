@@ -5,7 +5,9 @@ import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 
 const TableErrorMsg = () => {
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isOnline, setIsOnline] = useState<boolean>(() =>
+    typeof navigator !== 'undefined' ? navigator.onLine : true,
+  );
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
@@ -21,9 +23,7 @@ const TableErrorMsg = () => {
   }, []);
 
   const reload = () => {
-    if (isOnline) {
-      window.location.reload();
-    }
+    if (isOnline) window.location.reload();
   };
 
   return (
@@ -43,4 +43,5 @@ const TableErrorMsg = () => {
     </div>
   );
 };
+
 export default TableErrorMsg;

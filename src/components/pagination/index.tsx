@@ -12,7 +12,7 @@ import { Input } from '../ui/input';
 import { NativeSelect, NativeSelectOption } from '../ui/native-select';
 
 const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
-  const { table } = useGrid();
+  const { table, isError, isLoading, isFetching } = useGrid();
 
   return (
     <div className="mun:flex mun:items-center mun:justify-between mun:flex-wrap">
@@ -34,12 +34,14 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
             const page = e.target.value ? Number(e.target.value) - 1 : 0;
             table.setPageIndex(page);
           }}
+          disabled={isError || isFetching || isLoading}
         />
         <NativeSelect
           value={table.getState().pagination.pageSize}
           onChange={(e) => {
             table.setPageSize(Number(e.target.value));
           }}
+          disabled={isError || isFetching || isLoading}
         >
           {pagination.map((pageSize) => (
             <NativeSelectOption key={pageSize} value={pageSize}>
@@ -52,7 +54,9 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
             size="icon"
             variant="outline"
             onClick={() => table.firstPage()}
-            disabled={!table.getCanPreviousPage()}
+            disabled={
+              !table.getCanPreviousPage() || isError || isFetching || isLoading
+            }
           >
             <ChevronsLeft />
           </Button>
@@ -60,7 +64,9 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
             size="icon"
             variant="outline"
             onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            disabled={
+              !table.getCanPreviousPage() || isError || isFetching || isLoading
+            }
           >
             <ChevronLeft />
           </Button>
@@ -68,7 +74,9 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
             size="icon"
             variant="outline"
             onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
+            disabled={
+              !table.getCanNextPage() || isError || isFetching || isLoading
+            }
           >
             <ChevronRight />
           </Button>
@@ -76,7 +84,9 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
             size="icon"
             variant="outline"
             onClick={() => table.lastPage()}
-            disabled={!table.getCanNextPage()}
+            disabled={
+              !table.getCanNextPage() || isError || isFetching || isLoading
+            }
           >
             <ChevronsRight />
           </Button>

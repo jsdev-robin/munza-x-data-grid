@@ -25,6 +25,7 @@ export interface GridContextProps<T> {
   table: Table<T>;
   isLoading?: boolean;
   isError?: boolean;
+  isFetching?: boolean;
   paneRef1: React.RefObject<HTMLDivElement | null>;
   paneRef2: React.RefObject<HTMLDivElement | null>;
   globalFilter?: string;
@@ -48,6 +49,7 @@ interface GridContextProviderProps<T> {
   manualPagination?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  isFetching?: boolean;
   setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
   getRowCanExpand?: (row: Row<T>) => boolean;
@@ -65,6 +67,7 @@ export const GridContextProvider = <T,>({
   manualPagination = false,
   isError,
   isLoading,
+  isFetching,
   getRowCanExpand,
   renderSubComponent,
 }: GridContextProviderProps<T>) => {
@@ -114,6 +117,7 @@ export const GridContextProvider = <T,>({
       paneRef2,
       isError,
       isLoading,
+      isFetching,
       globalFilter: state.globalFilter,
       setGlobalFilter,
       renderSubComponent,
@@ -121,6 +125,7 @@ export const GridContextProvider = <T,>({
     [
       isError,
       isLoading,
+      isFetching,
       state.globalFilter,
       setGlobalFilter,
       renderSubComponent,

@@ -44,6 +44,7 @@ export interface GridProps<T> {
   manualPagination?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  isFetching?: boolean;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
   getRowCanExpand?: (row: Row<T>) => boolean;
 }
