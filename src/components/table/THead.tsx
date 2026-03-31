@@ -32,7 +32,7 @@ const THead = <T,>({ header }: THeadProps<T>) => {
       <>
         {header.isPlaceholder ? null : (
           <div className="mun:flex mun:flex-col mun:gap-1.5">
-            <div className="mun:p-1.5 mun:flex mun:items-center mun:justify-betweenmun:gap-3">
+            <div className="mun:p-1.5 mun:flex mun:items-center mun:justify-between mun:gap-3">
               <HeaderSort header={header} />
               <HeaderMenu header={header} />
             </div>

@@ -93,9 +93,6 @@ export const GridContextProvider = <T,>({
     onExpandedChange: setExpanded,
     manualPagination: manualPagination,
     rowCount: payload?.total,
-    debugTable: true,
-    debugHeaders: true,
-    debugColumns: false,
     defaultColumn: {
       size: 180,
       minSize: 180,
