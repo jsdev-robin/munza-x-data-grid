@@ -13,27 +13,11 @@ const useSyncScroll = ({ refs, axis = 'both' }: Props) => {
   const listeners = useRef<Map<HTMLElement, EventListener>>(new Map());
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
     const elements = refs
       .map((ref) => ref.current)
       .filter((el): el is HTMLElement => el !== null);
 
     if (elements.length < 2) return;
-
-    const cleanup = () => {
-      for (const [el, listener] of listeners.current.entries()) {
-        el.removeEventListener('scroll', listener);
-      }
-      listeners.current.clear();
-
-      if (scrollFrame.current !== null) {
-        cancelAnimationFrame(scrollFrame.current);
-        scrollFrame.current = null;
-      }
-    };
-
-    cleanup();
 
     const handleScroll = (source: HTMLElement) => {
       if (isSyncing.current) return;
@@ -69,10 +53,19 @@ const useSyncScroll = ({ refs, axis = 'both' }: Props) => {
       el.addEventListener('scroll', listener, { passive: true });
     }
 
-    return cleanup;
-  }, [refs, axis]);
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      for (const [el, listener] of listeners.current.entries()) {
+        el.removeEventListener('scroll', listener);
+      }
+      listeners.current.clear();
 
-  return null;
+      if (scrollFrame.current !== null) {
+        cancelAnimationFrame(scrollFrame.current);
+        scrollFrame.current = null;
+      }
+    };
+  }, [refs, axis]);
 };
 
 export default useSyncScroll;

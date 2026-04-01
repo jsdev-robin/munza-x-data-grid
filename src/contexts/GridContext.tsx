@@ -123,6 +123,8 @@ export const GridContextProvider = <T,>({
       renderSubComponent,
     }),
     [
+      paneRef1,
+      paneRef2,
       isError,
       isLoading,
       isFetching,
