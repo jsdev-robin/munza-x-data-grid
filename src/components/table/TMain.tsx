@@ -1,12 +1,18 @@
 'use client';
 
-import React from 'react';
-import { useGrid } from '../../hooks/useGrid';
+import React, { useRef } from 'react';
+import useSyncScroll from '../../hooks/useSyncScroll';
 import TBody from './TBody';
 import THeader from './THeader';
 
 const TMain = () => {
-  const { paneRef1, paneRef2 } = useGrid();
+  const paneRef1 = useRef<HTMLDivElement>(null);
+  const paneRef2 = useRef<HTMLDivElement>(null);
+
+  useSyncScroll({
+    refs: [paneRef1, paneRef2],
+    axis: 'x',
+  });
 
   return (
     <React.Fragment>

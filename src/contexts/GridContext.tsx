@@ -18,16 +18,13 @@ import {
   type Table,
   type TableState,
 } from '@tanstack/react-table';
-import React, { createContext, useMemo, useRef } from 'react';
-import useSyncScroll from '../hooks/useSyncScroll';
+import React, { createContext, useMemo } from 'react';
 
 export interface GridContextProps<T> {
   table: Table<T>;
   isLoading?: boolean;
   isError?: boolean;
   isFetching?: boolean;
-  paneRef1: React.RefObject<HTMLDivElement | null>;
-  paneRef2: React.RefObject<HTMLDivElement | null>;
   globalFilter?: string;
   setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
@@ -103,18 +100,8 @@ export const GridContextProvider = <T,>({
     },
   });
 
-  const paneRef1 = useRef<HTMLDivElement>(null);
-  const paneRef2 = useRef<HTMLDivElement>(null);
-
-  useSyncScroll({
-    refs: [paneRef1, paneRef2],
-    axis: 'x',
-  });
-
   const contextValue = useMemo(
     () => ({
-      paneRef1,
-      paneRef2,
       isError,
       isLoading,
       isFetching,
