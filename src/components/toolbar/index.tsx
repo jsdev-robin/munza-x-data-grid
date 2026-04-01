@@ -99,7 +99,7 @@ const Toolbar = () => {
           <div className="mun:space-y-3">
             <div className="mun:p-3">
               <DebouncedInput
-                value={globalFilter ?? ''}
+                value={String(globalFilter)}
                 onChange={(value) => {
                   if (setGlobalFilter) {
                     setGlobalFilter(String(value));
