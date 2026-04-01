@@ -10,6 +10,7 @@ import type {
 
 export { Grid } from './core/Grid';
 export { useGridState } from './hooks/useGridState';
+export { useQueryArgs } from './hooks/useQueryArgs';
 export type {
   ColumnDef,
   ColumnFiltersState,
