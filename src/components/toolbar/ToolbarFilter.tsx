@@ -24,6 +24,7 @@ const ToolbarFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
   }, [column]);
 
   const columnFilterValue = column.getFilterValue();
+  const { filterVariant } = column.columnDef.meta ?? {};
 
   const [open, setOpen] = useState(false);
 
@@ -54,6 +55,7 @@ const ToolbarFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
                   column.getFacetedUniqueValues().size
                 })`}
                 list={column.id + 'list'}
+                disabled={typeof filterVariant === 'object'}
               />
             </div>
           </CollapsibleContent>
