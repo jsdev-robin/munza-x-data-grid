@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 
 type Axis = 'x' | 'y' | 'both';
@@ -13,34 +15,17 @@ const useSyncScroll = ({ refs, axis = 'both' }: Props) => {
   const listeners = useRef<Map<HTMLElement, EventListener>>(new Map());
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
     const elements = refs
       .map((ref) => ref.current)
       .filter((el): el is HTMLElement => el !== null);
 
     if (elements.length < 2) return;
 
-    const cleanup = () => {
-      for (const [el, listener] of listeners.current.entries()) {
-        el.removeEventListener('scroll', listener);
-      }
-      listeners.current.clear();
-
-      if (scrollFrame.current !== null) {
-        cancelAnimationFrame(scrollFrame.current);
-        scrollFrame.current = null;
-      }
-    };
-
-    cleanup();
-
     const handleScroll = (source: HTMLElement) => {
       if (isSyncing.current) return;
 
-      if (scrollFrame.current !== null) {
+      if (scrollFrame.current !== null)
         cancelAnimationFrame(scrollFrame.current);
-      }
 
       scrollFrame.current = requestAnimationFrame(() => {
         isSyncing.current = true;
@@ -48,31 +33,37 @@ const useSyncScroll = ({ refs, axis = 'both' }: Props) => {
         const scrollLeft = source.scrollLeft;
         const scrollTop = source.scrollTop;
 
-        for (const el of elements) {
+        elements.forEach((el) => {
           if (el !== source) {
-            if (axis === 'x' || axis === 'both') {
-              if (el.scrollLeft !== scrollLeft) el.scrollLeft = scrollLeft;
-            }
-            if (axis === 'y' || axis === 'both') {
-              if (el.scrollTop !== scrollTop) el.scrollTop = scrollTop;
-            }
+            if (
+              (axis === 'x' || axis === 'both') &&
+              el.scrollLeft !== scrollLeft
+            )
+              el.scrollLeft = scrollLeft;
+            if ((axis === 'y' || axis === 'both') && el.scrollTop !== scrollTop)
+              el.scrollTop = scrollTop;
           }
-        }
+        });
 
         isSyncing.current = false;
       });
     };
 
-    for (const el of elements) {
+    elements.forEach((el) => {
       const listener = () => handleScroll(el);
       listeners.current.set(el, listener);
       el.addEventListener('scroll', listener, { passive: true });
-    }
+    });
 
-    return cleanup;
+    return () => {
+      listeners.current.forEach((listener, el) =>
+        el.removeEventListener('scroll', listener),
+      );
+      listeners.current.clear();
+      if (scrollFrame.current !== null)
+        cancelAnimationFrame(scrollFrame.current);
+    };
   }, [refs, axis]);
-
-  return null;
 };
 
 export default useSyncScroll;

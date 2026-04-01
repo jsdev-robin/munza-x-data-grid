@@ -97,9 +97,7 @@ export const GridContextProvider = <T,>({
     manualPagination: manualPagination,
     rowCount: payload?.total,
     defaultColumn: {
-      size: 180,
       minSize: 180,
-      maxSize: 180,
     },
   });
 
