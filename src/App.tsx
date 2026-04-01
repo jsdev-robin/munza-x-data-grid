@@ -40,9 +40,13 @@ const App = () => {
       {
         accessorKey: 'firstName',
         cell: (info) => info.getValue(),
+
         meta: {
           filterVariant: 'select',
         },
+        size: 400,
+        maxSize: 400,
+        minSize: 400,
       },
       {
         accessorFn: (row) => row.lastName,
