@@ -106,6 +106,37 @@ Spread `handlers` directly onto `<Grid />`:
 <Grid state={state} {...handlers} columns={columns} payload={payload} />
 ```
 
+### Tailwind v4 Setup
+
+If you're using Tailwind v4, add this to your `app.css` so Tailwind scans the grid's classes:
+
+```css
+@source "../node_modules/munza-x-data-grid/**/*.{js,ts,jsx,tsx}";
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --border: oklch(0.922 0 0);
+  --muted: oklch(0.97 0 0);
+  --accent: oklch(0.97 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --muted: oklch(0.269 0 0);
+  --accent: oklch(0.269 0 0);
+}
+```
+
 ---
 
 ## Column Definitions

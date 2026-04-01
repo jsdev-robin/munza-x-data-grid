@@ -39,8 +39,8 @@ const Grid = <T,>({
       isFetching={isFetching}
     >
       <div className="mun:relative">
-        <div className="mun:flex mun:flex-col mun:gap-3">
-          <div className="mun:flex mun:bg-muted mun:rounded-md mun:overflow-hidden mun:border mun:border-border">
+        <div className="mun:space-y-3">
+          <div className="mun:flex mun:bg-muted mun:rounded-md mun:overflow-hidden mun:border mun:border-border mun:w-full">
             <div className="mun:overflow-hidden mun:flex-1">
               <TMain />
             </div>
