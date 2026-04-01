@@ -1,6 +1,3 @@
-'use client';
-
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from 'react';
 
 type Axis = 'x' | 'y' | 'both';
@@ -16,11 +13,27 @@ const useSyncScroll = ({ refs, axis = 'both' }: Props) => {
   const listeners = useRef<Map<HTMLElement, EventListener>>(new Map());
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const elements = refs
       .map((ref) => ref.current)
       .filter((el): el is HTMLElement => el !== null);
 
     if (elements.length < 2) return;
+
+    const cleanup = () => {
+      for (const [el, listener] of listeners.current.entries()) {
+        el.removeEventListener('scroll', listener);
+      }
+      listeners.current.clear();
+
+      if (scrollFrame.current !== null) {
+        cancelAnimationFrame(scrollFrame.current);
+        scrollFrame.current = null;
+      }
+    };
+
+    cleanup();
 
     const handleScroll = (source: HTMLElement) => {
       if (isSyncing.current) return;
@@ -56,18 +69,10 @@ const useSyncScroll = ({ refs, axis = 'both' }: Props) => {
       el.addEventListener('scroll', listener, { passive: true });
     }
 
-    return () => {
-      for (const [el, listener] of listeners.current.entries()) {
-        el.removeEventListener('scroll', listener);
-      }
-      listeners.current.clear();
-
-      if (scrollFrame.current !== null) {
-        cancelAnimationFrame(scrollFrame.current);
-        scrollFrame.current = null;
-      }
-    };
+    return cleanup;
   }, [refs, axis]);
+
+  return null;
 };
 
 export default useSyncScroll;
