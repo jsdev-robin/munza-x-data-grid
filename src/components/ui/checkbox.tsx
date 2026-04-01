@@ -14,14 +14,14 @@ function Checkbox({
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        'peer relative flex size-4 shrink-0 items-center justify-center rounded-[4px] border border-input transition-colors outline-none group-has-disabled/field:opacity-50 after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 aria-invalid:aria-checked:border-primary dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary',
+        'mun:peer mun:relative mun:flex mun:size-4 mun:shrink-0 mun:items-center mun:justify-center mun:rounded-[4px] mun:border mun:border-input mun:transition-colors mun:outline-none mun:group-has-disabled/field:opacity-50 mun:after:absolute mun:after:-inset-x-3 mun:after:-inset-y-2 mun:focus-visible:border-ring mun:focus-visible:ring-3 mun:focus-visible:ring-ring/50 mun:disabled:cursor-not-allowed mun:disabled:opacity-50 mun:aria-invalid:border-destructive mun:aria-invalid:ring-3 mun:aria-invalid:ring-destructive/20 mun:aria-invalid:aria-checked:border-primary mun:dark:bg-input/30 mun:dark:aria-invalid:border-destructive/50 mun:dark:aria-invalid:ring-destructive/40 mun:data-checked:border-primary mun:data-checked:bg-primary mun:data-checked:text-primary-foreground mun:dark:data-checked:bg-primary',
         className,
       )}
       {...props}
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="grid place-content-center text-current transition-none [&>svg]:size-3.5"
+        className="mun:grid mun:place-content-center mun:text-current mun:transition-none mun:[&>svg]:size-3.5"
       >
         <CheckIcon />
       </CheckboxPrimitive.Indicator>

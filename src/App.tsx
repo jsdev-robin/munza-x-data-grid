@@ -1,10 +1,14 @@
 import React from 'react';
 import { Checkbox } from './components/ui/checkbox';
-import { dummyPeople, type Person } from './data/dummyData';
+import { useStores, type TStore } from './hooks/useStores';
 import { Grid, useGridState, type ColumnDef } from './index';
 
 const App = () => {
-  const columns = React.useMemo<ColumnDef<Person, unknown>[]>(
+  const { data, isLoading, isError, isFetching } = useStores();
+
+  console.log(data);
+
+  const columns = React.useMemo<ColumnDef<TStore, unknown>[]>(
     () => [
       {
         accessorFn: (_row, index) => index + 1,
@@ -41,36 +45,22 @@ const App = () => {
         enableColumnFilter: false,
       },
       {
-        accessorKey: 'firstName',
+        accessorKey: 'name',
         cell: (info) => info.getValue(),
+        size: 800,
+        maxSize: 800,
         meta: {
           filterVariant: 'select',
         },
       },
       {
-        accessorFn: (row) => row.lastName,
-        id: 'lastName',
+        accessorKey: 'contactName',
         cell: (info) => info.getValue(),
-        header: () => <span>Last Name</span>,
-      },
-      {
-        accessorKey: 'age',
-        header: () => 'Age',
+        size: 800,
+        maxSize: 800,
         meta: {
-          filterVariant: 'text',
+          filterVariant: 'select',
         },
-      },
-      {
-        accessorKey: 'visits',
-        header: () => <span>Visits</span>,
-      },
-      {
-        accessorKey: 'status',
-        header: 'Status',
-      },
-      {
-        accessorKey: 'progress',
-        header: 'Profile Progress',
       },
     ],
     [],
@@ -81,17 +71,17 @@ const App = () => {
   console.log(state);
 
   return (
-    <section className="py-10">
-      <div className="container px-10 inset-x-auto">
-        <div className="bg-card rounded-md p-4">
+    <section className="mun:py-10">
+      <div className="mun:container mun:px-10 mun:inset-x-auto">
+        <div className="mun:bg-card mun:rounded-md mun:p-4">
           <Grid
             columns={columns}
-            payload={{
-              data: dummyPeople,
-              total: 100,
-            }}
+            payload={data?.payload}
             state={state}
             {...handlers}
+            isLoading={isLoading}
+            isError={isError}
+            isFetching={isFetching}
           />
         </div>
       </div>

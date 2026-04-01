@@ -15,7 +15,7 @@ function NativeSelect({
   return (
     <div
       className={cn(
-        'group/native-select relative w-fit has-[select:disabled]:opacity-50',
+        'mun:group/native-select mun:relative mun:w-fit mun:has-[select:disabled]:opacity-50',
         className,
       )}
       data-slot="native-select-wrapper"
@@ -24,11 +24,11 @@ function NativeSelect({
       <select
         data-slot="native-select"
         data-size={size}
-        className="h-8 w-full min-w-0 appearance-none rounded-lg border border-input bg-transparent py-1 pr-8 pl-2.5 text-sm transition-colors outline-none select-none selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=sm]:py-0.5 dark:bg-accent dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40"
+        className="mun:h-8 mun:w-full mun:min-w-0 mun:appearance-none mun:rounded-lg mun:border mun:border-input mun:bg-transparent mun:py-1 mun:pr-8 mun:pl-2.5 mun:text-sm mun:transition-colors mun:outline-none mun:select-none mun:selection:bg-primary mun:selection:text-primary-foreground mun:placeholder:text-muted-foreground mun:focus-visible:border-ring mun:focus-visible:ring-3 mun:focus-visible:ring-ring/50 mun:disabled:pointer-events-none mun:disabled:cursor-not-allowed mun:aria-invalid:border-destructive mun:aria-invalid:ring-3 mun:aria-invalid:ring-destructive/20 mun:data-[size=sm]:h-7 mun:data-[size=sm]:rounded-[min(var(--radius-md),10px)] mun:data-[size=sm]:py-0.5 mun:dark:bg-accent mun:dark:aria-invalid:border-destructive/50 mun:dark:aria-invalid:ring-destructive/40"
         {...props}
       />
       <ChevronDownIcon
-        className="pointer-events-none absolute top-1/2 right-2.5 size-4 -translate-y-1/2 text-muted-foreground select-none"
+        className="mun:pointer-events-none mun:absolute mun:top-1/2 mun:right-2.5 mun:size-4 mun:-translate-y-1/2 mun:text-muted-foreground mun:select-none"
         aria-hidden="true"
         data-slot="native-select-icon"
       />
