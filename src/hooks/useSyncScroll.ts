@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useRef } from 'react';
 
 type Axis = 'x' | 'y' | 'both';
@@ -24,8 +22,9 @@ const useSyncScroll = ({ refs, axis = 'both' }: Props) => {
     const handleScroll = (source: HTMLElement) => {
       if (isSyncing.current) return;
 
-      if (scrollFrame.current !== null)
+      if (scrollFrame.current !== null) {
         cancelAnimationFrame(scrollFrame.current);
+      }
 
       scrollFrame.current = requestAnimationFrame(() => {
         isSyncing.current = true;
@@ -33,35 +32,37 @@ const useSyncScroll = ({ refs, axis = 'both' }: Props) => {
         const scrollLeft = source.scrollLeft;
         const scrollTop = source.scrollTop;
 
-        elements.forEach((el) => {
+        for (const el of elements) {
           if (el !== source) {
-            if (
-              (axis === 'x' || axis === 'both') &&
-              el.scrollLeft !== scrollLeft
-            )
-              el.scrollLeft = scrollLeft;
-            if ((axis === 'y' || axis === 'both') && el.scrollTop !== scrollTop)
-              el.scrollTop = scrollTop;
+            if (axis === 'x' || axis === 'both') {
+              if (el.scrollLeft !== scrollLeft) el.scrollLeft = scrollLeft;
+            }
+            if (axis === 'y' || axis === 'both') {
+              if (el.scrollTop !== scrollTop) el.scrollTop = scrollTop;
+            }
           }
-        });
+        }
 
         isSyncing.current = false;
       });
     };
 
-    elements.forEach((el) => {
+    for (const el of elements) {
       const listener = () => handleScroll(el);
       listeners.current.set(el, listener);
       el.addEventListener('scroll', listener, { passive: true });
-    });
+    }
 
     return () => {
-      listeners.current.forEach((listener, el) =>
-        el.removeEventListener('scroll', listener),
-      );
+      for (const [el, listener] of listeners.current.entries()) {
+        el.removeEventListener('scroll', listener);
+      }
       listeners.current.clear();
-      if (scrollFrame.current !== null)
+
+      if (scrollFrame.current !== null) {
         cancelAnimationFrame(scrollFrame.current);
+        scrollFrame.current = null;
+      }
     };
   }, [refs, axis]);
 };
