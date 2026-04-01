@@ -1,5 +1,6 @@
 'use client';
 
+import { useGrid } from '@/hooks/useGrid';
 import type { Column } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import DebouncedInput from '../ui/debounced-input';
@@ -9,15 +10,16 @@ const HeaderFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
   const columnFilterValue = column.getFilterValue();
   const { filterVariant } = column.columnDef.meta ?? {};
   const [selectValue, setSelectValue] = useState<string[]>([]);
+  const { isLoading } = useGrid();
 
   useEffect(() => {
-    if (filterVariant === 'select') {
+    if (!isLoading && filterVariant === 'select') {
       const values = Array.from(column.getFacetedUniqueValues().keys())
         .sort()
         .slice(0, 5000);
       Promise.resolve().then(() => setSelectValue(values));
     }
-  }, [filterVariant, column]);
+  }, [filterVariant, column, isLoading]);
 
   return column.getCanFilter() ? (
     <div className="mun:p-1.5 mun:border-t mun:border-border mun:w-full">
