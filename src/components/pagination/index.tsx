@@ -1,15 +1,18 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/Input';
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from '@/components/ui/native-select';
+import { useGrid } from '@/hooks/useGrid';
 import {
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
 } from 'lucide-react';
-import { useGrid } from '../../hooks/useGrid';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { NativeSelect, NativeSelectOption } from '../ui/native-select';
 
 const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
   const { table, isError, isLoading, isFetching } = useGrid();

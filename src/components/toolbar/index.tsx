@@ -1,5 +1,6 @@
 'use client';
 
+import { Input } from '@/components/ui/Input';
 import {
   Columns,
   Filter,
@@ -14,7 +15,6 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
 import DebouncedInput from '../ui/debounced-input';
-import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Separator } from '../ui/separator';
 import ToolbarFilter from './ToolbarFilter';
