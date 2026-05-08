@@ -1,6 +1,12 @@
 'use client';
 
-import { Columns, Filter, ListRestart } from 'lucide-react';
+import {
+  Columns,
+  Filter,
+  ListRestart,
+  RefreshCw,
+  Settings,
+} from 'lucide-react';
 import React, { useMemo, useState } from 'react';
 import { useGrid } from '../../hooks/useGrid';
 import { cn } from '../../lib/utils';
@@ -18,7 +24,8 @@ const Toolbar = () => {
   const togglePanel = (panel: string | null) => {
     setActivePanel(activePanel === panel ? null : panel);
   };
-  const { table, globalFilter, setGlobalFilter } = useGrid();
+  const { table, globalFilter, setGlobalFilter, refetch, isFetching } =
+    useGrid();
 
   const [searchTerm, setSearchTerm] = useState('');
   const visibleColumns = useMemo(() => {
@@ -134,10 +141,32 @@ const Toolbar = () => {
           </div>
         </div>
       )}
+      {activePanel === 'settings' && (
+        <div
+          className={cn(
+            'mun:w-52 mun:border-l mun:border-border mun:transition-all',
+          )}
+        >
+          <div className="mun:space-y-3">
+            <div className="mun:p-3">
+              <Button
+                onClick={() => refetch?.()}
+                disabled={isFetching}
+                variant="outline"
+                className="mun:w-full"
+              >
+                <RefreshCw className={cn(isFetching && 'mun:animate-spin')} />
+                {isFetching ? 'Refreshing...' : 'Refresh Data'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="mun:w-8 mun:border-l mun:border-border">
         {[
           { value: 'columns', label: 'Columns', icon: Columns },
           { value: 'filter', label: 'Filter', icon: Filter },
+          { value: 'settings', label: 'Settings', icon: Settings },
         ].map(({ value, label, icon: Icon }) => (
           <Button
             key={value}

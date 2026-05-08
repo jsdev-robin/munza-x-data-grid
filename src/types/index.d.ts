@@ -45,6 +45,7 @@ export interface GridProps<T> {
   isLoading?: boolean;
   isError?: boolean;
   isFetching?: boolean;
+  refetch?: () => void;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
   getRowCanExpand?: (row: Row<T>) => boolean;
 }

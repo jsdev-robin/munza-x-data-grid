@@ -21,6 +21,7 @@ const Grid = <T,>({
   renderSubComponent,
   manualPagination,
   isFetching,
+  refetch
 }: GridProps<T>) => {
   return (
     <GridContextProvider
@@ -37,6 +38,7 @@ const Grid = <T,>({
       renderSubComponent={renderSubComponent}
       manualPagination={manualPagination}
       isFetching={isFetching}
+      refetch={refetch}
     >
       <div className="mun:relative">
         <div className="mun:space-y-3">

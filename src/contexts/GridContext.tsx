@@ -31,6 +31,7 @@ export interface GridContextProps<T> {
   globalFilter?: string;
   setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
+   refetch?: () => void;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -50,6 +51,7 @@ interface GridContextProviderProps<T> {
   isLoading?: boolean;
   isError?: boolean;
   isFetching?: boolean;
+  refetch?: () => void;
   setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
   getRowCanExpand?: (row: Row<T>) => boolean;
@@ -68,6 +70,7 @@ export const GridContextProvider = <T,>({
   isError,
   isLoading,
   isFetching,
+  refetch,
   getRowCanExpand,
   renderSubComponent,
 }: GridContextProviderProps<T>) => {
@@ -116,9 +119,11 @@ export const GridContextProvider = <T,>({
       isError,
       isLoading,
       isFetching,
+      refetch,
       globalFilter: state.globalFilter,
       setGlobalFilter,
       renderSubComponent,
+
     }),
     [
       paneRef1,
@@ -126,6 +131,7 @@ export const GridContextProvider = <T,>({
       isError,
       isLoading,
       isFetching,
+      refetch,
       state.globalFilter,
       setGlobalFilter,
       renderSubComponent,
