@@ -10,16 +10,16 @@ const HeaderFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
   const columnFilterValue = column.getFilterValue();
   const { filterVariant } = column.columnDef.meta ?? {};
   const [selectValue, setSelectValue] = useState<string[]>([]);
-  const { isLoading } = useGrid();
+  const {  isFetching } = useGrid();
 
   useEffect(() => {
-    if (!isLoading && filterVariant === 'select') {
+    if (!isFetching && filterVariant === 'select') {
       const values = Array.from(column.getFacetedUniqueValues().keys())
         .sort()
         .slice(0, 5000);
       Promise.resolve().then(() => setSelectValue(values));
     }
-  }, [filterVariant, column, isLoading]);
+  }, [filterVariant, column, isFetching]);
 
   return column.getCanFilter() ? (
     <div className="mun:p-1.5 mun:border-t mun:border-border mun:w-full">
