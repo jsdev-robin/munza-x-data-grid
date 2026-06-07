@@ -14,6 +14,7 @@ const Grid = <T,>({
   onColumnFiltersChange,
   onPaginationChange,
   onSortingChange,
+  onRowSelectionChange,
   isLoading,
   isError,
   setGlobalFilter,
@@ -30,6 +31,7 @@ const Grid = <T,>({
       columns={columns}
       state={state}
       onColumnFiltersChange={onColumnFiltersChange}
+      onRowSelectionChange={onRowSelectionChange}
       onPaginationChange={onPaginationChange}
       onSortingChange={onSortingChange}
       isLoading={isLoading}
