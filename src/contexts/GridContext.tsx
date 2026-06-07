@@ -14,6 +14,7 @@ import {
   type OnChangeFn,
   type PaginationState,
   type Row,
+  type RowSelectionState,
   type SortingState,
   type Table,
   type TableState,
@@ -46,6 +47,7 @@ interface GridContextProviderProps<T> {
   state?: Partial<TableState>;
   onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
   onPaginationChange?: OnChangeFn<PaginationState>;
+  onRowSelectionChange?: OnChangeFn<RowSelectionState>;
   onSortingChange?: OnChangeFn<SortingState>;
   manualPagination?: boolean;
   isLoading?: boolean;
@@ -65,6 +67,7 @@ export const GridContextProvider = <T,>({
   onColumnFiltersChange,
   onPaginationChange,
   onSortingChange,
+  onRowSelectionChange,
   setGlobalFilter,
   manualPagination = false,
   isError,
@@ -88,6 +91,7 @@ export const GridContextProvider = <T,>({
     getSubRows: (row: T) => (row as any).subRows,
     getRowCanExpand,
     onColumnFiltersChange: onColumnFiltersChange,
+    onRowSelectionChange: onRowSelectionChange,
     getCoreRowModel: getCoreRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),

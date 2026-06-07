@@ -1,7 +1,7 @@
 {
   "name": "munza-x-data-grid",
   "private": false,
-  "version": "1.5.7",
+  "version": "1.5.8",
   "type": "module",
   "files": [
     "dist",

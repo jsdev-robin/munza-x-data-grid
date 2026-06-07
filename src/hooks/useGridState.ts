@@ -9,8 +9,8 @@ export const useGridState = () => {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
-
   const [globalFilter, setGlobalFilter] = React.useState('');
+  const [rowSelection, setRowSelection] = React.useState({});
 
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
@@ -24,6 +24,7 @@ export const useGridState = () => {
     globalFilter,
     pagination,
     sorting,
+    rowSelection
   };
 
   const handlers = {
@@ -31,7 +32,8 @@ export const useGridState = () => {
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
     setGlobalFilter,
+    onRowSelectionChange: setRowSelection,
   };
 
-  return { state, handlers };
+  return { state, handlers, rowSelection  };
 };
