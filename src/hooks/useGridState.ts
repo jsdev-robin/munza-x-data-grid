@@ -1,6 +1,7 @@
 import type {
   ColumnFiltersState,
   PaginationState,
+  RowSelectionState,
   SortingState,
 } from '@tanstack/react-table';
 import React from 'react';
@@ -10,7 +11,7 @@ export const useGridState = () => {
     [],
   );
   const [globalFilter, setGlobalFilter] = React.useState('');
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
 
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
