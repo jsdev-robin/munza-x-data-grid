@@ -20,6 +20,7 @@ const Grid = <T,>({
   getRowCanExpand,
   renderSubComponent,
   manualPagination,
+  enableRowSelection,
   isFetching,
   refetch
 }: GridProps<T>) => {
@@ -37,6 +38,7 @@ const Grid = <T,>({
       getRowCanExpand={getRowCanExpand}
       renderSubComponent={renderSubComponent}
       manualPagination={manualPagination}
+      enableRowSelection={enableRowSelection}
       isFetching={isFetching}
       refetch={refetch}
     >

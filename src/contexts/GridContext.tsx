@@ -50,6 +50,7 @@ interface GridContextProviderProps<T> {
   onRowSelectionChange?: OnChangeFn<RowSelectionState>;
   onSortingChange?: OnChangeFn<SortingState>;
   manualPagination?: boolean;
+  enableRowSelection?: boolean
   isLoading?: boolean;
   isError?: boolean;
   isFetching?: boolean;
@@ -70,6 +71,7 @@ export const GridContextProvider = <T,>({
   onRowSelectionChange,
   setGlobalFilter,
   manualPagination = false,
+  enableRowSelection= true,
   isError,
   isLoading,
   isFetching,
@@ -102,6 +104,7 @@ export const GridContextProvider = <T,>({
     onGlobalFilterChange: setGlobalFilter,
     onExpandedChange: setExpanded,
     manualPagination: manualPagination,
+    enableRowSelection: enableRowSelection,
     rowCount: payload?.total,
     defaultColumn: {
       minSize: 180,
