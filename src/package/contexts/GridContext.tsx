@@ -45,10 +45,10 @@ export const GridContextProvider = <T,>({
   );
 };
 
-export function useGrid<T = unknown>() {
-  const context = useContext(GridContext) as
-    | GridContextProviderProps<T>
-    | undefined;
+export function useGrid() {
+  const context = useContext(
+    GridContext as React.Context<GridContextProps<unknown> | null>,
+  );
 
   if (!context) {
     throw new Error('useGrid must be used within a GridContextProvider');
