@@ -1,5 +1,18 @@
-const Grid = () => {
-  return <div>Grid</div>;
-};
+'use client';
 
-export default Grid;
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  PaginationState,
+  Row,
+  SortingState,
+} from '@tanstack/react-table';
+
+export { Grid } from './grid';
+export type {
+  ColumnDef,
+  ColumnFiltersState,
+  PaginationState,
+  Row,
+  SortingState,
+};
