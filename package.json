@@ -1,64 +1,34 @@
 {
   "name": "munza-x-data-grid",
-  "private": false,
-  "version": "2.0.2",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "module": "./dist/data-grid.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/data-grid.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./style.css": "./dist/index.css"
-  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jsdev-robin/munza-x-data-grid.git"
-  },
-  "bugs": {
-    "url": "https://github.com/jsdev-robin/munza-x-data-grid/issues"
-  },
-  "peerDependencies": {
-    "react": "^18 || ^19",
-    "react-dom": "^18 || ^19"
+  "dependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
-    "@tailwindcss/vite": "^4.2.1",
-    "@types/node": "^24.12.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@vitejs/plugin-react": "^6.0.0",
-    "class-variance-authority": "0.7.1",
-    "clsx": "2.1.1",
-    "eslint": "^9.39.4",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.4.0",
-    "lucide-react": "0.577.0",
-    "prettier": "^3.8.1",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "radix-ui": "1.4.3",
-    "rollup-plugin-copy": "^3.5.0",
-    "tailwind-merge": "3.5.0",
-    "tailwindcss": "^4.2.1",
-    "typescript": "~5.9.3",
-    "typescript-eslint": "^8.56.1",
-    "vite": "^8.0.0",
-    "vite-plugin-dts": "^4.5.4"
-  },
-  "dependencies": {
-    "@tanstack/react-table": "^8.21.3"
+    "@babel/core": "^7.29.7",
+    "@eslint/js": "^10.0.1",
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@types/babel__core": "^7.20.5",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^10.6.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.7.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.62.0",
+    "vite": "^8.1.1"
   }
 }

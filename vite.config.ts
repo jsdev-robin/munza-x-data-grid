@@ -1,50 +1,11 @@
-import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
-import { resolve } from 'node:path';
-import path from 'path';
-import copy from 'rollup-plugin-copy';
-import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
+import { defineConfig } from 'vite'
+import react, { reactCompilerPreset } from '@vitejs/plugin-react'
+import babel from '@rolldown/plugin-babel'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    dts({
-      tsconfigPath: './tsconfig.app.json',
-    }),
-    tailwindcss({
-      optimize: true,
-    }),
-    {
-      ...copy({
-        targets: [{ src: 'README.md', dest: 'dist' }],
-        hook: 'writeBundle',
-      }),
-      apply: 'build',
-    },
+    babel({ presets: [reactCompilerPreset()] })
   ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
-  },
-  build: {
-    cssCodeSplit: true,
-    lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'munza-x-data-grid',
-      fileName: 'data-grid',
-      formats: ['es', 'cjs'],
-    },
-    rolldownOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime'],
-      output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-        },
-      },
-    },
-  },
-});
+})
