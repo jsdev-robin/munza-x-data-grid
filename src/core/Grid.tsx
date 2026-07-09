@@ -23,7 +23,8 @@ const Grid = <T,>({
   manualPagination,
   enableRowSelection,
   isFetching,
-  refetch
+  refetch,
+  height
 }: GridProps<T>) => {
   return (
     <GridContextProvider
@@ -48,7 +49,7 @@ const Grid = <T,>({
         <div className="mun:space-y-3">
           <div className="mun:flex mun:bg-muted mun:rounded-md mun:overflow-hidden mun:border mun:border-border mun:w-full">
             <div className="mun:overflow-hidden mun:flex-1">
-              <TMain />
+              <TMain height={height} />
             </div>
             <Toolbar />
           </div>

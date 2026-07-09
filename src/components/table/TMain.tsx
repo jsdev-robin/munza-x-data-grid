@@ -5,7 +5,7 @@ import { useGrid } from '../../hooks/useGrid';
 import TBody from './TBody';
 import THeader from './THeader';
 
-const TMain = () => {
+const TMain = ({ height }: { height?: string }) => {
   const { paneRef1, paneRef2 } = useGrid();
 
   return (
@@ -17,8 +17,9 @@ const TMain = () => {
         <THeader />
       </div>
       <div
-        className="mun:h-[75vh] mun:w-full mun:overflow-scroll mun:bg-background"
+        className="mun:w-full mun:overflow-scroll mun:bg-background"
         ref={paneRef2}
+        style={{ height: height ?? '75vh' }}
       >
         <TBody />
       </div>

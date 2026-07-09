@@ -115,7 +115,7 @@ const Toolbar = () => {
                 placeholder="Search all columns..."
               />
             </div>
-            <div className="mun:overflow-y-auto mun:h-[65vh] mun:px-3 mun:space-y-3">
+            <div className="mun:overflow-y-auto mun:h-[55vh] mun:px-3 mun:space-y-3">
               {table.getHeaderGroups().map((headerGroup) => (
                 <React.Fragment key={headerGroup.id}>
                   {headerGroup.headers

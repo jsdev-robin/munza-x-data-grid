@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
-  const { table, isError, isLoading, isFetching } = useGrid();
+  const { table, isError, isLoading, isFetching, } = useGrid();
 
   return (
     <div className="mun:flex mun:items-center mun:justify-between mun:flex-wrap">

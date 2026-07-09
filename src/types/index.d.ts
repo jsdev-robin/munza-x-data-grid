@@ -229,4 +229,27 @@ export interface GridProps<T> {
    * @default false
    */
   enableRowSelection?: boolean;
+
+  /**
+   * Sets the height of the grid's scrollable body container.
+   * Accepts any valid CSS height value (e.g. `px`, `%`, `rem`, `vh`, `calc()`).
+   *
+   * When provided, the grid body becomes vertically scrollable within the given
+   * height while the header row remains sticky/pinned to the top.
+   * When omitted, the grid grows to fit its content with no internal scroll.
+   *
+   * @default undefined
+   *
+   * @example
+   * ```tsx
+   * <Grid height="500px" columns={columns} payload={{ data, total }} />
+   * ```
+   *
+   * @example
+   * ```tsx
+   * // Fill remaining viewport height
+   * <Grid height="calc(100vh - 200px)" columns={columns} payload={{ data, total }} />
+   * ```
+   */
+  height?: string
 }
