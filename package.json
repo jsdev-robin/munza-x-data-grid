@@ -1,13 +1,41 @@
 {
   "name": "munza-x-data-grid",
-  "private": true,
+  "private": false,
   "version": "3.0.0",
   "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/data-grid.cjs",
+  "module": "./dist/data-grid.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/data-grid.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./style.css": "./dist/index.css"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsdev-robin/munza-x-data-grid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jsdev-robin/munza-x-data-grid/issues"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -23,9 +51,7 @@
     "lucide-react": "^1.23.0",
     "next-themes": "^0.4.6",
     "radix-ui": "^1.6.2",
-    "react": "^19.2.7",
     "react-day-picker": "^10.0.1",
-    "react-dom": "^19.2.7",
     "react-resizable-panels": "^4.12.1",
     "recharts": "3.8.0",
     "shadcn": "^4.13.0",
@@ -50,9 +76,12 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
     "tailwindcss": "^4.3.2",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.62.0",
-    "vite": "^8.1.1"
+    "vite": "^8.1.1",
+    "vite-plugin-dts": "^5.0.3"
   }
 }
