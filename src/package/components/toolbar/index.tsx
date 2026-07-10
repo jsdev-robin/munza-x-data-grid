@@ -1,12 +1,11 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { useGrid } from '@/package/contexts/GridContext';
 import { Columns, Filter, Rows, Settings } from 'lucide-react';
 import { useState } from 'react';
+import ToolbarColumns from './ToolbarColumns';
 
 const Toolbar = () => {
   const [activePanel, setActivePanel] = useState<string | null>(null);
@@ -18,39 +17,11 @@ const Toolbar = () => {
   return (
     <div className="mun:bg-muted mun:overflow-hidden mun:hidden mun:sm:flex">
       {activePanel === 'columns' && (
-        <div
-          className={cn(
-            'mun:w-52 mun:border-l mun:border-border mun:transition-all',
-          )}
-        >
-          <div className="mun:p-3 mun:space-y-2">
-            <div className="mun:space-y-2">
-              <Label>
-                <Checkbox
-                  checked={table.getIsAllColumnsVisible()}
-                  onCheckedChange={table.getToggleAllColumnsVisibilityHandler()}
-                />
-                Toggle All
-              </Label>
-              {table.getAllLeafColumns().map((column) => (
-                <Label key={column.id}>
-                  <Checkbox
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) => {
-                      column.toggleVisibility(Boolean(value));
-                    }}
-                  />
-                  <span className="truncate">
-                    {column.id
-                      .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
-                      .replace(/^./, (str) => str.toUpperCase())}{' '}
-                  </span>
-                </Label>
-              ))}
-            </div>
-          </div>
+        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:p-2">
+          <ToolbarColumns />
         </div>
       )}
+
       {activePanel === 'rows' && (
         <div
           className={cn(
