@@ -4,7 +4,6 @@ import {
   getCoreRowModel,
   getFacetedMinMaxValues,
   getFacetedUniqueValues,
-  getFilteredRowModel,
   useReactTable,
   type ColumnDef,
   type ColumnFiltersState,
@@ -49,23 +48,25 @@ export const GridContextProvider = <T,>({
     [],
   );
   const [globalFilter, setGlobalFilter] = React.useState('');
+  const [columnVisibility, setColumnVisibility] = React.useState({});
 
   const table = useReactTable({
     _features: [DensityFeature],
     data: payload?.data ?? [],
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     state: {
       density,
       columnFilters,
       globalFilter,
+      columnVisibility,
     },
     onDensityChange: setDensity,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
+    onColumnVisibilityChange: setColumnVisibility,
   });
 
   const paneRef1 = useRef<HTMLDivElement>(null);
