@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import TMain from './components/table/TMain';
 import Toolbar from './components/toolbar';
 import { GridContextProvider } from './contexts/GridContext';
@@ -20,16 +21,28 @@ const GridInner = ({
   children?: React.ReactNode;
   isToolbar?: boolean;
 }) => {
+  const tableWrapperRef = useRef<HTMLDivElement>(null);
+  const [tableHeight, setTableHeight] = useState<number>(0);
+
+  useEffect(() => {
+    if (tableWrapperRef.current) {
+      setTableHeight(tableWrapperRef.current.getBoundingClientRect().height);
+    }
+  }, []);
+
   return (
     <>
       {children}
       <div className="mun:relative">
         <div className="mun:space-y-3">
           <div className="mun:flex mun:bg-muted mun:rounded-md mun:overflow-hidden mun:border mun:border-border mun:w-full">
-            <div className="mun:overflow-hidden mun:flex-1">
+            <div
+              className="mun:overflow-hidden mun:flex-1"
+              ref={tableWrapperRef}
+            >
               <TMain />
             </div>
-            {isToolbar && <Toolbar />}
+            {isToolbar && <Toolbar height={tableHeight} />}
           </div>
         </div>
       </div>

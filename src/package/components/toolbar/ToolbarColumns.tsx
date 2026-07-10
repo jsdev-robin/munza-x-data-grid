@@ -9,8 +9,8 @@ const ToolbarColumns = () => {
   const { table } = useGrid();
 
   return (
-    <div className="mun:space-y-4">
-      <div className="mun:flex mun:items-center mun:justify-between">
+    <div className="mun:flex mun:flex-col mun:gap-2 mun:h-full mun:py-1.5">
+      <div className="mun:flex mun:items-center mun:justify-between mun:px-2 mun:pb-1.5 mun:border-b mun:border-border">
         <h1 className="mun:text-sm mun:font-bold">
           Columns({table.getAllLeafColumns().length})
         </h1>
@@ -22,7 +22,13 @@ const ToolbarColumns = () => {
           Restore
         </Button>
       </div>
-      <div className="mun:space-y-2">
+      <div
+        className="mun:space-y-2 mun:px-2 mun:flex-1 mun:overflow-y-auto mun:[&::-webkit-scrollbar]:w-2
+  mun:[&::-webkit-scrollbar-track]:bg-stone-100
+  mun:[&::-webkit-scrollbar-thumb]:bg-stone-300
+  mun:dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  mun:dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+      >
         <Label>
           <Checkbox
             checked={table.getIsAllColumnsVisible()}

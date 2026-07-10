@@ -7,6 +7,16 @@ const App = () => {
   const columns = useMemo<ColumnDef<Vehicle, unknown>[]>(
     () => [
       {
+        id: 'id',
+        accessorKey: 'id',
+        cell: (info) => info.getValue(),
+        header: () => <div>ID</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+        enableHiding: false,
+      },
+      {
         id: 'driver',
         accessorKey: 'driver',
         cell: (info) => info.getValue(),
@@ -92,6 +102,186 @@ const App = () => {
         accessorKey: 'odometer',
         cell: (info) => info.getValue(),
         header: () => <div>Odometer</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'year',
+        accessorKey: 'year',
+        cell: (info) => info.getValue(),
+        header: () => <div>Year</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'make',
+        accessorKey: 'make',
+        cell: (info) => info.getValue(),
+        header: () => <div>Make</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'model',
+        accessorKey: 'model',
+        cell: (info) => info.getValue(),
+        header: () => <div>Model</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'color',
+        accessorKey: 'color',
+        cell: (info) => info.getValue(),
+        header: () => <div>Color</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'assignedDate',
+        accessorKey: 'assignedDate',
+        cell: (info) => info.getValue(),
+        header: () => <div>Assigned Date</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'lastMaintenanceDate',
+        accessorKey: 'lastMaintenanceDate',
+        cell: (info) => info.getValue(),
+        header: () => <div>Last Maintenance</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'nextMaintenanceDate',
+        accessorKey: 'nextMaintenanceDate',
+        cell: (info) => info.getValue(),
+        header: () => <div>Next Maintenance</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'insuranceProvider',
+        accessorKey: 'insuranceProvider',
+        cell: (info) => info.getValue(),
+        header: () => <div>Insurance Provider</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'insurancePolicyNumber',
+        accessorKey: 'insurancePolicyNumber',
+        cell: (info) => info.getValue(),
+        header: () => <div>Policy Number</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'registrationExpiry',
+        accessorKey: 'registrationExpiry',
+        cell: (info) => info.getValue(),
+        header: () => <div>Registration Expiry</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'fuelType',
+        accessorKey: 'fuelType',
+        cell: (info) => info.getValue(),
+        header: () => <div>Fuel Type</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'transmission',
+        accessorKey: 'transmission',
+        cell: (info) => info.getValue(),
+        header: () => <div>Transmission</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'engineCapacity',
+        accessorKey: 'engineCapacity',
+        cell: (info) => info.getValue(),
+        header: () => <div>Engine Capacity</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'seatingCapacity',
+        accessorKey: 'seatingCapacity',
+        cell: (info) => info.getValue(),
+        header: () => <div>Seating Capacity</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'cargoCapacity',
+        accessorKey: 'cargoCapacity',
+        cell: (info) => info.getValue(),
+        header: () => <div>Cargo Capacity</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'gpsTrackingId',
+        accessorKey: 'gpsTrackingId',
+        cell: (info) => info.getValue(),
+        header: () => <div>GPS ID</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'fleetGroup',
+        accessorKey: 'fleetGroup',
+        cell: (info) => info.getValue(),
+        header: () => <div>Fleet Group</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'costPerMile',
+        accessorKey: 'costPerMile',
+        cell: (info) => info.getValue(),
+        header: () => <div>Cost Per Mile</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'totalMiles',
+        accessorKey: 'totalMiles',
+        cell: (info) => info.getValue(),
+        header: () => <div>Total Miles</div>,
+        meta: {
+          filterVariant: 'text',
+        },
+      },
+      {
+        id: 'notes',
+        accessorKey: 'notes',
+        cell: (info) => info.getValue(),
+        header: () => <div>Notes</div>,
         meta: {
           filterVariant: 'text',
         },

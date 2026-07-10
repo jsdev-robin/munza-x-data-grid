@@ -2,58 +2,45 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { useGrid } from '@/package/contexts/GridContext';
 import { Columns, Filter, Rows, Settings } from 'lucide-react';
 import { useState } from 'react';
 import ToolbarColumns from './ToolbarColumns';
+import ToolbarRows from './ToolbarRows';
 
-const Toolbar = () => {
+const Toolbar = ({ height }: { height: number }) => {
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const togglePanel = (panel: string | null) => {
     setActivePanel(activePanel === panel ? null : panel);
   };
-  const { table, density } = useGrid();
 
   return (
-    <div className="mun:bg-muted mun:overflow-hidden mun:hidden mun:sm:flex">
+    <div
+      className="mun:bg-muted mun:overflow-hidden mun:hidden mun:sm:flex"
+      style={{
+        height: height,
+      }}
+    >
       {activePanel === 'columns' && (
+        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:h-full">
+          <ToolbarColumns />
+        </div>
+      )}
+      {activePanel === 'rows' && (
+        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:p-2">
+          <ToolbarRows />
+        </div>
+      )}
+      {activePanel === 'filter' && (
+        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:p-2">
+          <ToolbarColumns />
+        </div>
+      )}
+      {activePanel === 'settings' && (
         <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:p-2">
           <ToolbarColumns />
         </div>
       )}
 
-      {activePanel === 'rows' && (
-        <div
-          className={cn(
-            'mun:w-52 mun:border-l mun:border-border mun:transition-all',
-          )}
-        >
-          <div className="mun:p-3">
-            <Button onClick={() => table.toggleDensity()}>
-              Toggle Density({density})
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {activePanel === 'filter' && (
-        <div
-          className={cn(
-            'mun:w-52 mun:border-l mun:border-border mun:transition-all',
-          )}
-        >
-          dfd
-        </div>
-      )}
-      {activePanel === 'settings' && (
-        <div
-          className={cn(
-            'mun:w-52 mun:border-l mun:border-border mun:transition-all',
-          )}
-        >
-          dd
-        </div>
-      )}
       <div className="mun:w-7 mun:border-l mun:border-border">
         {[
           { value: 'columns', label: 'Columns', icon: Columns },
