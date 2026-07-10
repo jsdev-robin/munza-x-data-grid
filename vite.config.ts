@@ -14,4 +14,21 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  build: {
+    lib: {
+      entry: ['src/index.js'],
+      formats: ['es', 'cjs'],
+      fileName: (format) => `munza-x-data-grid.${format}.js`,
+      cssFileName: 'style',
+    },
+    rolldownOptions: {
+      external: ['react', 'react-dom', 'react/jsx-runtime'],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
+    },
+  },
 });
