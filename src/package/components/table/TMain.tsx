@@ -17,7 +17,7 @@ const TMain = () => {
       <div
         className="mun:w-full mun:overflow-scroll mun:bg-background"
         ref={paneRef2}
-        style={{ height: '65vh' }}
+        style={{ height: '50vh' }}
       >
         <TBody />
       </div>

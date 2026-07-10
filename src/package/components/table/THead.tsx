@@ -1,7 +1,5 @@
-import { Button } from '@/components/ui/button';
 import { TableHead } from '@/components/ui/table';
 import { type Header } from '@tanstack/react-table';
-import { EllipsisVertical } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import HeaderFilter from '../header/HeaderFilter';
 import HeaderSort from '../header/HeaderSort';
@@ -30,9 +28,6 @@ const THead = <T,>({ header }: THeadProps<T>) => {
         <div className="mun:flex mun:flex-col">
           <div className="mun:p-1.5 mun:flex mun:items-center mun:justify-between mun:gap-3">
             <HeaderSort header={header} />
-            <Button size="icon-xs" variant="ghost">
-              <EllipsisVertical />
-            </Button>
           </div>
           <HeaderFilter column={header.column} />
         </div>

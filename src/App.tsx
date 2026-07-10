@@ -7,6 +7,20 @@ const App = () => {
   const columns = useMemo<ColumnDef<Vehicle, unknown>[]>(
     () => [
       {
+        accessorFn: (_row, index) => index + 1,
+        cell: ({ row, table }) => {
+          const pageIndex = table.getState().pagination.pageIndex;
+          const pageSize = table.getState().pagination.pageSize;
+
+          return pageIndex * pageSize + row.index + 1;
+        },
+        id: 'rowNumber',
+        header: '#',
+        size: 30,
+        maxSize: 30,
+        enableColumnFilter: false,
+      },
+      {
         id: 'id',
         accessorKey: 'id',
         cell: (info) => info.getValue(),
