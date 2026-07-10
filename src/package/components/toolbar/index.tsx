@@ -2,9 +2,9 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useGrid } from '@/package/contexts/GridContext';
 import { Columns, Filter, Rows, Settings } from 'lucide-react';
 import { useState } from 'react';
-import { useGrid } from '../contexts/GridContext';
 
 const Toolbar = () => {
   const [activePanel, setActivePanel] = useState<string | null>(null);

@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { useGrid } from '@/package/contexts/GridContext';
 import { flexRender } from '@tanstack/react-table';
-import { useGrid } from '../contexts/GridContext';
 
 const TBody = () => {
   const { table, density } = useGrid();

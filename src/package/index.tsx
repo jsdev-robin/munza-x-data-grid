@@ -1,8 +1,8 @@
 'use client';
 
+import TMain from './components/table/TMain';
+import Toolbar from './components/toolbar';
 import { GridContextProvider } from './contexts/GridContext';
-import TMain from './table/TMain';
-import Toolbar from './toolbar';
 import type { GridProps } from './types';
 
 const Grid = <T,>({ columns, payload, isToolbar, children }: GridProps<T>) => {
@@ -38,4 +38,3 @@ const GridInner = ({
 };
 
 export { Grid };
-

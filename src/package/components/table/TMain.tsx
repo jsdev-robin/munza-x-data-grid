@@ -1,5 +1,5 @@
+import { useGrid } from '@/package/contexts/GridContext';
 import React from 'react';
-import { useGrid } from '../contexts/GridContext';
 import TBody from './TBody';
 import THeader from './THeader';
 
