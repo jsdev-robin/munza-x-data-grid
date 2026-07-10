@@ -1,61 +1,27 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { flexRender } from '@tanstack/react-table';
+import React from 'react';
 import { useGrid } from '../contexts/GridContext';
+import TBody from './TBody';
+import THeader from './THeader';
 
 const TMain = () => {
-  const { table } = useGrid();
+  const { paneRef1, paneRef2 } = useGrid();
+
   return (
-    <Table>
-      <TableHeader className="sticky top-0 z-10 bg-muted">
-        {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <TableHead
-                key={header.id}
-                colSpan={header.colSpan}
-                style={{
-                  width: header.getSize(),
-                  // minWidth: header.getSize(),
-                  // maxWidth: header.getSize(),
-                }}
-              >
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
-              </TableHead>
-            ))}
-          </TableRow>
-        ))}
-      </TableHeader>
-      <TableBody>
-        {table.getRowModel().rows.map((row) => (
-          <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-            {row.getVisibleCells().map((cell) => (
-              <TableCell
-                key={cell.id}
-                style={{
-                  width: cell.column.getSize(),
-                  // minWidth: cell.column.getSize(),
-                  // maxWidth: cell.column.getSize(),
-                }}
-              >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <React.Fragment>
+      <div
+        className="mun:w-full mun:bg-muted mun:border-b mun:border-border mun:overflow-y-scroll mun:[scrollbar-color:transparent_transparent] mun:overflow-x-hidden"
+        ref={paneRef1}
+      >
+        <THeader />
+      </div>
+      <div
+        className="mun:w-full mun:overflow-scroll mun:bg-background"
+        ref={paneRef2}
+        style={{ height: '75vh' }}
+      >
+        <TBody />
+      </div>
+    </React.Fragment>
   );
 };
 
