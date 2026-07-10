@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import TMain from './components/table/TMain';
 import Toolbar from './components/toolbar';
 import { GridContextProvider } from './contexts/GridContext';
@@ -24,7 +24,7 @@ const GridInner = ({
   const tableWrapperRef = useRef<HTMLDivElement>(null);
   const [tableHeight, setTableHeight] = useState<number>(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (tableWrapperRef.current) {
       setTableHeight(tableWrapperRef.current.getBoundingClientRect().height);
     }
