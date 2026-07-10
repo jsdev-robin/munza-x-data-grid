@@ -7,7 +7,11 @@ import {
   type Table,
 } from '@tanstack/react-table';
 import React, { createContext, useContext, useMemo, useRef } from 'react';
-import { DensityFeature, type DensityState } from '../features/rowDensity';
+import {
+  DensityFeature,
+  getStoredDensity,
+  type DensityState,
+} from '../features/rowDensity';
 import useSyncScroll from '../hooks/useSyncScroll';
 
 export interface GridContextProps<T> {
@@ -33,7 +37,7 @@ export const GridContextProvider = <T,>({
   payload,
   columns,
 }: GridContextProviderProps<T>) => {
-  const [density, setDensity] = React.useState<DensityState>('md');
+  const [density, setDensity] = React.useState<DensityState>(getStoredDensity);
 
   const table = useReactTable({
     _features: [DensityFeature],

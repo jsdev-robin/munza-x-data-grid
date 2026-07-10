@@ -57,8 +57,15 @@ declare module '@tanstack/react-table' {
 export const DensityFeature: TableFeature<any> = {
   // define the new feature's initial state
   getInitialState: (state): DensityTableState => {
+    let stored: DensityState | undefined;
+    if (typeof window !== 'undefined') {
+      const value = window.localStorage.getItem('table-density');
+      if (value === 'sm' || value === 'md' || value === 'lg') {
+        stored = value;
+      }
+    }
     return {
-      density: 'md',
+      density: stored ?? 'md',
       ...state,
     };
   },
@@ -82,6 +89,9 @@ export const DensityFeature: TableFeature<any> = {
     table.setDensity = (updater) => {
       const safeUpdater: Updater<DensityState> = (old) => {
         let newState = functionalUpdate(updater, old);
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem('table-density', newState);
+        }
         return newState;
       };
       return table.options.onDensityChange?.(safeUpdater);
@@ -104,3 +114,12 @@ export const DensityFeature: TableFeature<any> = {
   // createHeader: <TData extends RowData>(header, table): void => {},
 };
 //end of custom feature code
+
+export const getStoredDensity = (): DensityState => {
+  if (typeof window === 'undefined') return 'md';
+  const value = window.localStorage.getItem('table-density');
+  if (value === 'sm' || value === 'md' || value === 'lg') {
+    return value;
+  }
+  return 'md';
+};
