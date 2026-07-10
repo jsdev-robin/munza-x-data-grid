@@ -11,7 +11,7 @@ const Toolbar = () => {
   const togglePanel = (panel: string | null) => {
     setActivePanel(activePanel === panel ? null : panel);
   };
-  const { table } = useGrid();
+  const { table, density } = useGrid();
 
   return (
     <div className="mun:bg-muted mun:overflow-hidden mun:hidden mun:sm:flex">
@@ -21,12 +21,7 @@ const Toolbar = () => {
             'mun:w-52 mun:border-l mun:border-border mun:transition-all',
           )}
         >
-          <button
-            onClick={() => table.toggleDensity()}
-            className="border rounded p-1 bg-blue-500 text-white mb-2 w-64"
-          >
-            Toggle Density
-          </button>
+          ddf
         </div>
       )}
       {activePanel === 'rows' && (
@@ -35,7 +30,11 @@ const Toolbar = () => {
             'mun:w-52 mun:border-l mun:border-border mun:transition-all',
           )}
         >
-          dfd
+          <div className="mun:p-3">
+            <Button onClick={() => table.toggleDensity()}>
+              Toggle Density({density})
+            </Button>
+          </div>
         </div>
       )}
 
