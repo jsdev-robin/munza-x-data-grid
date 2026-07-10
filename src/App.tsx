@@ -1,10 +1,12 @@
-import { Button } from './index';
+import { Grid } from './package';
 
 const App = () => {
   return (
-    <div>
-      <Button className="bg-red-900">dfdf</Button>
-    </div>
+    <section>
+      <div className="mun:contaienr mun:bg-amber-700">
+        <Grid />
+      </div>
+    </section>
   );
 };
 

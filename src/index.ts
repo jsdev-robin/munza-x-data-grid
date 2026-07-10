@@ -1,1 +1,1 @@
-export { Button } from './button/index';
+export * from './package';
