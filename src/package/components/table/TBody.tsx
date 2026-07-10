@@ -29,6 +29,7 @@ const TBody = () => {
                         : '16px',
                   transition: 'padding 0.2s',
                 }}
+                className="mun:truncate"
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </TableCell>
