@@ -6,7 +6,7 @@ import {
   type ColumnDef,
   type Table,
 } from '@tanstack/react-table';
-import React, { createContext } from 'react';
+import React, { createContext, useContext } from 'react';
 
 export interface GridContextProps<T> {
   table: Table<T>;
@@ -44,3 +44,14 @@ export const GridContextProvider = <T,>({
     </GridContext.Provider>
   );
 };
+
+export function useGrid() {
+  const context = useContext(
+    GridContext as React.Context<GridContextProps<unknown> | null>,
+  );
+
+  if (!context) {
+    throw new Error('useGrid must be used within a GridContextProvider');
+  }
+  return context;
+}
