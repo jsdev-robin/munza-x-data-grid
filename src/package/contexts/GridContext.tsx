@@ -7,12 +7,16 @@ import {
   getFilteredRowModel,
   useReactTable,
   type ColumnDef,
+  type ColumnFiltersState,
   type Table,
 } from '@tanstack/react-table';
 import React, { createContext, useContext, useMemo, useRef } from 'react';
-import { DensityFeature, type DensityState } from '../features/rowDensity';
+import {
+  DensityFeature,
+  getStoredDensity,
+  type DensityState,
+} from '../features/rowDensity';
 import useSyncScroll from '../hooks/useSyncScroll';
-import { useGridStore } from '../stores/gridStore';
 
 export interface GridContextProps<T> {
   table: Table<T>;
@@ -40,12 +44,11 @@ export const GridContextProvider = <T,>({
   columns,
   isFetching,
 }: GridContextProviderProps<T>) => {
-  const density = useGridStore((s) => s.density);
-  const columnFilters = useGridStore((s) => s.columnFilters);
-  const globalFilter = useGridStore((s) => s.globalFilter);
-  const setDensity = useGridStore((s) => s.setDensity);
-  const setColumnFilters = useGridStore((s) => s.setColumnFilters);
-  const setGlobalFilter = useGridStore((s) => s.setGlobalFilter);
+  const [density, setDensity] = React.useState<DensityState>(getStoredDensity);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    [],
+  );
+  const [globalFilter, setGlobalFilter] = React.useState('');
 
   const table = useReactTable({
     _features: [DensityFeature],
