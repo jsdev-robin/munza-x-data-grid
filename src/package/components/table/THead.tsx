@@ -26,19 +26,17 @@ const THead = <T,>({ header }: THeadProps<T>) => {
       style={style}
       className="mun:p-0 mun:truncate mun:relative mun:group"
     >
-      <>
-        {header.isPlaceholder ? null : (
-          <div className="mun:flex mun:flex-col mun:gap-1.5">
-            <div className="mun:p-1.5 mun:flex mun:items-center mun:justify-between mun:gap-3">
-              <HeaderSort header={header} />
-              <Button size="icon-xs" variant="ghost">
-                <EllipsisVertical />
-              </Button>
-            </div>
-            <HeaderFilter column={header.column} />
+      {header.isPlaceholder ? null : (
+        <div className="mun:flex mun:flex-col">
+          <div className="mun:p-1.5 mun:flex mun:items-center mun:justify-between mun:gap-3">
+            <HeaderSort header={header} />
+            <Button size="icon-xs" variant="ghost">
+              <EllipsisVertical />
+            </Button>
           </div>
-        )}
-      </>
+          <HeaderFilter column={header.column} />
+        </div>
+      )}
     </TableHead>
   );
 };
