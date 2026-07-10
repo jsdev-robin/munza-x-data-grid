@@ -1,10 +1,86 @@
+import type { ColumnDef } from '@tanstack/react-table';
+import { useMemo } from 'react';
+import { dummyVehicles, type Vehicle } from './data/dummyData';
 import { Grid } from './package';
 
 const App = () => {
+  const columns = useMemo<ColumnDef<Vehicle, unknown>[]>(
+    () => [
+      {
+        id: 'driver',
+        accessorKey: 'driver',
+        cell: (info) => info.getValue(),
+        header: () => <div>Driver</div>,
+        enableColumnFilter: true,
+      },
+      {
+        id: 'vehicle',
+        accessorKey: 'vehicle',
+        cell: (info) => info.getValue(),
+        header: () => <div>Vehicle</div>,
+      },
+      {
+        id: 'vin',
+        accessorKey: 'vin',
+        cell: (info) => info.getValue(),
+        header: () => <div>VIN</div>,
+      },
+      {
+        id: 'type',
+        accessorKey: 'type',
+        cell: (info) => info.getValue(),
+        header: () => <div>Type</div>,
+      },
+      {
+        id: 'status',
+        accessorKey: 'status',
+        cell: (info) => info.getValue(),
+        header: () => <div>Status</div>,
+      },
+      {
+        id: 'currentMeter',
+        accessorKey: 'currentMeter',
+        cell: (info) => info.getValue(),
+        header: () => <div>Current Meter</div>,
+      },
+      {
+        id: 'fuel',
+        accessorKey: 'fuel',
+        cell: (info) => info.getValue(),
+        header: () => <div>Fuel</div>,
+      },
+      {
+        id: 'drivingTime',
+        accessorKey: 'drivingTime',
+        cell: (info) => info.getValue(),
+        header: () => <div>Driving Time</div>,
+      },
+      {
+        id: 'license',
+        accessorKey: 'license',
+        cell: (info) => info.getValue(),
+        header: () => <div>License</div>,
+      },
+      {
+        id: 'odometer',
+        accessorKey: 'odometer',
+        cell: (info) => info.getValue(),
+        header: () => <div>Odometer</div>,
+      },
+    ],
+    [],
+  );
+
   return (
     <section>
-      <div className="mun:contaienr mun:bg-amber-700">
-        <Grid />
+      <div className="mun:container mun:p-10">
+        <Grid
+          payload={{
+            data: dummyVehicles,
+            total: 20,
+          }}
+          columns={columns}
+        />
       </div>
     </section>
   );
