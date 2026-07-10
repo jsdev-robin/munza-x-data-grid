@@ -9,7 +9,6 @@ import { useMemo, useState } from 'react';
 
 const ToolbarColumns = () => {
   const { table } = useGrid();
-
   const [searchTerm, setSearchTerm] = useState('');
   const visibleColumns = useMemo(() => {
     return table
