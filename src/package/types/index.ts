@@ -1,4 +1,5 @@
 import { type ColumnDef } from '@tanstack/react-table';
+import type { ReactNode } from 'react';
 
 export interface GridProps<T> {
   payload?: {
@@ -6,4 +7,5 @@ export interface GridProps<T> {
     total: number;
   };
   columns: ColumnDef<T>[];
+  children?: ReactNode;
 }

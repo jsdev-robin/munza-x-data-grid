@@ -9,7 +9,11 @@ const TBody = () => {
     <Table>
       <TableBody>
         {table.getRowModel().rows.map((row) => (
-          <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+          <TableRow
+            key={row.id}
+            data-state={row.getIsSelected() && 'selected'}
+            className="mun:*:border-r mun:*:border-border"
+          >
             {row.getVisibleCells().map((cell) => (
               <TableCell
                 key={cell.id}
