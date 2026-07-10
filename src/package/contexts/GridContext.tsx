@@ -7,12 +7,14 @@ import {
   type Table,
 } from '@tanstack/react-table';
 import React, { createContext, useContext, useMemo, useRef } from 'react';
+import { DensityFeature, type DensityState } from '../features/rowDensity';
 import useSyncScroll from '../hooks/useSyncScroll';
 
 export interface GridContextProps<T> {
   table: Table<T>;
   paneRef1: React.RefObject<HTMLDivElement | null>;
   paneRef2: React.RefObject<HTMLDivElement | null>;
+  density: DensityState;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -31,10 +33,17 @@ export const GridContextProvider = <T,>({
   payload,
   columns,
 }: GridContextProviderProps<T>) => {
+  const [density, setDensity] = React.useState<DensityState>('md');
+
   const table = useReactTable({
+    _features: [DensityFeature],
     data: payload?.data ?? [],
     columns: columns,
     getCoreRowModel: getCoreRowModel(),
+    state: {
+      density,
+    },
+    onDensityChange: setDensity,
   });
 
   const paneRef1 = useRef<HTMLDivElement>(null);
@@ -49,8 +58,9 @@ export const GridContextProvider = <T,>({
     () => ({
       paneRef1,
       paneRef2,
+      density,
     }),
-    [paneRef1, paneRef2],
+    [paneRef1, paneRef2, density],
   );
 
   return (

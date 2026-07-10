@@ -2,18 +2,34 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Columns, Filter, Settings } from 'lucide-react';
+import { Columns, Filter, Rows, Settings } from 'lucide-react';
 import { useState } from 'react';
+import { useGrid } from '../contexts/GridContext';
 
 const Toolbar = () => {
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const togglePanel = (panel: string | null) => {
     setActivePanel(activePanel === panel ? null : panel);
   };
+  const { table } = useGrid();
 
   return (
     <div className="mun:bg-muted mun:overflow-hidden mun:hidden mun:sm:flex">
       {activePanel === 'columns' && (
+        <div
+          className={cn(
+            'mun:w-52 mun:border-l mun:border-border mun:transition-all',
+          )}
+        >
+          <button
+            onClick={() => table.toggleDensity()}
+            className="border rounded p-1 bg-blue-500 text-white mb-2 w-64"
+          >
+            Toggle Density
+          </button>
+        </div>
+      )}
+      {activePanel === 'rows' && (
         <div
           className={cn(
             'mun:w-52 mun:border-l mun:border-border mun:transition-all',
@@ -41,9 +57,10 @@ const Toolbar = () => {
           dd
         </div>
       )}
-      <div className="mun:w-8 mun:border-l mun:border-border">
+      <div className="mun:w-7 mun:border-l mun:border-border">
         {[
           { value: 'columns', label: 'Columns', icon: Columns },
+          { value: 'rows', label: 'Rows', icon: Rows },
           { value: 'filter', label: 'Filter', icon: Filter },
           { value: 'settings', label: 'Settings', icon: Settings },
         ].map(({ value, label, icon: Icon }) => (

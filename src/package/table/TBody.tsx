@@ -3,7 +3,7 @@ import { flexRender } from '@tanstack/react-table';
 import { useGrid } from '../contexts/GridContext';
 
 const TBody = () => {
-  const { table } = useGrid();
+  const { table, density } = useGrid();
 
   return (
     <Table>
@@ -21,6 +21,13 @@ const TBody = () => {
                   width: cell.column.getSize(),
                   minWidth: cell.column.getSize(),
                   maxWidth: cell.column.getSize(),
+                  padding:
+                    density === 'sm'
+                      ? '4px'
+                      : density === 'md'
+                        ? '8px'
+                        : '16px',
+                  transition: 'padding 0.2s',
                 }}
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
