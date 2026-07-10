@@ -29,7 +29,10 @@ const ToolbarColumns = () => {
         <Button
           size="xs"
           variant="ghost"
-          onClick={() => table.resetColumnVisibility()}
+          onClick={() => {
+            table.resetColumnVisibility();
+            setSearchTerm('');
+          }}
         >
           Restore
         </Button>
