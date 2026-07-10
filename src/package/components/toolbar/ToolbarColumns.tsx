@@ -51,28 +51,37 @@ const ToolbarColumns = () => {
   mun:dark:[&::-webkit-scrollbar-track]:bg-neutral-700
   mun:dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
       >
-        <Label>
-          <Checkbox
-            checked={table.getIsAllColumnsVisible()}
-            onCheckedChange={table.getToggleAllColumnsVisibilityHandler()}
-          />
-          Toggle All
-        </Label>
-        {visibleColumns.map((column) => (
-          <Label key={column.id}>
-            <Checkbox
-              checked={column.getIsVisible()}
-              onCheckedChange={(value) => {
-                column.toggleVisibility(Boolean(value));
-              }}
-            />
-            <span className="truncate">
-              {column.id
-                .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
-                .replace(/^./, (str) => str.toUpperCase())}{' '}
-            </span>
-          </Label>
-        ))}
+        {visibleColumns.length > 0 ? (
+          <>
+            <Label>
+              <Checkbox
+                checked={table.getIsAllColumnsVisible()}
+                onCheckedChange={table.getToggleAllColumnsVisibilityHandler()}
+              />
+              Toggle All
+            </Label>
+
+            {visibleColumns.map((column) => (
+              <Label key={column.id}>
+                <Checkbox
+                  checked={column.getIsVisible()}
+                  onCheckedChange={(value) => {
+                    column.toggleVisibility(Boolean(value));
+                  }}
+                />
+                <span className="truncate">
+                  {column.id
+                    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+                    .replace(/^./, (str) => str.toUpperCase())}{' '}
+                </span>
+              </Label>
+            ))}
+          </>
+        ) : (
+          <div className="mun:px-2 mun:py-4 mun:text-center mun:text-sm mun:text-muted-foreground">
+            No columns found
+          </div>
+        )}
       </div>
     </div>
   );
