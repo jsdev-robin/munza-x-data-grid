@@ -8,4 +8,5 @@ export interface GridProps<T> {
   };
   columns: ColumnDef<T>[];
   children?: ReactNode;
+  isToolbar?: boolean;
 }

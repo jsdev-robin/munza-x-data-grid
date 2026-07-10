@@ -5,15 +5,21 @@ import TMain from './table/TMain';
 import Toolbar from './toolbar';
 import type { GridProps } from './types';
 
-const Grid = <T,>({ columns, payload, children }: GridProps<T>) => {
+const Grid = <T,>({ columns, payload, isToolbar, children }: GridProps<T>) => {
   return (
     <GridContextProvider payload={payload} columns={columns}>
-      <GridInner>{children}</GridInner>
+      <GridInner isToolbar={isToolbar}>{children}</GridInner>
     </GridContextProvider>
   );
 };
 
-const GridInner = ({ children }: { children?: React.ReactNode }) => {
+const GridInner = ({
+  children,
+  isToolbar = true,
+}: {
+  children?: React.ReactNode;
+  isToolbar?: boolean;
+}) => {
   return (
     <>
       {children}
@@ -23,7 +29,7 @@ const GridInner = ({ children }: { children?: React.ReactNode }) => {
             <div className="mun:overflow-hidden mun:flex-1">
               <TMain />
             </div>
-            <Toolbar />
+            {isToolbar && <Toolbar />}
           </div>
         </div>
       </div>
@@ -32,3 +38,4 @@ const GridInner = ({ children }: { children?: React.ReactNode }) => {
 };
 
 export { Grid };
+
