@@ -27,6 +27,6 @@ export const getPinStyles = <T>(
     position: isPinned ? (isSplit ? 'relative' : 'sticky') : 'relative',
     width: column.getSize(),
     zIndex: isPinned ? 1 : 0,
-    background: isPinned ? `var(--muted)` : undefined,
+    background: isPinned && !isSplit ? `var(--muted)` : undefined,
   };
 };
