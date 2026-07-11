@@ -20,7 +20,12 @@ const TCell = <T,>({ cell }: TCellProps<T>) => {
   };
 
   return (
-    <TableCell key={cell.id} style={style} className="mun:truncate">
+    <TableCell
+      key={cell.id}
+      style={style}
+      className="mun:truncate"
+      title={cell.getValue() != null ? String(cell.getValue()) : undefined}
+    >
       {flexRender(cell.column.columnDef.cell, cell.getContext())}
     </TableCell>
   );
