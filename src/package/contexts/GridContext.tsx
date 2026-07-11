@@ -109,6 +109,11 @@ export const GridContextProvider = <T,>({
   });
 
   useSyncScroll({
+    refs: [paneRef5, paneRef6],
+    axis: 'x',
+  });
+
+  useSyncScroll({
     refs: [paneRef2, paneRef3, paneRef4, paneRef5, paneRef6],
     axis: 'y',
   });

@@ -1,4 +1,5 @@
 import { TableHead } from '@/components/ui/table';
+import { useGrid } from '@/package/contexts/GridContext';
 import { getPinStyles } from '@/package/utils/getPinStyles';
 import { type Header } from '@tanstack/react-table';
 import type { CSSProperties } from 'react';
@@ -11,13 +12,15 @@ interface THeadProps<T> {
 }
 
 const THead = <T,>({ header }: THeadProps<T>) => {
+  const { isSplit } = useGrid();
+
   const style: CSSProperties = {
     position: 'relative',
     whiteSpace: 'nowrap',
     width: header.getSize(),
     minWidth: header.getSize(),
     maxWidth: header.getSize(),
-    ...getPinStyles(header.column),
+    ...getPinStyles(header.column, isSplit),
   };
 
   return (
