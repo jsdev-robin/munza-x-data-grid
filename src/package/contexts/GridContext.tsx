@@ -11,6 +11,7 @@ import {
   type Table,
 } from '@tanstack/react-table';
 import React, { createContext, useContext, useMemo, useRef } from 'react';
+import { useColumnOrderState } from '../features/columnOrder';
 import { useColumnPinningState } from '../features/columnPinning';
 import { useColumnVisibilityState } from '../features/columnVisibility';
 import {
@@ -67,6 +68,9 @@ export const GridContextProvider = <T,>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
+  const [columnOrder, onColumnOrderChange] = useColumnOrderState(
+    useMemo(() => columns.map((c) => c.id!), [columns]),
+  );
   const [globalFilter, setGlobalFilter] = React.useState('');
   const [isSplit, setIsSplit] = useSplitViewState();
 
@@ -83,12 +87,14 @@ export const GridContextProvider = <T,>({
       globalFilter,
       columnVisibility,
       columnPinning,
+      columnOrder,
     },
     onDensityChange: setDensity,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
     onColumnVisibilityChange: onColumnVisibilityChange,
     onColumnPinningChange: onColumnPinningChange,
+    onColumnOrderChange: onColumnOrderChange,
   });
 
   const paneRef1 = useRef<HTMLDivElement>(null);

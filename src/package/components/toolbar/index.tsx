@@ -2,9 +2,10 @@
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Columns, Filter, Rows, Settings } from 'lucide-react';
+import { Columns, Filter, GripVertical, Rows, Settings } from 'lucide-react';
 import { useState } from 'react';
 import ToolbarColumns from './ToolbarColumns';
+import ToolbarDnd from './ToolbarDnd';
 import ToolbarRows from './ToolbarRows';
 
 const Toolbar = ({ height }: { height: number }) => {
@@ -26,17 +27,22 @@ const Toolbar = ({ height }: { height: number }) => {
         </div>
       )}
       {activePanel === 'rows' && (
-        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:p-2">
+        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:h-full">
           <ToolbarRows />
         </div>
       )}
       {activePanel === 'filter' && (
-        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:p-2">
+        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:h-full">
           <ToolbarColumns />
         </div>
       )}
+      {activePanel === 'dnd' && (
+        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:h-full">
+          <ToolbarDnd />
+        </div>
+      )}
       {activePanel === 'settings' && (
-        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:p-2">
+        <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:h-full">
           <ToolbarColumns />
         </div>
       )}
@@ -46,6 +52,7 @@ const Toolbar = ({ height }: { height: number }) => {
           { value: 'columns', label: 'Columns', icon: Columns },
           { value: 'rows', label: 'Rows', icon: Rows },
           { value: 'filter', label: 'Filter', icon: Filter },
+          { value: 'dnd', label: 'Dnd', icon: GripVertical },
           { value: 'settings', label: 'Settings', icon: Settings },
         ].map(({ value, label, icon: Icon }) => (
           <Button

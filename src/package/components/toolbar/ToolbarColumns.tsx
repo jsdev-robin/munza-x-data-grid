@@ -68,7 +68,7 @@ const ToolbarColumns = () => {
                     column.toggleVisibility(Boolean(value));
                   }}
                 />
-                <span className="truncate">
+                <span className="mun:truncate">
                   {column.id
                     .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
                     .replace(/^./, (str) => str.toUpperCase())}{' '}
