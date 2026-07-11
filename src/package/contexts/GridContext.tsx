@@ -112,6 +112,7 @@ export const GridContextProvider = <T,>({
       columnSizing,
       pagination,
     },
+    manualPagination: true,
     onDensityChange: setDensity,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
