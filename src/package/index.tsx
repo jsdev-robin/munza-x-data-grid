@@ -36,11 +36,9 @@ const GridInner = ({
   useEffect(() => {
     const el = tableWrapperRef.current;
     if (!el) return;
-
     const updateHeight = () => {
       setTableHeight(el.getBoundingClientRect().height);
     };
-
     const resizeObserver = new ResizeObserver(updateHeight);
     resizeObserver.observe(el);
 
