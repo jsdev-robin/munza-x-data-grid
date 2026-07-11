@@ -40,6 +40,7 @@ export interface GridContextProps<T> {
   columnPinning: ColumnPinningState;
   gridWrapperRef: React.RefObject<HTMLDivElement | null>;
   globalFilter: string;
+  refetch?: () => void;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -54,6 +55,7 @@ interface GridContextProviderProps<T> {
   isFetching?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  refetch?: () => void;
   name?: string;
 }
 
@@ -64,6 +66,7 @@ export const GridContextProvider = <T,>({
   isFetching,
   isLoading,
   isError,
+  refetch,
   name = 'munza',
 }: GridContextProviderProps<T>) => {
   const gridWrapperRef = useRef<HTMLDivElement>(null);
@@ -153,6 +156,7 @@ export const GridContextProvider = <T,>({
       isFetching,
       isLoading,
       isError,
+      refetch,
       isSplit,
       setIsSplit,
       columnPinning,
@@ -170,6 +174,7 @@ export const GridContextProvider = <T,>({
       isFetching,
       isLoading,
       isError,
+      refetch,
       isSplit,
       setIsSplit,
       columnPinning,

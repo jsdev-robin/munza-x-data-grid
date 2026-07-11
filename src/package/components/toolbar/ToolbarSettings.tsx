@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { useGrid } from '@/package/contexts/GridContext';
-import { Maximize, Minimize } from 'lucide-react';
+import { Maximize, Minimize, RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const ToolbarSettings = () => {
-  const { table, setIsSplit, gridWrapperRef } = useGrid();
+  const { table, setIsSplit, gridWrapperRef, isFetching, refetch } = useGrid();
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
@@ -59,6 +60,11 @@ const ToolbarSettings = () => {
               Fullscreen
             </>
           )}
+        </Button>
+
+        <Button onClick={() => refetch?.()} disabled={isFetching}>
+          <RefreshCw className={cn(isFetching && 'mun:animate-spin')} />
+          {isFetching ? 'Refreshing...' : 'Refresh Data'}
         </Button>
         <Button onClick={handleReset}>Reset to Default</Button>
       </div>
