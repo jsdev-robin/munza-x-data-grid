@@ -25,6 +25,8 @@ export interface GridContextProps<T> {
   isFetching?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  isSplit: boolean;
+  setIsSplit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -55,6 +57,8 @@ export const GridContextProvider = <T,>({
   );
   const [globalFilter, setGlobalFilter] = React.useState('');
   const [columnVisibility, setColumnVisibility] = React.useState({});
+  const [columnPinning, setColumnPinning] = React.useState({});
+  const [isSplit, setIsSplit] = React.useState(false);
 
   const table = useReactTable({
     _features: [DensityFeature],
@@ -68,11 +72,13 @@ export const GridContextProvider = <T,>({
       columnFilters,
       globalFilter,
       columnVisibility,
+      columnPinning,
     },
     onDensityChange: setDensity,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
     onColumnVisibilityChange: setColumnVisibility,
+    onColumnPinningChange: setColumnPinning,
   });
 
   const paneRef1 = useRef<HTMLDivElement>(null);
@@ -91,8 +97,19 @@ export const GridContextProvider = <T,>({
       isFetching,
       isLoading,
       isError,
+      isSplit,
+      setIsSplit,
     }),
-    [paneRef1, paneRef2, density, isFetching, isLoading, isError],
+    [
+      paneRef1,
+      paneRef2,
+      density,
+      isFetching,
+      isLoading,
+      isError,
+      isSplit,
+      setIsSplit,
+    ],
   );
 
   return (
