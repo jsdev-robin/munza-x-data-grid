@@ -13,6 +13,7 @@ import {
 import React, { createContext, useContext, useMemo, useRef } from 'react';
 import { useColumnOrderState } from '../features/columnOrder';
 import { useColumnPinningState } from '../features/columnPinning';
+import { useColumnSizingState } from '../features/columnSizing';
 import { useColumnVisibilityState } from '../features/columnVisibility';
 import {
   DensityFeature,
@@ -73,6 +74,7 @@ export const GridContextProvider = <T,>({
   );
   const [globalFilter, setGlobalFilter] = React.useState('');
   const [isSplit, setIsSplit] = useSplitViewState();
+  const [columnSizing, onColumnSizingChange] = useColumnSizingState();
 
   const table = useReactTable({
     _features: [DensityFeature],
@@ -89,6 +91,7 @@ export const GridContextProvider = <T,>({
       columnVisibility,
       columnPinning,
       columnOrder,
+      columnSizing,
     },
     onDensityChange: setDensity,
     onColumnFiltersChange: setColumnFilters,
@@ -96,6 +99,7 @@ export const GridContextProvider = <T,>({
     onColumnVisibilityChange: onColumnVisibilityChange,
     onColumnPinningChange: onColumnPinningChange,
     onColumnOrderChange: onColumnOrderChange,
+    onColumnSizingChange: onColumnSizingChange,
     defaultColumn: {
       minSize: 60,
       maxSize: 800,
