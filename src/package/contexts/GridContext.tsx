@@ -39,6 +39,7 @@ export interface GridContextProps<T> {
   setIsSplit: React.Dispatch<React.SetStateAction<boolean>>;
   columnPinning: ColumnPinningState;
   gridWrapperRef: React.RefObject<HTMLDivElement | null>;
+  globalFilter: string;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -156,6 +157,7 @@ export const GridContextProvider = <T,>({
       setIsSplit,
       columnPinning,
       gridWrapperRef,
+      globalFilter,
     }),
     [
       paneRef1,
@@ -172,6 +174,7 @@ export const GridContextProvider = <T,>({
       setIsSplit,
       columnPinning,
       gridWrapperRef,
+      globalFilter,
     ],
   );
 
