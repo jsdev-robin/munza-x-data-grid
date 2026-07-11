@@ -16,8 +16,8 @@ const App = () => {
         },
         id: 'rowNumber',
         header: '#',
-        size: 30,
-        maxSize: 30,
+        size: 36,
+        maxSize: 36,
         enableColumnFilter: false,
       },
       {

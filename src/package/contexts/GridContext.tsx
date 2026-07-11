@@ -54,14 +54,14 @@ export const GridContextProvider = <T,>({
   isError,
 }: GridContextProviderProps<T>) => {
   const [density, setDensity] = React.useState<DensityState>(getStoredDensity);
+  const [columnVisibility, onColumnVisibilityChange] =
+    useColumnVisibilityState();
+  const [columnPinning, onColumnPinningChange] = useColumnPinningState();
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
   const [globalFilter, setGlobalFilter] = React.useState('');
-  const [columnVisibility, onColumnVisibilityChange] =
-    useColumnVisibilityState();
   const [isSplit, setIsSplit] = React.useState(false);
-  const [columnPinning, onColumnPinningChange] = useColumnPinningState();
 
   const table = useReactTable({
     _features: [DensityFeature],

@@ -82,13 +82,20 @@ const ToolbarColumns = () => {
           </div>
         )}
       </div>
-      <div className="mun:px-1.5">
+      <div className="mun:px-1.5 mun:grid mun:grid-cols-2 mun:gap-1.5">
         <Button
           onClick={() => table.resetColumnPinning()}
           variant="outline"
           size="xs"
         >
           Reset Pin
+        </Button>
+        <Button
+          onClick={() => table.resetColumnSizing()}
+          variant="outline"
+          size="xs"
+        >
+          Reset Sizing
         </Button>
       </div>
     </div>
