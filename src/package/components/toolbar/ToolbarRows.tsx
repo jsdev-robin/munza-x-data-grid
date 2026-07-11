@@ -22,7 +22,7 @@ const ToolbarRows = () => {
         onClick={() => table.setDensity('md')}
         size="sm"
       >
-        Medium
+        Default
       </Button>
       <Button
         variant={density === 'lg' ? 'default' : 'outline'}
