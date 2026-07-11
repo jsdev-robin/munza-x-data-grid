@@ -17,6 +17,7 @@ import {
   getStoredDensity,
   type DensityState,
 } from '../features/rowDensity';
+import { useSplitViewState } from '../features/splitView';
 import useSyncScroll from '../hooks/useSyncScroll';
 
 export interface GridContextProps<T> {
@@ -65,7 +66,7 @@ export const GridContextProvider = <T,>({
     [],
   );
   const [globalFilter, setGlobalFilter] = React.useState('');
-  const [isSplit, setIsSplit] = React.useState(false);
+  const [isSplit, setIsSplit] = useSplitViewState();
 
   const table = useReactTable({
     _features: [DensityFeature],

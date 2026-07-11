@@ -7,7 +7,7 @@ const TGetLeftMain = () => {
   return (
     <>
       {isSplit ? (
-        <div>
+        <div className="w-40">
           <TGetLeftHeader />
           <TGetLeftBody />
         </div>
