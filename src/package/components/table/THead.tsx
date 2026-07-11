@@ -1,4 +1,5 @@
 import { TableHead } from '@/components/ui/table';
+import { getPinStyles } from '@/package/utils/getPinStyles';
 import { type Header } from '@tanstack/react-table';
 import type { CSSProperties } from 'react';
 import HeaderFilter from '../header/HeaderFilter';
@@ -16,6 +17,7 @@ const THead = <T,>({ header }: THeadProps<T>) => {
     width: header.getSize(),
     minWidth: header.getSize(),
     maxWidth: header.getSize(),
+    ...getPinStyles(header.column),
   };
 
   return (
