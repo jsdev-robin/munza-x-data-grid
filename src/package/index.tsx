@@ -1,6 +1,7 @@
 'use client';
 
 import { useLayoutEffect, useRef, useState } from 'react';
+import TGetLeftMain from './components/table/TGetLeftMain';
 import TMain from './components/table/TMain';
 import Toolbar from './components/toolbar';
 import { GridContextProvider } from './contexts/GridContext';
@@ -36,6 +37,7 @@ const GridInner = ({
       <div className="mun:relative">
         <div className="mun:space-y-3">
           <div className="mun:flex mun:bg-muted mun:rounded-md mun:overflow-hidden mun:border mun:border-border mun:w-full">
+            <TGetLeftMain />
             <div
               className="mun:overflow-hidden mun:flex-1"
               ref={tableWrapperRef}

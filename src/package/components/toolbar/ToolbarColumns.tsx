@@ -8,7 +8,7 @@ import { useGrid } from '@/package/contexts/GridContext';
 import { useMemo, useState } from 'react';
 
 const ToolbarColumns = () => {
-  const { table } = useGrid();
+  const { table, setIsSplit, isSplit } = useGrid();
   const [searchTerm, setSearchTerm] = useState('');
   const visibleColumns = useMemo(() => {
     return table
@@ -96,6 +96,14 @@ const ToolbarColumns = () => {
           size="xs"
         >
           Reset Sizing
+        </Button>
+        <Button
+          onClick={() => setIsSplit(!isSplit)}
+          variant="outline"
+          size="xs"
+          disabled={!table.getIsSomeColumnsPinned()}
+        >
+          Is Split
         </Button>
       </div>
     </div>
