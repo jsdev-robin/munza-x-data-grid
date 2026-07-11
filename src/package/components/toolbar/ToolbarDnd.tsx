@@ -107,7 +107,7 @@ const ToolbarDnd = () => {
             variant="ghost"
             onClick={() => table.resetColumnOrder()}
           >
-            Restore
+            Reset
           </Button>
         </div>
         <div
