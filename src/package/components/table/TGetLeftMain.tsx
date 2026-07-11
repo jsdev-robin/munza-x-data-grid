@@ -3,11 +3,11 @@ import TGetLeftBody from './TGetLeftBody';
 import TGetLeftHeader from './TGetLeftHeader';
 
 const TGetLeftMain = () => {
-  const { isSplit } = useGrid();
+  const { isSplit, columnPinning } = useGrid();
   return (
     <>
-      {isSplit ? (
-        <div className="w-40">
+      {isSplit && (columnPinning?.left?.length ?? 0) > 0 ? (
+        <div className="mun:max-w-80 mun:overflow-hidden">
           <TGetLeftHeader />
           <TGetLeftBody />
         </div>

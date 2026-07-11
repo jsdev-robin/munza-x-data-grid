@@ -1,5 +1,6 @@
 'use client';
 
+import type { ColumnPinningState } from '@tanstack/react-table';
 import {
   getCoreRowModel,
   getFacetedMinMaxValues,
@@ -9,13 +10,7 @@ import {
   type ColumnFiltersState,
   type Table,
 } from '@tanstack/react-table';
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { createContext, useContext, useMemo, useRef } from 'react';
 import { useColumnPinningState } from '../features/columnPinning';
 import { useColumnVisibilityState } from '../features/columnVisibility';
 import {
@@ -40,6 +35,7 @@ export interface GridContextProps<T> {
   isError?: boolean;
   isSplit: boolean;
   setIsSplit: React.Dispatch<React.SetStateAction<boolean>>;
+  columnPinning: ColumnPinningState;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -108,22 +104,14 @@ export const GridContextProvider = <T,>({
   });
 
   useSyncScroll({
+    refs: [paneRef3, paneRef4],
+    axis: 'x',
+  });
+
+  useSyncScroll({
     refs: [paneRef2, paneRef3, paneRef4, paneRef5, paneRef6],
     axis: 'y',
   });
-
-  const isSomeColumnPinned = useMemo(
-    () =>
-      (columnPinning.left?.length ?? 0) > 0 ||
-      (columnPinning.right?.length ?? 0) > 0,
-    [columnPinning],
-  );
-
-  useEffect(() => {
-    if (!isSomeColumnPinned) {
-      setIsSplit(false);
-    }
-  }, [isSomeColumnPinned, setIsSplit]);
 
   const contextValue = useMemo(
     () => ({
@@ -139,6 +127,7 @@ export const GridContextProvider = <T,>({
       isError,
       isSplit,
       setIsSplit,
+      columnPinning,
     }),
     [
       paneRef1,
@@ -153,6 +142,7 @@ export const GridContextProvider = <T,>({
       isError,
       isSplit,
       setIsSplit,
+      columnPinning,
     ],
   );
 
