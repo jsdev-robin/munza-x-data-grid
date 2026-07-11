@@ -60,7 +60,6 @@ const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
         </NativeSelect>
         <div className="mun:flex mun:items-center mun:gap-2">
           <Button
-            size="icon-sm"
             variant="outline"
             onClick={() => table.firstPage()}
             disabled={
