@@ -3,33 +3,38 @@ import { useState, type Dispatch, type SetStateAction } from 'react';
 
 const COLUMN_SIZING_STORAGE_KEY = 'grid-column-sizing';
 
-export function getStoredColumnSizing(): ColumnSizingState {
+export function getStoredColumnSizing(gridId: string): ColumnSizingState {
   if (typeof window === 'undefined') {
     return {};
   }
   try {
-    const stored = window.localStorage.getItem(COLUMN_SIZING_STORAGE_KEY);
+    const stored = window.localStorage.getItem(
+      `${gridId}:${COLUMN_SIZING_STORAGE_KEY}`,
+    );
     return stored ? JSON.parse(stored) : {};
   } catch {
     return {};
   }
 }
 
-export function setStoredColumnSizing(sizing: ColumnSizingState) {
+export function setStoredColumnSizing(
+  gridId: string,
+  sizing: ColumnSizingState,
+) {
   if (typeof window === 'undefined') {
     return;
   }
   try {
     window.localStorage.setItem(
-      COLUMN_SIZING_STORAGE_KEY,
+      `${gridId}:${COLUMN_SIZING_STORAGE_KEY}`,
       JSON.stringify(sizing),
     );
   } catch {}
 }
 
-export function useColumnSizingState() {
-  const [columnSizing, setColumnSizingState] = useState<ColumnSizingState>(
-    getStoredColumnSizing,
+export function useColumnSizingState(gridId: string) {
+  const [columnSizing, setColumnSizingState] = useState<ColumnSizingState>(() =>
+    getStoredColumnSizing(gridId),
   );
 
   const onColumnSizingChange: Dispatch<SetStateAction<ColumnSizingState>> = (
@@ -37,7 +42,7 @@ export function useColumnSizingState() {
   ) => {
     setColumnSizingState((old) => {
       const next = typeof updater === 'function' ? updater(old) : updater;
-      setStoredColumnSizing(next);
+      setStoredColumnSizing(gridId, next);
       return next;
     });
   };

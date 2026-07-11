@@ -8,9 +8,15 @@ import Toolbar from './components/toolbar';
 import { GridContextProvider, useGrid } from './contexts/GridContext';
 import type { GridProps } from './types';
 
-const Grid = <T,>({ columns, payload, isToolbar, children }: GridProps<T>) => {
+const Grid = <T,>({
+  columns,
+  payload,
+  isToolbar,
+  children,
+  name,
+}: GridProps<T>) => {
   return (
-    <GridContextProvider payload={payload} columns={columns}>
+    <GridContextProvider payload={payload} columns={columns} name={name}>
       <GridInner isToolbar={isToolbar}>{children}</GridInner>
     </GridContextProvider>
   );

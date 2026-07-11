@@ -10,67 +10,45 @@ import {
 
 // TypeScript setup for our new feature with all of the same type-safety as stock TanStack Table features
 
-// define types for our new feature's custom state
 export type DensityState = 'sm' | 'md' | 'lg';
 export interface DensityTableState {
   density: DensityState;
 }
 
-// define types for our new feature's table options
 export interface DensityOptions {
   enableDensity?: boolean;
   onDensityChange?: OnChangeFn<DensityState>;
+  gridId?: string;
 }
 
-// Define types for our new feature's table APIs
 export interface DensityInstance {
   setDensity: (updater: Updater<DensityState>) => void;
   toggleDensity: (value?: DensityState) => void;
 }
 
-// Use declaration merging to add our new feature APIs and state types to TanStack Table's existing types.
 declare module '@tanstack/react-table' {
-  //merge our new feature's state with the existing table state
   interface TableState extends DensityTableState {}
-  //merge our new feature's options with the existing table options
   interface TableOptionsResolved<
     TData extends RowData,
   > extends DensityOptions {}
-  //merge our new feature's instance APIs with the existing table instance APIs
   interface Table<TData extends RowData> extends DensityInstance {}
-  // if you need to add cell instance APIs...
-  // interface Cell<TData extends RowData, TValue> extends DensityCell
-  // if you need to add row instance APIs...
-  // interface Row<TData extends RowData> extends DensityRow
-  // if you need to add column instance APIs...
-  // interface Column<TData extends RowData, TValue> extends DensityColumn
-  // if you need to add header instance APIs...
-  // interface Header<TData extends RowData, TValue> extends DensityHeader
-
-  // Note: declaration merging on `ColumnDef` is not possible because it is a type, not an interface.
-  // But you can still use declaration merging on `ColumnDef.meta`
 }
 
 // end of TS setup!
 
-// Here is all of the actual javascript code for our new feature
+const DENSITY_STORAGE_KEY = 'table-density';
+
 export const DensityFeature: TableFeature<any> = {
-  // define the new feature's initial state
+  // No gridId available here — TanStack only calls this with (state).
+  // Real initial value is supplied externally via GridContext's controlled
+  // `state.density`, so this default is just a safe fallback.
   getInitialState: (state): DensityTableState => {
-    let stored: DensityState | undefined;
-    if (typeof window !== 'undefined') {
-      const value = window.localStorage.getItem('table-density');
-      if (value === 'sm' || value === 'md' || value === 'lg') {
-        stored = value;
-      }
-    }
     return {
-      density: stored ?? 'md',
+      density: 'md',
       ...state,
     };
   },
 
-  // define the new feature's default options
   getDefaultOptions: <TData extends RowData>(
     table: Table<TData>,
   ): DensityOptions => {
@@ -79,18 +57,17 @@ export const DensityFeature: TableFeature<any> = {
       onDensityChange: makeStateUpdater('density', table),
     } as DensityOptions;
   },
-  // if you need to add a default column definition...
-  // getDefaultColumnDef: <TData extends RowData>(): Partial<ColumnDef<TData>> => {
-  //   return { meta: {} } //use meta instead of directly adding to the columnDef to avoid typescript stuff that's hard to workaround
-  // },
 
-  // define the new feature's table instance methods
   createTable: <TData extends RowData>(table: Table<TData>): void => {
     table.setDensity = (updater) => {
+      const gridId = table.options.gridId ?? 'default';
       const safeUpdater: Updater<DensityState> = (old) => {
         let newState = functionalUpdate(updater, old);
         if (typeof window !== 'undefined') {
-          window.localStorage.setItem('table-density', newState);
+          window.localStorage.setItem(
+            `${gridId}:${DENSITY_STORAGE_KEY}`,
+            newState,
+          );
         }
         return newState;
       };
@@ -103,21 +80,12 @@ export const DensityFeature: TableFeature<any> = {
       });
     };
   },
-
-  // if you need to add row instance APIs...
-  // createRow: <TData extends RowData>(row, table): void => {},
-  // if you need to add cell instance APIs...
-  // createCell: <TData extends RowData>(cell, column, row, table): void => {},
-  // if you need to add column instance APIs...
-  // createColumn: <TData extends RowData>(column, table): void => {},
-  // if you need to add header instance APIs...
-  // createHeader: <TData extends RowData>(header, table): void => {},
 };
 //end of custom feature code
 
-export const getStoredDensity = (): DensityState => {
+export const getStoredDensity = (gridId: string): DensityState => {
   if (typeof window === 'undefined') return 'md';
-  const value = window.localStorage.getItem('table-density');
+  const value = window.localStorage.getItem(`${gridId}:${DENSITY_STORAGE_KEY}`);
   if (value === 'sm' || value === 'md' || value === 'lg') {
     return value;
   }

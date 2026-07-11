@@ -53,6 +53,7 @@ interface GridContextProviderProps<T> {
   isFetching?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  name?: string;
 }
 
 export const GridContextProvider = <T,>({
@@ -62,21 +63,25 @@ export const GridContextProvider = <T,>({
   isFetching,
   isLoading,
   isError,
+  name = 'munza',
 }: GridContextProviderProps<T>) => {
   const gridWrapperRef = useRef<HTMLDivElement>(null);
-  const [density, setDensity] = React.useState<DensityState>(getStoredDensity);
+  const [density, setDensity] = React.useState<DensityState>(() =>
+    getStoredDensity(name),
+  );
   const [columnVisibility, onColumnVisibilityChange] =
-    useColumnVisibilityState();
-  const [columnPinning, onColumnPinningChange] = useColumnPinningState();
+    useColumnVisibilityState(name);
+  const [columnPinning, onColumnPinningChange] = useColumnPinningState(name);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
   const [columnOrder, onColumnOrderChange] = useColumnOrderState(
+    name,
     useMemo(() => columns.map((c) => c.id!), [columns]),
   );
   const [globalFilter, setGlobalFilter] = React.useState('');
-  const [isSplit, setIsSplit] = useSplitViewState();
-  const [columnSizing, onColumnSizingChange] = useColumnSizingState();
+  const [isSplit, setIsSplit] = useSplitViewState(name);
+  const [columnSizing, onColumnSizingChange] = useColumnSizingState(name);
 
   const table = useReactTable({
     _features: [DensityFeature],

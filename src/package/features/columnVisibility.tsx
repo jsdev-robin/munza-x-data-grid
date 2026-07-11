@@ -3,40 +3,45 @@ import { useState, type Dispatch, type SetStateAction } from 'react';
 
 const COLUMN_VISIBILITY_STORAGE_KEY = 'grid-column-visibility';
 
-export function getStoredColumnVisibility(): VisibilityState {
+export function getStoredColumnVisibility(gridId: string): VisibilityState {
   if (typeof window === 'undefined') {
     return {};
   }
   try {
-    const stored = window.localStorage.getItem(COLUMN_VISIBILITY_STORAGE_KEY);
+    const stored = window.localStorage.getItem(
+      `${gridId}:${COLUMN_VISIBILITY_STORAGE_KEY}`,
+    );
     return stored ? JSON.parse(stored) : {};
   } catch {
     return {};
   }
 }
 
-export function setStoredColumnVisibility(visibility: VisibilityState) {
+export function setStoredColumnVisibility(
+  gridId: string,
+  visibility: VisibilityState,
+) {
   if (typeof window === 'undefined') {
     return;
   }
   try {
     window.localStorage.setItem(
-      COLUMN_VISIBILITY_STORAGE_KEY,
+      `${gridId}:${COLUMN_VISIBILITY_STORAGE_KEY}`,
       JSON.stringify(visibility),
     );
   } catch {}
 }
 
-export function useColumnVisibilityState() {
+export function useColumnVisibilityState(gridId: string) {
   const [columnVisibility, setColumnVisibilityState] =
-    useState<VisibilityState>(getStoredColumnVisibility);
+    useState<VisibilityState>(() => getStoredColumnVisibility(gridId));
 
   const onColumnVisibilityChange: Dispatch<SetStateAction<VisibilityState>> = (
     updater,
   ) => {
     setColumnVisibilityState((old) => {
       const next = typeof updater === 'function' ? updater(old) : updater;
-      setStoredColumnVisibility(next);
+      setStoredColumnVisibility(gridId, next);
       return next;
     });
   };
