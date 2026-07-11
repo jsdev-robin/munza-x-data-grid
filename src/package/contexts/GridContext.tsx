@@ -23,6 +23,10 @@ export interface GridContextProps<T> {
   table: Table<T>;
   paneRef1: React.RefObject<HTMLDivElement | null>;
   paneRef2: React.RefObject<HTMLDivElement | null>;
+  paneRef3: React.RefObject<HTMLDivElement | null>;
+  paneRef4: React.RefObject<HTMLDivElement | null>;
+  paneRef5: React.RefObject<HTMLDivElement | null>;
+  paneRef6: React.RefObject<HTMLDivElement | null>;
   density: DensityState;
   isFetching?: boolean;
   isLoading?: boolean;
@@ -86,16 +90,29 @@ export const GridContextProvider = <T,>({
 
   const paneRef1 = useRef<HTMLDivElement>(null);
   const paneRef2 = useRef<HTMLDivElement>(null);
+  const paneRef3 = useRef<HTMLDivElement>(null);
+  const paneRef4 = useRef<HTMLDivElement>(null);
+  const paneRef5 = useRef<HTMLDivElement>(null);
+  const paneRef6 = useRef<HTMLDivElement>(null);
 
   useSyncScroll({
     refs: [paneRef1, paneRef2],
     axis: 'x',
   });
 
+  useSyncScroll({
+    refs: [paneRef2, paneRef3, paneRef4, paneRef5, paneRef6],
+    axis: 'y',
+  });
+
   const contextValue = useMemo(
     () => ({
       paneRef1,
       paneRef2,
+      paneRef3,
+      paneRef4,
+      paneRef5,
+      paneRef6,
       density,
       isFetching,
       isLoading,
@@ -106,6 +123,10 @@ export const GridContextProvider = <T,>({
     [
       paneRef1,
       paneRef2,
+      paneRef3,
+      paneRef4,
+      paneRef5,
+      paneRef6,
       density,
       isFetching,
       isLoading,

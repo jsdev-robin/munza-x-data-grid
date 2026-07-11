@@ -3,12 +3,15 @@ import { useGrid } from '@/package/contexts/GridContext';
 import THead from './THead';
 
 const THeader = () => {
-  const { table } = useGrid();
+  const { table, isSplit } = useGrid();
 
   return (
     <Table>
       <TableHeader className="sticky top-0 z-10 bg-muted">
-        {table.getHeaderGroups().map((headerGroup) => (
+        {(isSplit
+          ? table.getCenterHeaderGroups()
+          : table.getHeaderGroups()
+        ).map((headerGroup) => (
           <TableRow
             key={headerGroup.id}
             className="mun:*:border-r mun:*:border-border"

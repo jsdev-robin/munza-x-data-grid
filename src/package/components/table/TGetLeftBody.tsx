@@ -3,11 +3,12 @@ import { useGrid } from '@/package/contexts/GridContext';
 import TCell from './TCell';
 
 const TGetLeftBody = () => {
-  const { table } = useGrid();
+  const { table, paneRef4 } = useGrid();
   return (
     <div
       className="mun:w-full mun:overflow-scroll mun:bg-background"
       style={{ height: '65vh' }}
+      ref={paneRef4}
     >
       <Table>
         <TableBody>

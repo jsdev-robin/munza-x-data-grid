@@ -3,7 +3,7 @@ import { useGrid } from '@/package/contexts/GridContext';
 import TCell from './TCell';
 
 const TBody = () => {
-  const { table } = useGrid();
+  const { table, isSplit } = useGrid();
 
   return (
     <Table>
@@ -14,7 +14,10 @@ const TBody = () => {
             data-state={row.getIsSelected() && 'selected'}
             className="mun:*:border-r mun:*:border-border"
           >
-            {row.getVisibleCells().map((cell) => (
+            {(isSplit
+              ? row.getCenterVisibleCells()
+              : row.getVisibleCells()
+            ).map((cell) => (
               <TCell key={cell.id} cell={cell} />
             ))}
           </TableRow>
