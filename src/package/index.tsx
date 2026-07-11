@@ -13,12 +13,15 @@ const Grid = <T,>({
   columns,
   payload,
   isToolbar,
+  isPagination,
   children,
   name,
 }: GridProps<T>) => {
   return (
     <GridContextProvider payload={payload} columns={columns} name={name}>
-      <GridInner isToolbar={isToolbar}>{children}</GridInner>
+      <GridInner isToolbar={isToolbar} isPagination={isPagination}>
+        {children}
+      </GridInner>
     </GridContextProvider>
   );
 };
@@ -26,9 +29,11 @@ const Grid = <T,>({
 const GridInner = ({
   children,
   isToolbar = true,
+  isPagination = true,
 }: {
   children?: React.ReactNode;
   isToolbar?: boolean;
+  isPagination?: boolean;
 }) => {
   const { gridWrapperRef } = useGrid();
   const tableWrapperRef = useRef<HTMLDivElement>(null);
@@ -75,7 +80,10 @@ const GridInner = ({
             <TGetRightMain />
             {isToolbar && <Toolbar height={tableHeight} />}
           </div>
-          <Pagination pagination={[20, 30, 40, 50, 60, 70, 80, 90, 100]} />
+
+          {isPagination && (
+            <Pagination pagination={[20, 30, 40, 50, 60, 70, 80, 90, 100]} />
+          )}
         </div>
       </div>
     </div>

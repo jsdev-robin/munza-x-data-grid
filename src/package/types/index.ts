@@ -9,5 +9,6 @@ export interface GridProps<T> {
   columns: ColumnDef<T>[];
   children?: ReactNode;
   isToolbar?: boolean;
+  isPagination?: boolean;
   name?: string;
 }
