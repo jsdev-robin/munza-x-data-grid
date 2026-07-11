@@ -38,6 +38,7 @@ export interface GridContextProps<T> {
   isSplit: boolean;
   setIsSplit: React.Dispatch<React.SetStateAction<boolean>>;
   columnPinning: ColumnPinningState;
+  gridWrapperRef: React.RefObject<HTMLDivElement | null>;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -62,6 +63,7 @@ export const GridContextProvider = <T,>({
   isLoading,
   isError,
 }: GridContextProviderProps<T>) => {
+  const gridWrapperRef = useRef<HTMLDivElement>(null);
   const [density, setDensity] = React.useState<DensityState>(getStoredDensity);
   const [columnVisibility, onColumnVisibilityChange] =
     useColumnVisibilityState();
@@ -148,6 +150,7 @@ export const GridContextProvider = <T,>({
       isSplit,
       setIsSplit,
       columnPinning,
+      gridWrapperRef,
     }),
     [
       paneRef1,
@@ -163,6 +166,7 @@ export const GridContextProvider = <T,>({
       isSplit,
       setIsSplit,
       columnPinning,
+      gridWrapperRef,
     ],
   );
 

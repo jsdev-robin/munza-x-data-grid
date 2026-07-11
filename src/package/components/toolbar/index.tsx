@@ -6,7 +6,9 @@ import { Columns, Filter, GripVertical, Rows, Settings } from 'lucide-react';
 import { useState } from 'react';
 import ToolbarColumns from './ToolbarColumns';
 import ToolbarDnd from './ToolbarDnd';
+import ToolbarFilters from './ToolbarFilters';
 import ToolbarRows from './ToolbarRows';
+import ToolbarSettings from './ToolbarSettings';
 
 const Toolbar = ({ height }: { height: number }) => {
   const [activePanel, setActivePanel] = useState<string | null>(null);
@@ -33,7 +35,7 @@ const Toolbar = ({ height }: { height: number }) => {
       )}
       {activePanel === 'filter' && (
         <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:h-full">
-          <ToolbarColumns />
+          <ToolbarFilters />
         </div>
       )}
       {activePanel === 'dnd' && (
@@ -43,7 +45,7 @@ const Toolbar = ({ height }: { height: number }) => {
       )}
       {activePanel === 'settings' && (
         <div className="mun:w-52 mun:border-l mun:border-border mun:transition-all mun:h-full">
-          <ToolbarColumns />
+          <ToolbarSettings />
         </div>
       )}
 
