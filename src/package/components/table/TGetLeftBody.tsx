@@ -3,27 +3,25 @@ import { useGrid } from '@/package/contexts/GridContext';
 import TCell from './TCell';
 
 const TGetLeftBody = () => {
-  const { table, paneRef4 } = useGrid();
+  const { table } = useGrid();
   return (
-    <div
-      className="mun:w-full mun:overflow-scroll mun:bg-background"
-      style={{ height: '65vh' }}
-      ref={paneRef4}
-    >
-      <Table>
-        <TableBody>
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <TableRow key={row.id}>
-                {row.getLeftVisibleCells().map((cell) => (
-                  <TCell key={cell.id} cell={cell} />
-                ))}
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </div>
+    <Table>
+      <TableBody>
+        {table.getRowModel().rows.map((row) => {
+          return (
+            <TableRow
+              key={row.id}
+              data-state={row.getIsSelected() && 'selected'}
+              className="mun:*:border-r mun:*:border-border"
+            >
+              {row.getLeftVisibleCells().map((cell) => (
+                <TCell key={cell.id} cell={cell} />
+              ))}
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </Table>
   );
 };
 
