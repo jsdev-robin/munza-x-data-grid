@@ -52,13 +52,13 @@ const ToolbarColumns = () => {
       >
         {visibleColumns.length > 0 ? (
           <>
-            <Label>
+            {/* <Label>
               <Checkbox
                 checked={table.getIsAllColumnsVisible()}
                 onCheckedChange={table.getToggleAllColumnsVisibilityHandler()}
               />
               Toggle All
-            </Label>
+            </Label> */}
 
             {visibleColumns.map((column) => (
               <Label key={column.id}>
@@ -106,7 +106,7 @@ const ToolbarColumns = () => {
           size="xs"
           disabled={!table.getIsSomeColumnsPinned()}
         >
-          Is Split
+          {isSplit ? 'Exit Split View' : 'Enter Split View'}
         </Button>
       </div>
     </div>
