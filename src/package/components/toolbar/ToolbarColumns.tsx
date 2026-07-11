@@ -88,7 +88,7 @@ const ToolbarColumns = () => {
           variant="outline"
           size="xs"
         >
-          Reset Pin
+          Reset Pinning
         </Button>
         <Button
           onClick={() => table.resetColumnSizing()}
