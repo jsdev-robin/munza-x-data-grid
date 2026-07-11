@@ -82,6 +82,15 @@ const ToolbarColumns = () => {
           </div>
         )}
       </div>
+      <div className="mun:px-1.5">
+        <Button
+          onClick={() => table.resetColumnPinning()}
+          variant="outline"
+          size="xs"
+        >
+          Reset Pin
+        </Button>
+      </div>
     </div>
   );
 };

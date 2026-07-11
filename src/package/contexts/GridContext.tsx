@@ -10,6 +10,8 @@ import {
   type Table,
 } from '@tanstack/react-table';
 import React, { createContext, useContext, useMemo, useRef } from 'react';
+import { useColumnPinningState } from '../features/columnPinning';
+import { useColumnVisibilityState } from '../features/columnVisibility';
 import {
   DensityFeature,
   getStoredDensity,
@@ -56,9 +58,10 @@ export const GridContextProvider = <T,>({
     [],
   );
   const [globalFilter, setGlobalFilter] = React.useState('');
-  const [columnVisibility, setColumnVisibility] = React.useState({});
-  const [columnPinning, setColumnPinning] = React.useState({});
+  const [columnVisibility, onColumnVisibilityChange] =
+    useColumnVisibilityState();
   const [isSplit, setIsSplit] = React.useState(false);
+  const [columnPinning, onColumnPinningChange] = useColumnPinningState();
 
   const table = useReactTable({
     _features: [DensityFeature],
@@ -77,8 +80,8 @@ export const GridContextProvider = <T,>({
     onDensityChange: setDensity,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
-    onColumnVisibilityChange: setColumnVisibility,
-    onColumnPinningChange: setColumnPinning,
+    onColumnVisibilityChange: onColumnVisibilityChange,
+    onColumnPinningChange: onColumnPinningChange,
   });
 
   const paneRef1 = useRef<HTMLDivElement>(null);
