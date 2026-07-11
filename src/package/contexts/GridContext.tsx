@@ -9,7 +9,13 @@ import {
   type ColumnFiltersState,
   type Table,
 } from '@tanstack/react-table';
-import React, { createContext, useContext, useMemo, useRef } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react';
 import { useColumnPinningState } from '../features/columnPinning';
 import { useColumnVisibilityState } from '../features/columnVisibility';
 import {
@@ -105,6 +111,19 @@ export const GridContextProvider = <T,>({
     refs: [paneRef2, paneRef3, paneRef4, paneRef5, paneRef6],
     axis: 'y',
   });
+
+  const isSomeColumnPinned = useMemo(
+    () =>
+      (columnPinning.left?.length ?? 0) > 0 ||
+      (columnPinning.right?.length ?? 0) > 0,
+    [columnPinning],
+  );
+
+  useEffect(() => {
+    if (!isSomeColumnPinned) {
+      setIsSplit(false);
+    }
+  }, [isSomeColumnPinned, setIsSplit]);
 
   const contextValue = useMemo(
     () => ({
