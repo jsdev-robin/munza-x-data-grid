@@ -91,7 +91,7 @@ export const GridContextProvider = <T,>({
   const [columnSizing, onColumnSizingChange] = useColumnSizingState(name);
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 20,
   });
 
   const table = useReactTable({
