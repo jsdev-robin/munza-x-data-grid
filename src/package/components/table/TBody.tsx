@@ -1,9 +1,9 @@
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableRow } from '@/components/ui/table';
 import { useGrid } from '@/package/contexts/GridContext';
-import { flexRender } from '@tanstack/react-table';
+import TCell from './TCell';
 
 const TBody = () => {
-  const { table, density } = useGrid();
+  const { table } = useGrid();
 
   return (
     <Table>
@@ -15,24 +15,7 @@ const TBody = () => {
             className="mun:*:border-r mun:*:border-border"
           >
             {row.getVisibleCells().map((cell) => (
-              <TableCell
-                key={cell.id}
-                style={{
-                  width: cell.column.getSize(),
-                  minWidth: cell.column.getSize(),
-                  maxWidth: cell.column.getSize(),
-                  padding:
-                    density === 'sm'
-                      ? '4px'
-                      : density === 'md'
-                        ? '8px'
-                        : '16px',
-                  transition: 'padding 0.2s',
-                }}
-                className="mun:truncate"
-              >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </TableCell>
+              <TCell key={cell.id} cell={cell} />
             ))}
           </TableRow>
         ))}

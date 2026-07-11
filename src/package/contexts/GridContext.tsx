@@ -23,6 +23,8 @@ export interface GridContextProps<T> {
   paneRef2: React.RefObject<HTMLDivElement | null>;
   density: DensityState;
   isFetching?: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -35,6 +37,8 @@ interface GridContextProviderProps<T> {
   };
   columns: ColumnDef<T>[];
   isFetching?: boolean;
+  isLoading?: boolean;
+  isError?: boolean;
 }
 
 export const GridContextProvider = <T,>({
@@ -42,6 +46,8 @@ export const GridContextProvider = <T,>({
   payload,
   columns,
   isFetching,
+  isLoading,
+  isError,
 }: GridContextProviderProps<T>) => {
   const [density, setDensity] = React.useState<DensityState>(getStoredDensity);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -83,8 +89,10 @@ export const GridContextProvider = <T,>({
       paneRef2,
       density,
       isFetching,
+      isLoading,
+      isError,
     }),
-    [paneRef1, paneRef2, density, isFetching],
+    [paneRef1, paneRef2, density, isFetching, isLoading, isError],
   );
 
   return (
