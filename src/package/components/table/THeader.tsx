@@ -6,7 +6,11 @@ const THeader = () => {
   const { table, isSplit } = useGrid();
 
   return (
-    <Table>
+    <Table
+      style={{
+        width: table.getCenterTotalSize(),
+      }}
+    >
       <TableHeader className="sticky top-0 z-10 bg-muted">
         {(isSplit
           ? table.getCenterHeaderGroups()

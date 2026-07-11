@@ -5,6 +5,7 @@ import { type Header } from '@tanstack/react-table';
 import type { CSSProperties } from 'react';
 import HeaderFilter from '../header/HeaderFilter';
 import HeaderMenu from '../header/HeaderMenu';
+import HeaderResizing from '../header/HeaderResizing';
 import HeaderSort from '../header/HeaderSort';
 
 interface THeadProps<T> {
@@ -39,6 +40,7 @@ const THead = <T,>({ header }: THeadProps<T>) => {
           <HeaderFilter column={header.column} />
         </div>
       )}
+      <HeaderResizing header={header} />
     </TableHead>
   );
 };

@@ -78,6 +78,7 @@ export const GridContextProvider = <T,>({
     _features: [DensityFeature],
     data: payload?.data ?? [],
     columns: columns,
+    columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
@@ -95,6 +96,10 @@ export const GridContextProvider = <T,>({
     onColumnVisibilityChange: onColumnVisibilityChange,
     onColumnPinningChange: onColumnPinningChange,
     onColumnOrderChange: onColumnOrderChange,
+    defaultColumn: {
+      minSize: 60,
+      maxSize: 800,
+    },
   });
 
   const paneRef1 = useRef<HTMLDivElement>(null);

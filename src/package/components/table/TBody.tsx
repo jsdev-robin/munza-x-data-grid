@@ -6,7 +6,11 @@ const TBody = () => {
   const { table, isSplit } = useGrid();
 
   return (
-    <Table>
+    <Table
+      style={{
+        width: table.getCenterTotalSize(),
+      }}
+    >
       <TableBody>
         {table.getRowModel().rows.map((row) => (
           <TableRow
