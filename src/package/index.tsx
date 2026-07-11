@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef, useState } from 'react';
 import TGetLeftMain from './components/table/TGetLeftMain';
+import TGetRightMain from './components/table/TGetRightMain';
 import TMain from './components/table/TMain';
 import Toolbar from './components/toolbar';
 import { GridContextProvider } from './contexts/GridContext';
@@ -44,6 +45,7 @@ const GridInner = ({
             >
               <TMain />
             </div>
+            <TGetRightMain />
             {isToolbar && <Toolbar height={tableHeight} />}
           </div>
         </div>
