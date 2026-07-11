@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import Pagination from './components/pagination';
 import TGetLeftMain from './components/table/TGetLeftMain';
 import TGetRightMain from './components/table/TGetRightMain';
 import TMain from './components/table/TMain';
@@ -62,7 +63,7 @@ const GridInner = ({
     <div ref={gridWrapperRef}>
       {children}
       <div className="mun:relative">
-        <div className="mun:space-y-3">
+        <div className="mun:space-y-2">
           <div className="mun:flex mun:items-start mun:bg-muted mun:rounded-md mun:overflow-hidden mun:border mun:border-border mun:w-full">
             <TGetLeftMain />
             <div
@@ -74,6 +75,7 @@ const GridInner = ({
             <TGetRightMain />
             {isToolbar && <Toolbar height={tableHeight} />}
           </div>
+          <Pagination pagination={[20, 30, 40, 50, 60, 70, 80, 90, 100]} />
         </div>
       </div>
     </div>

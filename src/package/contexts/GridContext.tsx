@@ -1,6 +1,9 @@
 'use client';
 
-import type { ColumnPinningState } from '@tanstack/react-table';
+import type {
+  ColumnPinningState,
+  PaginationState,
+} from '@tanstack/react-table';
 import {
   getCoreRowModel,
   getFacetedMinMaxValues,
@@ -86,6 +89,10 @@ export const GridContextProvider = <T,>({
   const [globalFilter, setGlobalFilter] = React.useState('');
   const [isSplit, setIsSplit] = useSplitViewState(name);
   const [columnSizing, onColumnSizingChange] = useColumnSizingState(name);
+  const [pagination, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
 
   const table = useReactTable({
     _features: [DensityFeature],
@@ -103,6 +110,7 @@ export const GridContextProvider = <T,>({
       columnPinning,
       columnOrder,
       columnSizing,
+      pagination,
     },
     onDensityChange: setDensity,
     onColumnFiltersChange: setColumnFilters,
@@ -111,6 +119,7 @@ export const GridContextProvider = <T,>({
     onColumnPinningChange: onColumnPinningChange,
     onColumnOrderChange: onColumnOrderChange,
     onColumnSizingChange: onColumnSizingChange,
+    onPaginationChange: setPagination,
     defaultColumn: {
       minSize: 60,
       maxSize: 800,
