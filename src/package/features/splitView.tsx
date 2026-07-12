@@ -1,4 +1,4 @@
-import { useState, type Dispatch, type SetStateAction } from 'react';
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 
 const SPLIT_VIEW_STORAGE_KEY = 'grid-is-split';
 
@@ -29,9 +29,11 @@ export function setStoredIsSplit(gridId: string, isSplit: boolean) {
 }
 
 export function useSplitViewState(gridId: string) {
-  const [isSplit, setIsSplitState] = useState<boolean>(() =>
-    getStoredIsSplit(gridId),
-  );
+  const [isSplit, setIsSplitState] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsSplitState(getStoredIsSplit(gridId));
+  }, [gridId]);
 
   const setIsSplit: Dispatch<SetStateAction<boolean>> = (updater) => {
     setIsSplitState((old) => {

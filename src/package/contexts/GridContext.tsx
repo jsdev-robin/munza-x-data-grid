@@ -163,6 +163,10 @@ export const GridContextProvider = <T,>({
     },
   });
 
+  React.useEffect(() => {
+    setDensity(getStoredDensity(name));
+  }, [name]);
+
   const paneRef1 = useRef<HTMLDivElement>(null);
   const paneRef2 = useRef<HTMLDivElement>(null);
   const paneRef3 = useRef<HTMLDivElement>(null);

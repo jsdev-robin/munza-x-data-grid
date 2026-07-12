@@ -1,5 +1,5 @@
 import type { VisibilityState } from '@tanstack/react-table';
-import { useState, type Dispatch, type SetStateAction } from 'react';
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 
 const COLUMN_VISIBILITY_STORAGE_KEY = 'grid-column-visibility';
 
@@ -34,7 +34,11 @@ export function setStoredColumnVisibility(
 
 export function useColumnVisibilityState(gridId: string) {
   const [columnVisibility, setColumnVisibilityState] =
-    useState<VisibilityState>(() => getStoredColumnVisibility(gridId));
+    useState<VisibilityState>({});
+
+  useEffect(() => {
+    setColumnVisibilityState(getStoredColumnVisibility(gridId));
+  }, [gridId]);
 
   const onColumnVisibilityChange: Dispatch<SetStateAction<VisibilityState>> = (
     updater,

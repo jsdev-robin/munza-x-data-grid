@@ -1,5 +1,5 @@
 import type { ColumnPinningState } from '@tanstack/react-table';
-import { useState, type Dispatch, type SetStateAction } from 'react';
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 
 const COLUMN_PINNING_STORAGE_KEY = 'grid-column-pinning';
 
@@ -34,8 +34,12 @@ export function setStoredColumnPinning(
 
 export function useColumnPinningState(gridId: string) {
   const [columnPinning, setColumnPinningState] = useState<ColumnPinningState>(
-    () => getStoredColumnPinning(gridId),
+    {},
   );
+
+  useEffect(() => {
+    setColumnPinningState(getStoredColumnPinning(gridId));
+  }, [gridId]);
 
   const onColumnPinningChange: Dispatch<SetStateAction<ColumnPinningState>> = (
     updater,

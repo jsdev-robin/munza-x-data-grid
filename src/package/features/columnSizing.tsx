@@ -1,5 +1,11 @@
 import type { ColumnSizingState } from '@tanstack/react-table';
-import { useRef, useState, type Dispatch, type SetStateAction } from 'react';
+import {
+  useEffect,
+  useRef,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from 'react';
 
 const COLUMN_SIZING_STORAGE_KEY = 'grid-column-sizing';
 
@@ -33,10 +39,12 @@ export function setStoredColumnSizing(
 }
 
 export function useColumnSizingState(gridId: string) {
-  const [columnSizing, setColumnSizingState] = useState<ColumnSizingState>(() =>
-    getStoredColumnSizing(gridId),
-  );
+  const [columnSizing, setColumnSizingState] = useState<ColumnSizingState>({});
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    setColumnSizingState(getStoredColumnSizing(gridId));
+  }, [gridId]);
 
   const onColumnSizingChange: Dispatch<SetStateAction<ColumnSizingState>> = (
     updater,
