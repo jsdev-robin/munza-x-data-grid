@@ -105,6 +105,7 @@ const ToolbarColumns = () => {
           variant="outline"
           size="xs"
           disabled={!table.getIsSomeColumnsPinned()}
+          className="mun:col-span-full"
         >
           {isSplit ? 'Exit Split View' : 'Enter Split View'}
         </Button>
