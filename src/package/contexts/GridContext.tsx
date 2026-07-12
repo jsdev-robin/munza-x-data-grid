@@ -105,7 +105,7 @@ export const GridContextProvider = <T,>({
   height,
 }: GridContextProviderProps<T>) => {
   const gridWrapperRef = useRef<HTMLDivElement>(null);
-  const [density, setDensity] = React.useState<DensityState>(() => 'md');
+  const [density, setDensity] = React.useState<DensityState>('md');
   const [columnVisibility, onColumnVisibilityChange] =
     useColumnVisibilityState(name);
   const [columnPinning, onColumnPinningChange] = useColumnPinningState(name);
