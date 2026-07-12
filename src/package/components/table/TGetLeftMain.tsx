@@ -3,10 +3,11 @@ import TGetLeftBody from './TGetLeftBody';
 import TGetLeftHeader from './TGetLeftHeader';
 
 const TGetLeftMain = () => {
-  const { isSplit, columnPinning, paneRef3, paneRef4, height } = useGrid();
+  const { isSplit, columnPinning, paneRef3, paneRef4, height, isError } =
+    useGrid();
   return (
     <>
-      {isSplit && (columnPinning?.left?.length ?? 0) > 0 ? (
+      {!isError && isSplit && (columnPinning?.left?.length ?? 0) > 0 ? (
         <div className="mun:max-w-80 mun:overflow-hidden">
           <div
             className="mun:w-full mun:bg-muted mun:border-b mun:border-border mun:overflow-y-scroll mun:[scrollbar-color:transparent_transparent] mun:overflow-x-hidden"

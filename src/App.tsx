@@ -314,6 +314,7 @@ const App = () => {
           }}
           columns={columns}
           isLoading={false}
+          isError={true}
         />
       </div>
     </section>
