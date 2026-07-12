@@ -313,7 +313,7 @@ const App = () => {
             total: 20,
           }}
           columns={columns}
-          isLoading={true}
+          isLoading={false}
         />
       </div>
     </section>
