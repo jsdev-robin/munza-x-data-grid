@@ -5,9 +5,11 @@ import TCell from './TCell';
 export function TableCellPin({
   row,
   table,
+  isSplit,
 }: {
   row: Row<any>;
   table: Table<any>;
+  isSplit: boolean;
 }) {
   return (
     <TableRow
@@ -27,9 +29,11 @@ export function TableCellPin({
             : undefined,
       }}
     >
-      {row.getCenterVisibleCells().map((cell) => (
-        <TCell key={cell.id} cell={cell} />
-      ))}
+      {(isSplit ? row.getCenterVisibleCells() : row.getVisibleCells()).map(
+        (cell) => (
+          <TCell key={cell.id} cell={cell} />
+        ),
+      )}
     </TableRow>
   );
 }

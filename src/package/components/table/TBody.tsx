@@ -24,7 +24,12 @@ const TBody = () => {
     >
       <TableBody>
         {table.getTopRows().map((row) => (
-          <TableCellPin key={row.id} row={row} table={table} />
+          <TableCellPin
+            key={row.id}
+            row={row}
+            table={table}
+            isSplit={isSplit}
+          />
         ))}
         {table.getRowModel().rows.map((row) => (
           <React.Fragment key={row.id}>
@@ -49,7 +54,12 @@ const TBody = () => {
           </React.Fragment>
         ))}
         {table.getBottomRows().map((row) => (
-          <TableCellPin key={row.id} row={row} table={table} />
+          <TableCellPin
+            key={row.id}
+            row={row}
+            table={table}
+            isSplit={isSplit}
+          />
         ))}
       </TableBody>
     </Table>
