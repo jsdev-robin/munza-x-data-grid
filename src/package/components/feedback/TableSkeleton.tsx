@@ -6,7 +6,7 @@ import { getPinStyles } from '../../utils/getPinStyles';
 import TableRowSkeleton from './TableRowSkeleton';
 
 const TableSkeleton = () => {
-  const { table, isSplit } = useGrid();
+  const { table, isSplit, density } = useGrid();
 
   const visibleColumns = table
     .getHeaderGroups()
@@ -29,6 +29,13 @@ const TableSkeleton = () => {
                   width: column.getSize(),
                   minWidth: column.getSize(),
                   maxWidth: column.getSize(),
+                  padding:
+                    density === 'sm'
+                      ? '4px'
+                      : density === 'md'
+                        ? '8px'
+                        : '16px',
+                  transition: 'padding 0.2s',
                   ...getPinStyles(column, isSplit),
                 }}
               >

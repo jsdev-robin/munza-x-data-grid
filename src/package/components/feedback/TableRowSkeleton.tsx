@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import type { Column } from '@tanstack/react-table';
 import { Loader } from 'lucide-react';
 
-const PREDEFINED_WIDTHS = [100, 60, 130, 80, 50, 70, 40, 120];
+const PREDEFINED_WIDTHS = [60, 100, 80, 50, 70, 40, 90];
 
 const TableRowSkeleton = ({
   column,
