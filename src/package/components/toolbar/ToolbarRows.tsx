@@ -5,6 +5,8 @@ import { Label } from '@/components/ui/label';
 import { useGrid } from '@/package/contexts/GridContext';
 
 const ToolbarRows = () => {
+  'use no memo';
+
   const { table, density } = useGrid();
 
   return (
@@ -14,27 +16,29 @@ const ToolbarRows = () => {
       </div>
       <div className="mun:space-y-2 mun:px-1.5 mun:flex-1">
         <Label>Row Density</Label>
-        <Button
-          variant={density === 'sm' ? 'default' : 'outline'}
-          onClick={() => table.setDensity('sm')}
-          size="sm"
-        >
-          Small
-        </Button>
-        <Button
-          variant={density === 'md' ? 'default' : 'outline'}
-          onClick={() => table.setDensity('md')}
-          size="sm"
-        >
-          Default
-        </Button>
-        <Button
-          variant={density === 'lg' ? 'default' : 'outline'}
-          onClick={() => table.setDensity('lg')}
-          size="sm"
-        >
-          Large
-        </Button>
+        <div className="mun:flex mun:items-center mun:gap-1.5 mun:flex-wrap">
+          <Button
+            variant={density === 'sm' ? 'default' : 'outline'}
+            onClick={() => table.setDensity('sm')}
+            size="sm"
+          >
+            Small
+          </Button>
+          <Button
+            variant={density === 'md' ? 'default' : 'outline'}
+            onClick={() => table.setDensity('md')}
+            size="sm"
+          >
+            Default
+          </Button>
+          <Button
+            variant={density === 'lg' ? 'default' : 'outline'}
+            onClick={() => table.setDensity('lg')}
+            size="sm"
+          >
+            Large
+          </Button>
+        </div>
       </div>
       <div className="mun:px-1.5">
         <Button
