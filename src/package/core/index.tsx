@@ -27,8 +27,8 @@ const Grid = <T,>({
   isFetching,
   refetch,
   height = '65vh',
-  isToolbar = true,
-  isPagination = true,
+  isToolbar,
+  isPagination,
   children,
   name,
 }: GridProps<T>) => {
@@ -62,8 +62,8 @@ const Grid = <T,>({
 
 const GridInner = ({
   children,
-  isToolbar,
-  isPagination,
+  isToolbar = true,
+  isPagination = true,
 }: {
   children?: React.ReactNode;
   isToolbar?: boolean;
