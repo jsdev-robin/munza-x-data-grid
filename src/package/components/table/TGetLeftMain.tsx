@@ -3,7 +3,7 @@ import TGetLeftBody from './TGetLeftBody';
 import TGetLeftHeader from './TGetLeftHeader';
 
 const TGetLeftMain = () => {
-  const { isSplit, columnPinning, paneRef3, paneRef4 } = useGrid();
+  const { isSplit, columnPinning, paneRef3, paneRef4, height } = useGrid();
   return (
     <>
       {isSplit && (columnPinning?.left?.length ?? 0) > 0 ? (
@@ -17,7 +17,7 @@ const TGetLeftMain = () => {
           <div
             className="mun:w-full mun:overflow-scroll mun:bg-background"
             ref={paneRef4}
-            style={{ height: '65vh' }}
+            style={{ height: height }}
           >
             <TGetLeftBody />
           </div>

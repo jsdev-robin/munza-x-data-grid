@@ -2,8 +2,13 @@
 
 import type {
   ColumnPinningState,
+  ExpandedState,
+  OnChangeFn,
   PaginationState,
+  Row,
+  RowSelectionState,
   SortingState,
+  TableState,
 } from '@tanstack/react-table';
 import {
   getCoreRowModel,
@@ -45,6 +50,7 @@ export interface GridContextProps<T> {
   gridWrapperRef: React.RefObject<HTMLDivElement | null>;
   globalFilter: string;
   refetch?: () => void;
+  height?: string;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -56,22 +62,44 @@ interface GridContextProviderProps<T> {
     total: number;
   };
   columns: ColumnDef<T>[];
-  isFetching?: boolean;
+  state?: Partial<TableState>;
+  onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>;
+  onPaginationChange?: OnChangeFn<PaginationState>;
+  onRowSelectionChange?: OnChangeFn<RowSelectionState>;
+  onSortingChange?: OnChangeFn<SortingState>;
+  manualPagination?: boolean;
+  enableRowSelection?: boolean;
   isLoading?: boolean;
   isError?: boolean;
+  isFetching?: boolean;
   refetch?: () => void;
+  setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
+  renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
+  getRowCanExpand?: (row: Row<T>) => boolean;
   name?: string;
+  height?: string;
 }
 
 export const GridContextProvider = <T,>({
   children,
   payload,
   columns,
-  isFetching,
-  isLoading,
+  state = {},
+  onColumnFiltersChange,
+  onPaginationChange,
+  onSortingChange,
+  onRowSelectionChange,
+  setGlobalFilter,
+  manualPagination = false,
+  enableRowSelection = true,
   isError,
+  isLoading,
+  isFetching,
   refetch,
+  getRowCanExpand,
+  renderSubComponent,
   name = 'munza',
+  height,
 }: GridContextProviderProps<T>) => {
   const gridWrapperRef = useRef<HTMLDivElement>(null);
   const [density, setDensity] = React.useState<DensityState>(() =>
@@ -87,17 +115,7 @@ export const GridContextProvider = <T,>({
   );
   const [isSplit, setIsSplit] = useSplitViewState(name);
   const [columnSizing, onColumnSizingChange] = useColumnSizingState(name);
-
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
-  const [pagination, setPagination] = React.useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 20,
-  });
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [rowSelection, setRowSelection] = React.useState({});
-  const [globalFilter, setGlobalFilter] = React.useState('');
+  const [expanded, setExpanded] = React.useState<ExpandedState>({});
 
   const table = useReactTable({
     _features: [DensityFeature],
@@ -109,29 +127,29 @@ export const GridContextProvider = <T,>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     state: {
+      ...state,
       density,
-      columnFilters,
-      globalFilter,
       columnVisibility,
       columnPinning,
       columnOrder,
       columnSizing,
-      pagination,
-      sorting,
-      rowSelection,
+      expanded,
     },
-    manualPagination: true,
-    enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
+    getSubRows: (row: T) => (row as any).subRows,
+    getRowCanExpand,
+    manualPagination: manualPagination,
+    enableRowSelection: enableRowSelection,
+    onRowSelectionChange: onRowSelectionChange,
     onDensityChange: setDensity,
-    onColumnFiltersChange: setColumnFilters,
+    onColumnFiltersChange: onColumnFiltersChange,
     onGlobalFilterChange: setGlobalFilter,
     onColumnVisibilityChange: onColumnVisibilityChange,
     onColumnPinningChange: onColumnPinningChange,
     onColumnOrderChange: onColumnOrderChange,
     onColumnSizingChange: onColumnSizingChange,
-    onPaginationChange: setPagination,
-    onSortingChange: setSorting,
+    onPaginationChange: onPaginationChange,
+    onSortingChange: onSortingChange,
+    onExpandedChange: setExpanded,
     defaultColumn: {
       minSize: 60,
       maxSize: 800,
@@ -182,7 +200,9 @@ export const GridContextProvider = <T,>({
       setIsSplit,
       columnPinning,
       gridWrapperRef,
-      globalFilter,
+      globalFilter: state.globalFilter,
+      renderSubComponent,
+      height,
     }),
     [
       paneRef1,
@@ -200,7 +220,9 @@ export const GridContextProvider = <T,>({
       setIsSplit,
       columnPinning,
       gridWrapperRef,
-      globalFilter,
+      state.globalFilter,
+      renderSubComponent,
+      height,
     ],
   );
 

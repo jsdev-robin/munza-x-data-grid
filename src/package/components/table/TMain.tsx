@@ -4,7 +4,7 @@ import TBody from './TBody';
 import THeader from './THeader';
 
 const TMain = () => {
-  const { paneRef1, paneRef2 } = useGrid();
+  const { paneRef1, paneRef2, height } = useGrid();
 
   return (
     <React.Fragment>
@@ -17,7 +17,7 @@ const TMain = () => {
       <div
         className="mun:w-full mun:overflow-scroll mun:bg-background"
         ref={paneRef2}
-        style={{ height: '65vh' }}
+        style={{ height: height }}
       >
         <TBody />
       </div>
