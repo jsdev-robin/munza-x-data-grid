@@ -33,6 +33,7 @@ Everything — components, hooks, utilities, and types — is exported from the 
 ```tsx
 import {
   Grid,
+  useGrid,
   useGridState,
   useQueryArgs,
   URLSearch,
@@ -379,7 +380,101 @@ URLSearch(queryArgs);
 
 > Note: `department_name` becomes `department.name` — underscores in a column `id` are converted to dots, which is handy for filtering on nested/populated document fields in MongoDB-backed APIs.
 
-## 8. Example: Full Flow
+## 8. Customizing via `useGrid` (inside `<Grid>` children)
+
+`Grid` exposes its internal context — the live `@tanstack/react-table` `table` instance, density, split-view state, column pinning, scroll pane refs, and more — through the `useGrid()` hook. This lets you build custom toolbar buttons, headers, footers, or any other UI that needs access to the table without having to lift state yourself.
+
+> **Important:** `useGrid()` only works **inside** `<Grid>` — i.e. in a component rendered as a _child_ of `<Grid>`. Calling it in the same component that renders `<Grid>` (like your `App` component) will throw, because the context provider wraps `Grid`'s children, not `Grid` itself.
+
+### Import
+
+```tsx
+import { Grid, useGrid } from 'munza-x-data-grid';
+```
+
+### What `useGrid()` returns
+
+| Property                               | Type                        | Description                                                                                                             |
+| -------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `table`                                | `Table<T>`                  | The underlying `@tanstack/react-table` instance — full access to rows, columns, filtering/sorting/pagination APIs, etc. |
+| `density`                              | `DensityState`              | Current row density (e.g. compact/comfortable)                                                                          |
+| `isSplit` / `setIsSplit`               | `boolean` / setter          | Split-view state, for side-by-side pinned/unpinned panes                                                                |
+| `columnPinning`                        | `ColumnPinningState`        | Current left/right pinned columns                                                                                       |
+| `globalFilter`                         | `string`                    | The current global search text                                                                                          |
+| `setGlobalFilter`                      | setter                      | Update the global search text                                                                                           |
+| `isLoading` / `isError` / `isFetching` | `boolean`                   | Data-fetch status flags passed down to `Grid`                                                                           |
+| `refetch`                              | `() => void`                | Re-triggers the data fetch, if provided to `Grid`                                                                       |
+| `height`                               | `string`                    | The table height passed to `Grid`                                                                                       |
+| `renderSubComponent`                   | function                    | The expanded-row renderer passed to `Grid`                                                                              |
+| `gridWrapperRef`                       | `RefObject<HTMLDivElement>` | Ref to the grid's outer wrapper element                                                                                 |
+| `paneRef1`–`paneRef6`                  | `RefObject<HTMLDivElement>` | Refs to the internal scroll panes (pinned-left/main/pinned-right, header/body), used for scroll syncing                 |
+
+### Example — a custom toolbar button using `table`
+
+```tsx
+import { Grid, useGrid, useGridState } from 'munza-x-data-grid';
+
+const ResetFiltersButton = () => {
+  const { table } = useGrid();
+
+  return (
+    <button onClick={() => table.resetColumnFilters()}>Clear filters</button>
+  );
+};
+
+const App = () => {
+  const { state, handlers } = useGridState();
+
+  return (
+    <Grid
+      payload={{ data, total }}
+      columns={columns}
+      state={state}
+      {...handlers}
+    >
+      <ResetFiltersButton />
+    </Grid>
+  );
+};
+```
+
+### Example — reading selected rows from `table`
+
+```tsx
+const SelectionSummary = () => {
+  const { table } = useGrid();
+  const selectedCount = table.getSelectedRowModel().rows.length;
+
+  return <span>{selectedCount} row(s) selected</span>;
+};
+
+<Grid columns={columns} payload={{ data, total }} state={state} {...handlers}>
+  <SelectionSummary />
+</Grid>;
+```
+
+### Example — toggling density or split view
+
+```tsx
+const ViewControls = () => {
+  const { density, isSplit, setIsSplit } = useGrid();
+
+  return (
+    <div>
+      <span>Density: {density}</span>
+      <button onClick={() => setIsSplit((prev) => !prev)}>
+        {isSplit ? 'Unsplit view' : 'Split view'}
+      </button>
+    </div>
+  );
+};
+
+<Grid columns={columns} payload={{ data, total }} state={state} {...handlers}>
+  <ViewControls />
+</Grid>;
+```
+
+## 9. Example: Full Flow
 
 ```tsx
 const { state, handlers } = useGridState();
