@@ -23,6 +23,7 @@ const ToolbarSettings = () => {
     if (!confirmed) return;
 
     table.setColumnPinning({});
+    table.resetRowPinning();
     table.setColumnVisibility({});
     table.setColumnOrder(table.getAllLeafColumns().map((c) => c.id));
     table.setColumnSizing({});
