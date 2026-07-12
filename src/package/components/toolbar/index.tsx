@@ -18,7 +18,7 @@ const Toolbar = ({ height }: { height: number }) => {
 
   return (
     <div
-      className="mun:bg-muted mun:overflow-hidden mun:hidden mun:sm:flex"
+      className="mun:bg-muted mun:overflow-hidden mun:flex"
       style={{
         height: height,
       }}
