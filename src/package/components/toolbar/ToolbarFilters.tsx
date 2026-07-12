@@ -38,8 +38,8 @@ const ToolbarFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
               {open ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
             </span>
             <span className="mun:truncate">
-              {sortedUniqueValues?.id && sortedUniqueValues.id.length > 20
-                ? `${sortedUniqueValues.id.slice(0, 20)}...`
+              {sortedUniqueValues?.id && sortedUniqueValues.id.length > 15
+                ? `${sortedUniqueValues.id.slice(0, 15)}...`
                 : sortedUniqueValues?.id}
             </span>
           </CollapsibleTrigger>
