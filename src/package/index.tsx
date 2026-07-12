@@ -7,9 +7,7 @@ import type {
   Row,
   SortingState,
 } from '@tanstack/react-table';
-
-export { useGrid } from './contexts/GridContext';
-export type { GridContextProps } from './contexts/GridContext';
+export { useGrid, type GridContextProps } from './contexts/GridContext';
 export { Grid } from './core/index';
 export { useGridState } from './hooks/useGridState';
 export { useQueryArgs } from './hooks/useQueryArgs';
