@@ -5,6 +5,8 @@ import { Maximize, Minimize, RefreshCw } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const ToolbarSettings = () => {
+  'use no memo';
+
   const { table, setIsSplit, gridWrapperRef, isFetching, refetch } = useGrid();
   const [isFullscreen, setIsFullscreen] = useState(false);
 

@@ -104,6 +104,8 @@ export const GridContextProvider = <T,>({
   name = 'munza',
   height,
 }: GridContextProviderProps<T>) => {
+  'use no memo';
+
   const gridWrapperRef = useRef<HTMLDivElement>(null);
   const [density, setDensity] = React.useState<DensityState>(() =>
     getStoredDensity(name),

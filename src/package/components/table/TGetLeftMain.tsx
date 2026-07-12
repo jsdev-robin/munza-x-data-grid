@@ -3,6 +3,8 @@ import TGetLeftBody from './TGetLeftBody';
 import TGetLeftHeader from './TGetLeftHeader';
 
 const TGetLeftMain = () => {
+  'use no memo';
+
   const { isSplit, columnPinning, paneRef3, paneRef4, height, isError } =
     useGrid();
   return (

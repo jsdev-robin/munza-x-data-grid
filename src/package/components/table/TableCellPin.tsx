@@ -11,6 +11,8 @@ export function TableCellPin({
   table: Table<any>;
   isSplit: boolean;
 }) {
+  'use no memo';
+
   return (
     <TableRow
       style={{

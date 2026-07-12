@@ -4,6 +4,8 @@ import { cn } from '@/lib/utils';
 import { type Header } from '@tanstack/react-table';
 
 const HeaderResizing = <T,>({ header }: { header: Header<T, unknown> }) => {
+  'use no memo';
+
   return (
     <div
       onDoubleClick={() => header.column.resetSize()}

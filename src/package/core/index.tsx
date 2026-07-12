@@ -32,6 +32,8 @@ const Grid = <T,>({
   children,
   name,
 }: GridProps<T>) => {
+  'use no memo';
+
   return (
     <GridContextProvider
       payload={payload}

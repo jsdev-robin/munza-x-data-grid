@@ -8,6 +8,8 @@ import { useGrid } from '@/package/contexts/GridContext';
 import { useMemo, useState } from 'react';
 
 const ToolbarColumns = () => {
+  'use no memo';
+
   const { table, setIsSplit, isSplit } = useGrid();
   const [searchTerm, setSearchTerm] = useState('');
   const visibleColumns = useMemo(() => {

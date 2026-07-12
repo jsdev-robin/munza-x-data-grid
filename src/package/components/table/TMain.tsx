@@ -4,6 +4,8 @@ import TBody from './TBody';
 import THeader from './THeader';
 
 const TMain = () => {
+  'use no memo';
+
   const { paneRef1, paneRef2, height } = useGrid();
 
   return (

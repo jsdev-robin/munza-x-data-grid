@@ -15,6 +15,8 @@ import {
 } from 'lucide-react';
 
 const Pagination = ({ pagination = [] }: { pagination: number[] }) => {
+  'use no memo';
+
   const { table, isError, isLoading, isFetching } = useGrid();
 
   return (

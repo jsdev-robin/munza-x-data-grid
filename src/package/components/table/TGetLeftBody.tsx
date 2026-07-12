@@ -7,6 +7,8 @@ import TCell from './TCell';
 import { TableLeftCellPin } from './TableLeftCellPin';
 
 const TGetLeftBody = () => {
+  'use no memo';
+
   const { table, isLoading, isError, renderSubComponent } = useGrid();
 
   return isLoading ? (

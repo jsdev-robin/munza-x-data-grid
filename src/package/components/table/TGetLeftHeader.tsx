@@ -3,6 +3,8 @@ import { useGrid } from '@/package/contexts/GridContext';
 import THead from './THead';
 
 const TGetLeftHeader = () => {
+  'use no memo';
+
   const { table } = useGrid();
   return (
     <Table>

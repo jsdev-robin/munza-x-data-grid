@@ -6,6 +6,8 @@ import { getPinStyles } from '../../utils/getPinStyles';
 import TableRowSkeleton from './TableRowSkeleton';
 
 const TableRightSkeleton = () => {
+  'use no memo';
+
   const { table, isSplit, density } = useGrid();
 
   const visibleColumns = table

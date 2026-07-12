@@ -6,6 +6,8 @@ import { useMemo } from 'react';
 import NoDataFoundMsg from './NoDataFoundMsg';
 
 const TableNoData = () => {
+  'use no memo';
+
   const { table, isSplit } = useGrid();
 
   const visibleColumns = useMemo(

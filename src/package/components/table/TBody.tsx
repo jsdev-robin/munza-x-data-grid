@@ -8,6 +8,8 @@ import TCell from './TCell';
 import { TableCellPin } from './TableCellPin';
 
 const TBody = () => {
+  'use no memo';
+
   const { table, isLoading, isError, renderSubComponent, isSplit } = useGrid();
 
   return isLoading ? (

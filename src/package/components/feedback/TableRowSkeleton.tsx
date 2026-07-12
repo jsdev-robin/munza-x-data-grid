@@ -13,6 +13,8 @@ const TableRowSkeleton = ({
   i: number;
   j: number;
 }) => {
+  'use no memo';
+
   return (
     <>
       {['select'].includes(column.id) ? (

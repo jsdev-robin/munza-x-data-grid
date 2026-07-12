@@ -11,6 +11,8 @@ import ToolbarRows from './ToolbarRows';
 import ToolbarSettings from './ToolbarSettings';
 
 const Toolbar = ({ height }: { height: number }) => {
+  'use no memo';
+
   const [activePanel, setActivePanel] = useState<string | null>(null);
   const togglePanel = (panel: string | null) => {
     setActivePanel(activePanel === panel ? null : panel);

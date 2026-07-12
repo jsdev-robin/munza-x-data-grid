@@ -23,6 +23,8 @@ import {
 import { useState } from 'react';
 
 const HeaderMenu = <T,>({ header }: { header: Header<T, unknown> }) => {
+  'use no memo';
+
   const [open, setOpen] = useState<boolean>(false);
   const { isLoading, isError } = useGrid();
 

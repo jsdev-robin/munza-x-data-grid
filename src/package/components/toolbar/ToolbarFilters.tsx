@@ -14,6 +14,8 @@ import { useGrid } from '@/package/contexts/GridContext';
 import { ChevronDown, ChevronRight, ListRestart } from 'lucide-react';
 
 const ToolbarFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
+  'use no memo';
+
   const sortedUniqueValues = useMemo(() => {
     return column.getCanFilter()
       ? {

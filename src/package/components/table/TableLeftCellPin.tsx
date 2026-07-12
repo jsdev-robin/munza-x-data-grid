@@ -9,6 +9,8 @@ export function TableLeftCellPin({
   row: Row<any>;
   table: Table<any>;
 }) {
+  'use no memo';
+
   return (
     <TableRow
       style={{

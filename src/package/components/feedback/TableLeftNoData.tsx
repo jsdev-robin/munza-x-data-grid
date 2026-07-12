@@ -5,6 +5,8 @@ import { useGrid } from '@/package/contexts/GridContext';
 import NoDataFoundMsg from './NoDataFoundMsg';
 
 const TableLeftNoData = () => {
+  'use no memo';
+
   const { table } = useGrid();
 
   return (

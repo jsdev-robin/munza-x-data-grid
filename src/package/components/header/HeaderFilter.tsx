@@ -9,6 +9,8 @@ import { useGrid } from '@/package/contexts/GridContext';
 import type { Column } from '@tanstack/react-table';
 
 const HeaderFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
+  'use no memo';
+
   const columnFilterValue = column.getFilterValue();
   const { filterVariant } = column.columnDef.meta ?? {};
   const { isFetching } = useGrid();

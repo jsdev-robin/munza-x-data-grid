@@ -4,6 +4,8 @@ import { flexRender, type Header } from '@tanstack/react-table';
 import { ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
 const HeaderSort = <T,>({ header }: { header: Header<T, unknown> }) => {
+  'use no memo';
+
   return (
     <div
       {...{

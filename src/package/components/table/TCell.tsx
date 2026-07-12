@@ -8,6 +8,8 @@ interface TCellProps<T> {
   cell: Cell<T, unknown>;
 }
 const TCell = <T,>({ cell }: TCellProps<T>) => {
+  'use no memo';
+
   const { density, isSplit } = useGrid();
   const cellRef = useRef<HTMLTableCellElement>(null);
 

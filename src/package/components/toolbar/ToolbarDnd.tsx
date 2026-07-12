@@ -30,6 +30,8 @@ const DraggableColumnItem = ({
   columnId: string;
   label: string;
 }) => {
+  'use no memo';
+
   const {
     attributes,
     isDragging,
