@@ -1,11 +1,19 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useGrid } from '@/package/contexts/GridContext';
 import React from 'react';
+import TableLeftSkeleton from '../feedback/TableLeftSkeleton';
 import TCell from './TCell';
 
 const TGetLeftBody = () => {
-  const { table, renderSubComponent } = useGrid();
-  return (
+  const { table, isLoading, isError, renderSubComponent } = useGrid();
+
+  return isLoading ? (
+    <TableLeftSkeleton />
+  ) : isError ? (
+    <div>Error</div>
+  ) : table.getRowModel().rows.length === 0 ? (
+    <div>No</div>
+  ) : (
     <Table>
       <TableBody>
         {table.getRowModel().rows.map((row) => (
