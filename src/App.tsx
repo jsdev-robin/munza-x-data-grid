@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
-import { dummyVehicles, type Vehicle } from './data/dummyData';
+import { type Vehicle } from './data/dummyData';
 import { Grid } from './package';
 
 const App = () => {
@@ -309,8 +309,8 @@ const App = () => {
       <div className="mun:container mun:p-10">
         <Grid
           payload={{
-            data: dummyVehicles,
-            total: 20,
+            data: [],
+            total: 0,
           }}
           columns={columns}
           isLoading={false}
