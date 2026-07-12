@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { dummyVehicles, type Vehicle } from './data/dummyData';
 import { Grid } from './package';
 import { useGridState } from './package/hooks/useGridState';
-import { queryUrl } from './package/utils/queryUrl';
+import { URLSearch } from './package/utils/URLSearch';
 
 const App = () => {
   const columns = useMemo<ColumnDef<Vehicle, unknown>[]>(
@@ -55,7 +55,7 @@ const App = () => {
         cell: (info) => info.getValue(),
         header: () => <div>Driver</div>,
         meta: {
-          filterVariant: 'text',
+          filterVariant: 'range',
         },
       },
       {
@@ -325,7 +325,7 @@ const App = () => {
 
   const { state, handlers } = useGridState();
 
-  console.log(queryUrl(state));
+  console.log(URLSearch(state));
 
   return (
     <section>
