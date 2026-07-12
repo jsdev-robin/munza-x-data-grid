@@ -2,6 +2,7 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useGrid } from '@/package/contexts/GridContext';
 import React from 'react';
 import TableError from '../feedback/TableError';
+import TableNoData from '../feedback/TableNoData';
 import TableSkeleton from '../feedback/TableSkeleton';
 import TCell from './TCell';
 
@@ -13,7 +14,7 @@ const TBody = () => {
   ) : isError ? (
     <TableError />
   ) : table.getRowModel().rows.length === 0 ? (
-    <div>No</div>
+    <TableNoData />
   ) : (
     <Table
       style={{
