@@ -1,3 +1,5 @@
+'use client';
+
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useGrid } from '@/package/contexts/GridContext';
 import React from 'react';

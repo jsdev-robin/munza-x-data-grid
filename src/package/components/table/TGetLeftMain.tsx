@@ -1,3 +1,5 @@
+'use client';
+
 import { useGrid } from '@/package/contexts/GridContext';
 import TGetLeftBody from './TGetLeftBody';
 import TGetLeftHeader from './TGetLeftHeader';

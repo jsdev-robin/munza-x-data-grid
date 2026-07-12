@@ -1,3 +1,5 @@
+'use client';
+
 import { TableCell } from '@/components/ui/table';
 import { useGrid } from '@/package/contexts/GridContext';
 import { getPinStyles } from '@/package/utils/getPinStyles';

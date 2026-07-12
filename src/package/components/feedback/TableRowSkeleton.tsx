@@ -1,3 +1,5 @@
+'use client';
+
 import { Skeleton } from '@/components/ui/skeleton';
 import type { Column } from '@tanstack/react-table';
 import { Loader } from 'lucide-react';

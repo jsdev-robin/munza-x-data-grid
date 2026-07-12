@@ -1,3 +1,5 @@
+'use client';
+
 import { Table, TableHeader, TableRow } from '@/components/ui/table';
 import { useGrid } from '@/package/contexts/GridContext';
 import THead from './THead';

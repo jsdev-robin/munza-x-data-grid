@@ -1,3 +1,5 @@
+'use client';
+
 import TableErrorMsg from './TableErrorMsg';
 
 const TableError = () => {

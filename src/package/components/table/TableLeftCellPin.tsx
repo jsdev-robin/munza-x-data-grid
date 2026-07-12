@@ -1,3 +1,5 @@
+'use client';
+
 import { TableRow } from '@/components/ui/table';
 import { type Row, type Table } from '@tanstack/react-table';
 import TCell from './TCell';

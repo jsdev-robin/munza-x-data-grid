@@ -1,3 +1,5 @@
+'use client';
+
 import { useGrid } from '@/package/contexts/GridContext';
 import React from 'react';
 import TBody from './TBody';

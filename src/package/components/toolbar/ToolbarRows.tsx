@@ -5,8 +5,6 @@ import { Label } from '@/components/ui/label';
 import { useGrid } from '@/package/contexts/GridContext';
 
 const ToolbarRows = () => {
-  'use no memo';
-
   const { table, density } = useGrid();
 
   return (
