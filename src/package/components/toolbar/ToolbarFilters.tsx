@@ -71,7 +71,7 @@ const ToolbarFilter = <T,>({ column }: { column: Column<T, unknown> }) => {
 };
 
 const ToolbarFilters = () => {
-  const { table, globalFilter } = useGrid();
+  const { table, globalFilter, setGlobalFilter } = useGrid();
 
   return (
     <div className="mun:flex mun:flex-col mun:gap-1.5 mun:h-full mun:py-1.5">
@@ -82,9 +82,7 @@ const ToolbarFilters = () => {
         <DebouncedInput
           value={String(globalFilter)}
           onChange={(value) => {
-            if (value) {
-              table.setGlobalFilter(String(value));
-            }
+            setGlobalFilter?.(String(value));
           }}
           placeholder="Search all columns..."
         />

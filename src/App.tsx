@@ -2,6 +2,8 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { dummyVehicles, type Vehicle } from './data/dummyData';
 import { Grid } from './package';
+import { useGridState } from './package/hooks/useGridState';
+import { queryUrl } from './package/utils/queryUrl';
 
 const App = () => {
   const columns = useMemo<ColumnDef<Vehicle, unknown>[]>(
@@ -321,6 +323,10 @@ const App = () => {
     [],
   );
 
+  const { state, handlers } = useGridState();
+
+  console.log(queryUrl(state));
+
   return (
     <section>
       <div className="mun:container mun:p-10">
@@ -332,6 +338,9 @@ const App = () => {
           columns={columns}
           isLoading={false}
           isError={false}
+          manualPagination={true}
+          state={state}
+          {...handlers}
         />
       </div>
     </section>

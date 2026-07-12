@@ -53,6 +53,7 @@ export interface GridContextProps<T> {
   refetch?: () => void;
   height?: string;
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
+  setGlobalFilter?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);
@@ -156,7 +157,6 @@ export const GridContextProvider = <T,>({
     onSortingChange: onSortingChange,
     onExpandedChange: setExpanded,
     onRowPinningChange: onRowPinningChange,
-    // onGroupingChange: setGrouping,
     defaultColumn: {
       minSize: 60,
       maxSize: 800,
@@ -210,6 +210,7 @@ export const GridContextProvider = <T,>({
       globalFilter: state.globalFilter,
       renderSubComponent,
       height,
+      setGlobalFilter,
     }),
     [
       paneRef1,
@@ -230,6 +231,7 @@ export const GridContextProvider = <T,>({
       state.globalFilter,
       renderSubComponent,
       height,
+      setGlobalFilter,
     ],
   );
 
