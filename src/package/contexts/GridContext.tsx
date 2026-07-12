@@ -122,6 +122,7 @@ export const GridContextProvider = <T,>({
     _features: [DensityFeature],
     data: payload?.data ?? [],
     columns: columns,
+    gridId: name,
     rowCount: payload?.total,
     columnResizeMode: 'onChange',
     getCoreRowModel: getCoreRowModel(),
