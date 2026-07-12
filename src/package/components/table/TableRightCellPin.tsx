@@ -2,7 +2,7 @@ import { TableRow } from '@/components/ui/table';
 import { type Row, type Table } from '@tanstack/react-table';
 import TCell from './TCell';
 
-export function TableCellPin({
+export function TableRightCellPin({
   row,
   table,
 }: {
@@ -27,7 +27,7 @@ export function TableCellPin({
             : undefined,
       }}
     >
-      {row.getCenterVisibleCells().map((cell) => (
+      {row.getRightVisibleCells().map((cell) => (
         <TCell key={cell.id} cell={cell} />
       ))}
     </TableRow>

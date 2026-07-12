@@ -4,6 +4,7 @@ import React from 'react';
 import TableLeftNoData from '../feedback/TableLeftNoData';
 import TableLeftSkeleton from '../feedback/TableLeftSkeleton';
 import TCell from './TCell';
+import { TableLeftCellPin } from './TableLeftCellPin';
 
 const TGetLeftBody = () => {
   const { table, isLoading, isError, renderSubComponent } = useGrid();
@@ -16,6 +17,9 @@ const TGetLeftBody = () => {
     <TableLeftNoData />
   ) : (
     <Table>
+      {table.getTopRows().map((row) => (
+        <TableLeftCellPin key={row.id} row={row} table={table} />
+      ))}
       <TableBody>
         {table.getRowModel().rows.map((row) => (
           <React.Fragment key={row.id}>
@@ -37,6 +41,9 @@ const TGetLeftBody = () => {
           </React.Fragment>
         ))}
       </TableBody>
+      {table.getBottomRows().map((row) => (
+        <TableLeftCellPin key={row.id} row={row} table={table} />
+      ))}
     </Table>
   );
 };
