@@ -261,15 +261,123 @@ It returns:
 - `sort` — sort string
 - `globalFilter` — global search text
 
-## 7. Syncing State to the URL
+## 7. Syncing State to the URL — `URLSearch`
+
+`URLSearch` converts the grid's query state (`QueryArgs`) into a MongoDB-style query string, so you can sync table state to the URL or forward it straight to a REST API that understands Mongo-style filter operators.
+
+### Import
 
 ```tsx
 import { URLSearch } from 'munza-x-data-grid';
-
-console.log(URLSearch(state));
 ```
 
-This generates URL search parameters from the current table state, which can be used to sync with your router.
+### `QueryArgs` shape
+
+```ts
+interface ColumnFilter {
+  id: string;
+  value: unknown;
+}
+
+interface SortingItem {
+  id: string;
+  desc: boolean;
+}
+
+interface Pagination {
+  pageIndex: number;
+  pageSize: number;
+}
+
+interface QueryArgs {
+  columnFilters: ColumnFilter[];
+  globalFilter?: string;
+  pagination: Pagination;
+  sorting: SortingItem[];
+  rowSelection?: Record<string, boolean>;
+}
+```
+
+### Basic usage
+
+```tsx
+const { state } = useGridState();
+
+console.log(URLSearch(state));
+// e.g. "?page=1&limit=20&sort=-createdAt&q=john"
+```
+
+### What it does
+
+`URLSearch(queryArgs: QueryArgs): string` builds a `URLSearchParams` string with the following rules:
+
+| State                  | Resulting query param(s)                                                                        |
+| ---------------------- | ----------------------------------------------------------------------------------------------- |
+| `pagination.pageIndex` | `page` (1-indexed, so `pageIndex + 1`)                                                          |
+| `pagination.pageSize`  | `limit`                                                                                         |
+| `sorting`              | `sort` — comma-separated column ids, prefixed with `-` for descending (e.g. `sort=-price,name`) |
+| `globalFilter`         | `q` — only included if non-empty                                                                |
+| `columnFilters`        | one or more params per filter, see below                                                        |
+
+### Column filter handling
+
+Each entry in `columnFilters` is passed through `appendColumnFilter`, which converts the filter's `id` into dot-notation (underscores become dots — useful for nested/populated fields) and then branches on the shape of `value`:
+
+1. **Range value** — a 2-item array (e.g. from a `range` or `dateRange` filter):
+
+   ```ts
+   { id: 'price', value: [10, 100] }
+   // → price[gte]=10&price[lte]=100
+   ```
+
+   Empty/`null` bounds are skipped, so `[null, 100]` only sets `price[lte]=100`.
+
+2. **Operator object** — a plain object whose keys are MongoDB-style operators:
+
+   ```ts
+   { id: 'status', value: { in: ['active', 'pending'] } }
+   // → status[in]=active,pending
+   ```
+
+   Only keys present in the supported operator list are included; unsupported keys and empty/`null` values are ignored.
+
+3. **Plain scalar value** — anything else (string, number, boolean):
+   ```ts
+   { id: 'name', value: 'john' }
+   // → name=john
+   ```
+   Empty strings and `null`/`undefined` are skipped entirely.
+
+### Supported MongoDB-style operators
+
+```
+eq, ne, gt, gte, lt, lte, in, nin, regex, exists, all, size,
+elemMatch, type, mod, not, and, or, nor, text, where,
+geoWithin, geoIntersects, near, nearSphere, expr, jsonSchema,
+bitsAllClear, bitsAllSet, bitsAnyClear, bitsAnySet, rand
+```
+
+Any operator outside this list is silently dropped from the query string.
+
+### Full example
+
+```tsx
+const queryArgs: QueryArgs = {
+  pagination: { pageIndex: 0, pageSize: 20 },
+  sorting: [{ id: 'createdAt', desc: true }],
+  globalFilter: 'john',
+  columnFilters: [
+    { id: 'price', value: [10, 100] },
+    { id: 'status', value: { in: ['active', 'pending'] } },
+    { id: 'department_name', value: 'Engineering' },
+  ],
+};
+
+URLSearch(queryArgs);
+// "?page=1&limit=20&price[gte]=10&price[lte]=100&status[in]=active%2Cpending&department.name=Engineering&sort=-createdAt&q=john"
+```
+
+> Note: `department_name` becomes `department.name` — underscores in a column `id` are converted to dots, which is handy for filtering on nested/populated document fields in MongoDB-backed APIs.
 
 ## 8. Example: Full Flow
 
