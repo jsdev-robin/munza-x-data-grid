@@ -29,6 +29,7 @@ import {
   getStoredDensity,
   type DensityState,
 } from '../features/rowDensity';
+import { useRowPinningState } from '../features/rowPinning';
 import { useSplitViewState } from '../features/splitView';
 import useSyncScroll from '../hooks/useSyncScroll';
 
@@ -117,6 +118,7 @@ export const GridContextProvider = <T,>({
   const [isSplit, setIsSplit] = useSplitViewState(name);
   const [columnSizing, onColumnSizingChange] = useColumnSizingState(name);
   const [expanded, setExpanded] = React.useState<ExpandedState>({});
+  const [rowPinning, onRowPinningChange] = useRowPinningState(name);
 
   const table = useReactTable({
     _features: [DensityFeature],
@@ -136,6 +138,7 @@ export const GridContextProvider = <T,>({
       columnOrder,
       columnSizing,
       expanded,
+      rowPinning,
     },
     getSubRows: (row: T) => (row as any).subRows,
     getRowCanExpand,
@@ -152,6 +155,8 @@ export const GridContextProvider = <T,>({
     onPaginationChange: onPaginationChange,
     onSortingChange: onSortingChange,
     onExpandedChange: setExpanded,
+    onRowPinningChange: onRowPinningChange,
+    // onGroupingChange: setGrouping,
     defaultColumn: {
       minSize: 60,
       maxSize: 800,

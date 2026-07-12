@@ -5,6 +5,7 @@ import TableError from '../feedback/TableError';
 import TableNoData from '../feedback/TableNoData';
 import TableSkeleton from '../feedback/TableSkeleton';
 import TCell from './TCell';
+import { TableCellPin } from './TableCellPin';
 
 const TBody = () => {
   const { table, isLoading, isError, renderSubComponent, isSplit } = useGrid();
@@ -22,6 +23,9 @@ const TBody = () => {
       }}
     >
       <TableBody>
+        {table.getTopRows().map((row) => (
+          <TableCellPin key={row.id} row={row} table={table} />
+        ))}
         {table.getRowModel().rows.map((row) => (
           <React.Fragment key={row.id}>
             <TableRow
@@ -43,6 +47,9 @@ const TBody = () => {
               </TableRow>
             )}
           </React.Fragment>
+        ))}
+        {table.getBottomRows().map((row) => (
+          <TableCellPin key={row.id} row={row} table={table} />
         ))}
       </TableBody>
     </Table>

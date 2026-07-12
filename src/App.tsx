@@ -7,6 +7,23 @@ const App = () => {
   const columns = useMemo<ColumnDef<Vehicle, unknown>[]>(
     () => [
       {
+        id: 'pin',
+        accessorKey: 'pin',
+        header: () => 'Pin',
+        size: 52,
+        maxSize: 52,
+        enableColumnFilter: false,
+        cell: ({ row }) =>
+          row.getIsPinned() ? (
+            <button onClick={() => row.pin(false)}>❌</button>
+          ) : (
+            <div style={{ display: 'flex', gap: '4px' }}>
+              <button onClick={() => row.pin('top')}>⬆️</button>
+              <button onClick={() => row.pin('bottom')}>⬇️</button>
+            </div>
+          ),
+      },
+      {
         accessorFn: (_row, index) => index + 1,
         cell: ({ row, table }) => {
           const pageIndex = table.getState().pagination.pageIndex;
