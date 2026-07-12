@@ -1,9 +1,6 @@
-import type { ColumnDef } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { dummyVehicles, type Vehicle } from './data/dummyData';
-import { Grid } from './package';
-import { useGridState } from './package/hooks/useGridState';
-import { URLSearch } from './package/utils/URLSearch';
+import { Grid, URLSearch, useGridState, type ColumnDef } from './package';
 
 const App = () => {
   const columns = useMemo<ColumnDef<Vehicle, unknown>[]>(
