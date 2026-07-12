@@ -1,288 +1,291 @@
-# munza-x-data-grid
+# Grid Component — Usage Guide
 
-A flexible, feature-rich React data grid component built on top of [@tanstack/react-table](https://tanstack.com/table), with Tailwind CSS v4 styling and shadcn/ui primitives.
+`Grid` is a reusable data-table component built on top of `@tanstack/react-table`, with built-in support for sorting, filtering, pagination, column pinning, row pinning, column resizing, and more.
 
----
-
-## Installation
+## 1. Installation
 
 ```bash
 npm install munza-x-data-grid
+# or
+yarn add munza-x-data-grid
+# or
+pnpm add munza-x-data-grid
 ```
 
-Import the stylesheet in your app entry point:
-
-```js
-import 'munza-x-data-grid/style.css';
-```
-
-### Peer Dependencies
+**Peer dependencies** (must already be installed in your project):
 
 ```bash
-npm install react react-dom
+npm install react@^18 || ^19 react-dom@^18 || ^19
 ```
 
-Requires **React 18 or 19**.
+### Importing the stylesheet
 
----
-
-## Basic Usage
+The package ships with a CSS file that needs to be imported once at your app's entry point (e.g. `main.tsx` or `App.tsx`):
 
 ```tsx
-import { Grid, useGridState, type ColumnDef } from 'munza-x-data-grid';
 import 'munza-x-data-grid/style.css';
+```
 
-type Person = {
-  firstName: string;
-  lastName: string;
-  age: number;
-};
+### Imports
 
-const columns: ColumnDef<Person>[] = [
-  { accessorKey: 'firstName', header: 'First Name' },
-  { accessorKey: 'lastName', header: 'Last Name' },
-  { accessorKey: 'age', header: 'Age' },
-];
+Everything — components, hooks, utilities, and types — is exported from the single package entry point:
 
-const data: Person[] = [{ firstName: 'Alice', lastName: 'Smith', age: 30 }];
+```tsx
+import {
+  Grid,
+  useGridState,
+  useQueryArgs,
+  URLSearch,
+  type ColumnDef,
+} from 'munza-x-data-grid';
+```
 
-export default function App() {
+> Note: if you're importing from a local source within the same repo (monorepo / linked package), the path may differ, e.g. `./package` or `../package`.
+
+## 2. Basic Usage
+
+```tsx
+import { useMemo } from 'react';
+import { Grid, useGridState, type ColumnDef } from 'munza-x-data-grid';
+
+const App = () => {
+  const columns = useMemo<ColumnDef<MyDataType, unknown>[]>(
+    () => [
+      {
+        id: 'id',
+        accessorKey: 'id',
+        header: () => <div>ID</div>,
+        cell: (info) => info.getValue(),
+        meta: { filterVariant: 'text' },
+        enableHiding: false,
+      },
+      {
+        id: 'name',
+        accessorKey: 'name',
+        header: () => <div>Name</div>,
+        cell: (info) => info.getValue(),
+        meta: { filterVariant: 'text' },
+      },
+    ],
+    [],
+  );
+
   const { state, handlers } = useGridState();
 
   return (
     <Grid
+      payload={{ data: myData, total: 0 }}
       columns={columns}
-      payload={{ data, total: data.length }}
+      isLoading={false}
+      isError={false}
+      manualPagination={true}
       state={state}
       {...handlers}
     />
   );
-}
+};
+
+export default App;
 ```
 
----
+## 3. The `useGridState` Hook
 
-## API Reference
-
-### `<Grid />`
-
-The top-level component that renders the full data grid.
-
-| Prop                    | Type                                       | Required | Description                                              |
-| ----------------------- | ------------------------------------------ | -------- | -------------------------------------------------------- |
-| `columns`               | `ColumnDef<T>[]`                           | ✅       | Column definitions (TanStack Table format)               |
-| `payload`               | `{ data: T[], total: number }`             | ✅       | Row data and total count for pagination                  |
-| `state`                 | `Partial<TableState>`                      | ✅       | Controlled table state (from `useGridState`)             |
-| `onColumnFiltersChange` | `OnChangeFn<ColumnFiltersState>`           | —        | Callback for column filter changes                       |
-| `onPaginationChange`    | `OnChangeFn<PaginationState>`              | —        | Callback for pagination changes                          |
-| `onSortingChange`       | `OnChangeFn<SortingState>`                 | —        | Callback for sort changes                                |
-| `setGlobalFilter`       | `Dispatch<SetStateAction<string>>`         | —        | Callback to update the global search filter              |
-| `isLoading`             | `boolean`                                  | —        | Displays a loading state                                 |
-| `isError`               | `boolean`                                  | —        | Displays an error state                                  |
-| `manualPagination`      | `boolean`                                  | —        | Set `true` for server-side pagination (default: `false`) |
-| `getRowCanExpand`       | `(row: Row<T>) => boolean`                 | —        | Controls which rows are expandable                       |
-| `renderSubComponent`    | `(props: { row: Row<T> }) => ReactElement` | —        | Renders expanded row content                             |
-
----
-
-### `useGridState()`
-
-Hook that provides controlled state and event handlers to pass into `<Grid />`.
+Use this hook to manage all table state (`columnFilters`, `pagination`, `sorting`, `rowSelection`, `globalFilter`) and their change handlers in one place.
 
 ```tsx
-const { state, handlers } = useGridState();
+const { state, handlers, rowSelection } = useGridState();
+
+<Grid
+  columns={columns}
+  payload={{ data, total }}
+  state={state}
+  {...handlers}
+/>;
 ```
 
-**Returns:**
+`handlers` includes:
 
-| Key        | Description                                                                                           |
-| ---------- | ----------------------------------------------------------------------------------------------------- |
-| `state`    | Partial `TableState` object (sorting, pagination, filters, etc.)                                      |
-| `handlers` | Object containing `onSortingChange`, `onPaginationChange`, `onColumnFiltersChange`, `setGlobalFilter` |
+- `onColumnFiltersChange`
+- `onPaginationChange`
+- `onSortingChange`
+- `setGlobalFilter`
+- `onRowSelectionChange`
 
-Spread `handlers` directly onto `<Grid />`:
+You can also use pieces separately, e.g. tracking selected rows via `rowSelection`:
 
 ```tsx
-<Grid state={state} {...handlers} columns={columns} payload={payload} />
+console.log(rowSelection);
 ```
 
-### Tailwind v4 Setup
+## 4. `Grid` Component Props
 
-If you're using Tailwind v4, add this to your `app.css` so Tailwind scans the grid's classes:
+| Prop                    | Type                                       | Description                                                       |
+| ----------------------- | ------------------------------------------ | ----------------------------------------------------------------- |
+| `columns`               | `ColumnDef<T>[]`                           | Table column definitions (required)                               |
+| `payload`               | `{ data: T[]; total: number }`             | Table data and total row count                                    |
+| `state`                 | `Partial<TableState>`                      | State obtained from `useGridState`                                |
+| `onColumnFiltersChange` | `OnChangeFn<ColumnFiltersState>`           | Handler for column filter changes                                 |
+| `onPaginationChange`    | `OnChangeFn<PaginationState>`              | Handler for pagination changes                                    |
+| `onSortingChange`       | `OnChangeFn<SortingState>`                 | Handler for sorting changes                                       |
+| `onRowSelectionChange`  | `OnChangeFn<RowSelectionState>`            | Handler for row selection changes                                 |
+| `setGlobalFilter`       | `Dispatch<SetStateAction<string>>`         | Function to set the global search/filter                          |
+| `manualPagination`      | `boolean`                                  | Set to `true` to enable server-side pagination                    |
+| `enableRowSelection`    | `boolean`                                  | Enables/disables row selection (default `true`)                   |
+| `isLoading`             | `boolean`                                  | Shows the loading state                                           |
+| `isError`               | `boolean`                                  | Shows the error state                                             |
+| `isFetching`            | `boolean`                                  | For a refetching indicator                                        |
+| `refetch`               | `() => void`                               | Function to reload the data                                       |
+| `renderSubComponent`    | `(props: { row: Row<T> }) => ReactElement` | Custom content for expandable rows                                |
+| `getRowCanExpand`       | `(row: Row<T>) => boolean`                 | Determines which rows can be expanded                             |
+| `height`                | `string`                                   | Table height (default `'65vh'`)                                   |
+| `isToolbar`             | `boolean`                                  | Whether to show the toolbar (default `true`)                      |
+| `isPagination`          | `boolean`                                  | Whether to show the pagination component (default `true`)         |
+| `name`                  | `string`                                   | Unique grid name, used to persist local state (default `'munza'`) |
+| `children`              | `ReactNode`                                | Renders extra content inside the grid                             |
 
-```css
-@source "../node_modules/munza-x-data-grid/**/*.{js,ts,jsx,tsx}";
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-border: var(--border);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
-}
+## 5. Special Column Definition Features
 
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --border: oklch(0.922 0 0);
-  --muted: oklch(0.97 0 0);
-  --accent: oklch(0.97 0 0);
-}
+### Filter variant
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --muted: oklch(0.269 0 0);
-  --accent: oklch(0.269 0 0);
-}
+Set `meta.filterVariant` on each column to determine the filter type. The following variants are supported:
+
+- `'text'`
+- `'number'`
+- `'tel'`
+- `'url'`
+- `'color'`
+- `'range'`
+- `'select'`
+- `'dateRange'`
+- `'date'`
+- `'datetime-local'`
+- `'month'`
+- `'time'`
+- `'week'`
+
+```tsx
+meta: {
+  filterVariant: 'text', // 'number' | 'tel' | 'url' | 'color' | 'range' | 'select' | 'dateRange' | 'date' | 'datetime-local' | 'month' | 'time' | 'week'
+},
 ```
 
----
-
-## Column Definitions
-
-Columns follow the standard [TanStack Table `ColumnDef`](https://tanstack.com/table/latest/docs/api/core/column-def) format with an additional `meta` field for filter configuration.
-
-### Filter Variants
-
-Set `meta.filterVariant` on a column to control its filter UI:
+Example — a numeric range filter:
 
 ```tsx
 {
-  accessorKey: 'status',
-  header: 'Status',
-  meta: {
-    filterVariant: 'select', // dropdown filter
-  },
-}
-
-{
-  accessorKey: 'age',
-  header: 'Age',
-  meta: {
-    filterVariant: 'text', // text input filter
-  },
-}
+  id: 'price',
+  accessorKey: 'price',
+  header: () => <div>Price</div>,
+  cell: (info) => info.getValue(),
+  meta: { filterVariant: 'range' },
+},
 ```
 
-### Row Number Column
+Example — a date filter:
+
+```tsx
+{
+  id: 'createdAt',
+  accessorKey: 'createdAt',
+  header: () => <div>Created At</div>,
+  cell: (info) => info.getValue(),
+  meta: { filterVariant: 'date' },
+},
+```
+
+To disable filtering on a specific column:
+
+```tsx
+enableColumnFilter: false,
+```
+
+### Row pinning
+
+Use `row.pin()` and `row.getIsPinned()` to pin/unpin rows:
+
+```tsx
+cell: ({ row }) =>
+  row.getIsPinned() ? (
+    <button onClick={() => row.pin(false)}>❌</button>
+  ) : (
+    <>
+      <button onClick={() => row.pin('top')}>⬆️</button>
+      <button onClick={() => row.pin('bottom')}>⬇️</button>
+    </>
+  ),
+```
+
+### Row number column
 
 ```tsx
 {
   accessorFn: (_row, index) => index + 1,
-  cell: ({ row }) => row.index + 1,
   id: 'rowNumber',
-  header: '',
-  size: 54,
-  maxSize: 54,
-  enableColumnFilter: false,
-}
+  header: '#',
+  cell: ({ row, table }) => {
+    const { pageIndex, pageSize } = table.getState().pagination;
+    return pageIndex * pageSize + row.index + 1;
+  },
+},
 ```
 
-### Checkbox Selection Column
+### Column size limits
 
 ```tsx
-{
-  id: 'select',
-  header: ({ table }) => (
-    <Checkbox
-      checked={
-        table.getIsAllPageRowsSelected() ||
-        (table.getIsSomePageRowsSelected() && 'indeterminate')
-      }
-      onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-      aria-label="Select all"
-    />
-  ),
-  cell: ({ row }) => (
-    <Checkbox
-      checked={row.getIsSelected()}
-      onCheckedChange={(value) => row.toggleSelected(!!value)}
-      aria-label="Select row"
-    />
-  ),
-  size: 40,
-  maxSize: 40,
-  enableColumnFilter: false,
-}
+size: 52,
+maxSize: 52,
 ```
 
----
-
-## Server-Side Pagination
-
-Set `manualPagination` to `true` and pass `payload.total` as the full server-side count.
+### Non-hideable column
 
 ```tsx
+enableHiding: false,
+```
+
+## 6. Building Server-Side Queries
+
+Use the `useQueryArgs` hook to build query parameters from the table state that can be sent to an API:
+
+```tsx
+import { useQueryArgs } from 'munza-x-data-grid';
+
+const { pagination, queryParams, sort, globalFilter } = useQueryArgs(state);
+```
+
+(`useQueryArgs` is exported from the same main entry point, no separate sub-path needed.)
+
+It returns:
+
+- `pagination` — current page/page size
+- `queryParams` — query parameters built from column filters
+- `sort` — sort string
+- `globalFilter` — global search text
+
+## 7. Syncing State to the URL
+
+```tsx
+import { URLSearch } from 'munza-x-data-grid';
+
+console.log(URLSearch(state));
+```
+
+This generates URL search parameters from the current table state, which can be used to sync with your router.
+
+## 8. Example: Full Flow
+
+```tsx
+const { state, handlers } = useGridState();
+const queryArgs = useQueryArgs(state);
+
+// Call your API with queryArgs, then pass the result as payload
 <Grid
+  payload={{ data: apiResponse.data, total: apiResponse.total }}
   columns={columns}
-  payload={{ data: serverData, total: serverTotal }}
+  manualPagination
+  isLoading={isFetching}
+  isError={isError}
+  refetch={refetch}
   state={state}
   {...handlers}
-  manualPagination={true}
-/>
+/>;
 ```
-
-The built-in pagination UI supports the following page sizes:
-
-```
-20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000
-```
-
----
-
-## Expandable Rows
-
-```tsx
-<Grid
-  columns={columns}
-  payload={payload}
-  state={state}
-  {...handlers}
-  getRowCanExpand={(row) => !!row.original.subRows?.length}
-  renderSubComponent={({ row }) => (
-    <div className="p-4">
-      <pre>{JSON.stringify(row.original, null, 2)}</pre>
-    </div>
-  )}
-/>
-```
-
----
-
-## Column Pinning
-
-Column pinning is managed internally by the grid. No additional configuration is required — use the built-in toolbar UI to pin columns left or right.
-
----
-
-## Default Column Sizing
-
-| Property  | Default |
-| --------- | ------- |
-| `size`    | `180px` |
-| `minSize` | `180px` |
-| `maxSize` | `180px` |
-
-Override per-column:
-
-```tsx
-{
-  accessorKey: 'id',
-  size: 60,
-  minSize: 60,
-  maxSize: 60,
-}
-```
-
----
-
-## TypeScript
-
-All props and hooks are fully typed. Import types directly from the package:
-
-```ts
-import type { ColumnDef } from 'munza-x-data-grid';
-```
-
-TanStack Table types (`Row`, `TableState`, `PaginationState`, etc.) are re-exported and available from `@tanstack/react-table`.
