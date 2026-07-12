@@ -474,7 +474,85 @@ const ViewControls = () => {
 </Grid>;
 ```
 
-## 9. Example: Full Flow
+## 9. Theming
+
+`Grid` is styled with CSS variables, so you can restyle it (including light/dark mode) without touching component code. Define these variables in your global stylesheet — the `:root` block sets the light theme, and the `.dark` block overrides it for dark mode (e.g. toggled via a `dark` class on `<html>` or `<body>`).
+
+```css
+:root {
+  --background: oklch(100% 0 0);
+  --foreground: oklch(14.5% 0 0);
+  --primary: oklch(20.5% 0 0);
+  --primary-foreground: oklch(98.5% 0 0);
+  --secondary: oklch(97% 0 0);
+  --secondary-foreground: oklch(20.5% 0 0);
+  --muted: oklch(97% 0 0);
+  --muted-foreground: oklch(55.6% 0 0);
+  --accent: oklch(97% 0 0);
+  --accent-foreground: oklch(20.5% 0 0);
+  --destructive: oklch(57.7% 0.245 27.325);
+  --border: oklch(92.2% 0 0);
+  --input: oklch(92.2% 0 0);
+  --ring: oklch(70.8% 0 0);
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: oklch(14.5% 0 0);
+  --foreground: oklch(98.5% 0 0);
+  --primary: oklch(92.2% 0 0);
+  --primary-foreground: oklch(20.5% 0 0);
+  --secondary: oklch(26.9% 0 0);
+  --secondary-foreground: oklch(98.5% 0 0);
+  --muted: oklch(26.9% 0 0);
+  --muted-foreground: oklch(70.8% 0 0);
+  --accent: oklch(26.9% 0 0);
+  --accent-foreground: oklch(98.5% 0 0);
+  --destructive: oklch(70.4% 0.191 22.216);
+  --border: oklch(100% 0 0/0.1);
+  --input: oklch(100% 0 0/0.15);
+  --ring: oklch(55.6% 0 0);
+}
+```
+
+### Where to put it
+
+Add this CSS **after** the package stylesheet import, so your custom values override the defaults:
+
+```tsx
+import 'munza-x-data-grid/style.css';
+import './theme.css'; // your theme variables above
+```
+
+### Variable reference
+
+| Variable                 | Used for                                                     |
+| ------------------------ | ------------------------------------------------------------ |
+| `--background`           | Base grid/page background                                    |
+| `--foreground`           | Default text color                                           |
+| `--primary`              | Primary buttons/actions, active states                       |
+| `--primary-foreground`   | Text/icon color on top of `--primary`                        |
+| `--secondary`            | Secondary buttons, toolbar surfaces                          |
+| `--secondary-foreground` | Text/icon color on top of `--secondary`                      |
+| `--muted`                | Subtle backgrounds (e.g. striped rows, disabled states)      |
+| `--muted-foreground`     | Secondary/lower-emphasis text                                |
+| `--accent`               | Hover/highlight backgrounds                                  |
+| `--accent-foreground`    | Text/icon color on top of `--accent`                         |
+| `--destructive`          | Error states, destructive actions (e.g. delete)              |
+| `--border`               | Table/cell/input borders                                     |
+| `--input`                | Input field borders/backgrounds                              |
+| `--ring`                 | Focus ring color                                             |
+| `--radius`               | Base border radius, used to derive component corner rounding |
+
+### Toggling dark mode
+
+Add/remove the `dark` class on a parent element (commonly `<html>`):
+
+```tsx
+document.documentElement.classList.toggle('dark');
+```
+
+## 10. Example: Full Flow
 
 ```tsx
 const { state, handlers } = useGridState();
