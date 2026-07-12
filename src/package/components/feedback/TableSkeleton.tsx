@@ -8,8 +8,9 @@ import TableRowSkeleton from './TableRowSkeleton';
 const TableSkeleton = () => {
   const { table, isSplit, density } = useGrid();
 
-  const visibleColumns = table
-    .getHeaderGroups()
+  const visibleColumns = (
+    isSplit ? table.getCenterHeaderGroups() : table.getHeaderGroups()
+  )
     .map((group) =>
       group.headers
         .filter((header) => !header.isPlaceholder && !header.subHeaders?.length)
