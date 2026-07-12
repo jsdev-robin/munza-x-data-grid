@@ -341,6 +341,7 @@ const App = () => {
           manualPagination={true}
           state={state}
           {...handlers}
+          height="60vh"
         />
       </div>
     </section>
