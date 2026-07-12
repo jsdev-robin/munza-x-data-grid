@@ -51,6 +51,7 @@ export interface GridContextProps<T> {
   globalFilter: string;
   refetch?: () => void;
   height?: string;
+  renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement;
 }
 
 const GridContext = createContext<GridContextProps<any> | undefined>(undefined);

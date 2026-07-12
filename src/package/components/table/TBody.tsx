@@ -1,9 +1,10 @@
-import { Table, TableBody, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useGrid } from '@/package/contexts/GridContext';
+import React from 'react';
 import TCell from './TCell';
 
 const TBody = () => {
-  const { table, isSplit } = useGrid();
+  const { table, isSplit, renderSubComponent } = useGrid();
 
   return (
     <Table
@@ -13,18 +14,26 @@ const TBody = () => {
     >
       <TableBody>
         {table.getRowModel().rows.map((row) => (
-          <TableRow
-            key={row.id}
-            data-state={row.getIsSelected() && 'selected'}
-            className="mun:*:border-r mun:*:border-border"
-          >
-            {(isSplit
-              ? row.getCenterVisibleCells()
-              : row.getVisibleCells()
-            ).map((cell) => (
-              <TCell key={cell.id} cell={cell} />
-            ))}
-          </TableRow>
+          <React.Fragment key={row.id}>
+            <TableRow
+              data-state={row.getIsSelected() && 'selected'}
+              className="mun:*:border-r mun:*:border-border"
+            >
+              {(isSplit
+                ? row.getCenterVisibleCells()
+                : row.getVisibleCells()
+              ).map((cell) => (
+                <TCell key={cell.id} cell={cell} />
+              ))}
+            </TableRow>
+            {renderSubComponent && row.getIsExpanded() && (
+              <TableRow>
+                <TableCell colSpan={row.getVisibleCells().length}>
+                  {renderSubComponent({ row })}
+                </TableCell>
+              </TableRow>
+            )}
+          </React.Fragment>
         ))}
       </TableBody>
     </Table>
