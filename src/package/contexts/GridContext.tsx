@@ -3,6 +3,7 @@
 import type {
   ColumnPinningState,
   PaginationState,
+  SortingState,
 } from '@tanstack/react-table';
 import {
   getCoreRowModel,
@@ -79,20 +80,24 @@ export const GridContextProvider = <T,>({
   const [columnVisibility, onColumnVisibilityChange] =
     useColumnVisibilityState(name);
   const [columnPinning, onColumnPinningChange] = useColumnPinningState(name);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
+
   const [columnOrder, onColumnOrderChange] = useColumnOrderState(
     name,
     useMemo(() => columns.map((c) => c.id!), [columns]),
   );
-  const [globalFilter, setGlobalFilter] = React.useState('');
   const [isSplit, setIsSplit] = useSplitViewState(name);
   const [columnSizing, onColumnSizingChange] = useColumnSizingState(name);
+
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    [],
+  );
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 20,
   });
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [rowSelection, setRowSelection] = React.useState({});
+  const [globalFilter, setGlobalFilter] = React.useState('');
 
   const table = useReactTable({
     _features: [DensityFeature],
@@ -112,8 +117,12 @@ export const GridContextProvider = <T,>({
       columnOrder,
       columnSizing,
       pagination,
+      sorting,
+      rowSelection,
     },
     manualPagination: true,
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     onDensityChange: setDensity,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
@@ -122,6 +131,7 @@ export const GridContextProvider = <T,>({
     onColumnOrderChange: onColumnOrderChange,
     onColumnSizingChange: onColumnSizingChange,
     onPaginationChange: setPagination,
+    onSortingChange: setSorting,
     defaultColumn: {
       minSize: 60,
       maxSize: 800,
