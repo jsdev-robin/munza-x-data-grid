@@ -21,6 +21,13 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsdev-robin/munza-x-data-grid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jsdev-robin/munza-x-data-grid/issues"
+  },
   "peerDependencies": {
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
