@@ -19,10 +19,10 @@ const TGetLeftBody = () => {
     <TableLeftNoData />
   ) : (
     <Table>
-      {table.getTopRows().map((row) => (
-        <TableLeftCellPin key={row.id} row={row} table={table} />
-      ))}
       <TableBody>
+        {table.getTopRows().map((row) => (
+          <TableLeftCellPin key={row.id} row={row} table={table} />
+        ))}
         {table.getRowModel().rows.map((row) => (
           <React.Fragment key={row.id}>
             <TableRow
@@ -42,10 +42,10 @@ const TGetLeftBody = () => {
             )}
           </React.Fragment>
         ))}
+        {table.getBottomRows().map((row) => (
+          <TableLeftCellPin key={row.id} row={row} table={table} />
+        ))}
       </TableBody>
-      {table.getBottomRows().map((row) => (
-        <TableLeftCellPin key={row.id} row={row} table={table} />
-      ))}
     </Table>
   );
 };

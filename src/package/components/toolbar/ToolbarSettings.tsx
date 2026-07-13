@@ -24,11 +24,11 @@ const ToolbarSettings = () => {
     );
     if (!confirmed) return;
 
-    table.setColumnPinning({});
+    table.resetColumnPinning();
     table.resetRowPinning();
-    table.setColumnVisibility({});
-    table.setColumnOrder(table.getAllLeafColumns().map((c) => c.id));
-    table.setColumnSizing({});
+    table.resetColumnVisibility();
+    table.resetColumnOrder();
+    table.resetColumnSizing();
     table.setDensity('md');
     setIsSplit(false);
 
