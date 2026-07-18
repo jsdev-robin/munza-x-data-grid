@@ -13,15 +13,6 @@ const TCell = <T,>({ cell }: TCellProps<T>) => {
   const { density, isSplit } = useGrid();
   const cellRef = useRef<HTMLTableCellElement>(null);
 
-  const style: CSSProperties = {
-    width: cell.column.getSize(),
-    minWidth: cell.column.getSize(),
-    maxWidth: cell.column.getSize(),
-    padding: density === 'sm' ? '4px' : density === 'md' ? '8px' : '16px',
-    transition: 'padding 0.2s',
-    ...getPinStyles(cell.column, isSplit),
-  };
-
   useLayoutEffect(() => {
     const node = cellRef.current;
     if (!node) return;
@@ -37,7 +28,17 @@ const TCell = <T,>({ cell }: TCellProps<T>) => {
     resizeObserver.observe(node);
 
     return () => resizeObserver.disconnect();
-  }, [density]);
+  }, [density, isSplit]);
+
+  const style: CSSProperties = {
+    width: cell.column.getSize(),
+    minWidth: cell.column.getSize(),
+    maxWidth: cell.column.getSize(),
+    padding: density === 'sm' ? '4px' : density === 'md' ? '8px' : '16px',
+    height: isSplit ? 'calc(var(--cell-h))' : undefined,
+    transition: 'padding 0.2s',
+    ...getPinStyles(cell.column, isSplit),
+  };
 
   return (
     <TableCell

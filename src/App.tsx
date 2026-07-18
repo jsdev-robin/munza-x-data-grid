@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Button } from './components/ui/button';
 import { dummyVehicles, type Vehicle } from './data/dummyData';
 import { Grid, URLSearch, useGridState, type ColumnDef } from './package';
 
@@ -34,6 +35,14 @@ const App = () => {
         header: '#',
         size: 36,
         maxSize: 36,
+        enableColumnFilter: false,
+      },
+      {
+        id: 'actions',
+        header: () => <div className="[writing-mode:vertical-rl]">Action</div>,
+        cell: () => <Button size="xs">Action</Button>,
+        size: 138,
+        maxSize: 138,
         enableColumnFilter: false,
       },
       {
